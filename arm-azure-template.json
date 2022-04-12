@@ -1,0 +1,65 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+    "loactionAks": {
+      "type": "string",
+      "defaultValue": "westus",
+      "metadata": {
+        "description": "Project prefix."
+      }
+    },
+    "loactionAzureFunction": {
+      "type": "string",
+      "defaultValue": "westus3",
+      "metadata": {
+        "description": "Project prefix."
+      }
+    },
+    "loactionWebApp": {
+      "type": "string",
+      "defaultValue": "westus2",
+      "metadata": {
+        "description": "Project prefix."
+      }
+    }
+    },
+    "functions": [],
+    "variables": {
+        "proj":"proj",
+        "env":"dev" ,
+        "aksName": "[concat(variables('proj'), '-', concat(variables('env'), '-aks'))]",
+        "azureFunctionName": "[concat(variables('proj'), '-', concat(variables('env'), '-func'))]",
+        "azureWebAppName": "[concat(variables('proj'), '-', concat(variables('env'), '-app'))]",
+        "aksRgName" : "[concat(variables('proj'), '-', concat(variables('env'), '-aks-rg'))]",
+        "azureFunctionRgName" : "[concat(variables('proj'), '-', concat(variables('env'), '-func-rg'))]",
+        "azureWebAppRgName" : "[concat(variables('proj'), '-', concat(variables('env'), '-app-rg'))]"
+        },
+    "resources": [
+        {
+            "name": "[variables('aksRgName')]",
+            "type": "Microsoft.Resources/resourceGroups",
+            "apiVersion": "2022-01-01",
+            "location":"[parameters('loactionAks')]",
+            "dependsOn": [],
+            "tags": {}
+        },
+                {
+            "name": "[variables('azureFunctionRgName')]",
+            "type": "Microsoft.Resources/resourceGroups",
+            "apiVersion": "2021-01-01",
+            "location": "[parameters('loactionAzureFunction')]",
+            "dependsOn": [],
+            "tags": {}
+        },
+                {
+            "name": "[variables('azureWebAppName')]",
+            "type": "Microsoft.Resources/resourceGroups",
+            "apiVersion": "2021-01-01",
+            "location": "[parameters('loactionWebApp')]",
+            "dependsOn": [],
+            "tags": {}
+        }
+    ],
+    "outputs": {}
+}
