@@ -15,5 +15,5 @@ steps:
     azureSubscription: 'Azure para estudiantes(b5621309-22cd-4fc5-930c-dabc2c4c9ae7)'
     scriptType: 'pscore'
     scriptLocation: 'inlineScript'
-    inlineScript: 'New-AzureRmDeployment -Name "rgs" -TemplateFile .\arm-azure-template.json'
+    inlineScript: 'az deployment create --name "rg1" --template-file .\arm-azure-template.json'
     workingDirectory: '$(system.defaultworkingdirectory)'
