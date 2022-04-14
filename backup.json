@@ -97,7 +97,7 @@
                     "variables": {},
                     "resources": [
                         {
-                            "apiVersion": "2018-11-01",
+                            "apiVersion": "2021-03-01",
                             "name": "[variables('azureFunctionName')]",
                             "type": "Microsoft.Web/sites",
                             "kind": "functionapp,linux",
@@ -105,7 +105,7 @@
                             "tags": {},
                             "dependsOn": [
                                 "[resourceId('Microsoft.Web/serverfarms/', variables('azureServicePlanFunction'))]",
-                                "[resourceId('Microsoft.Storage/storageAccounts/', variables('azureStorageAcountFunction'))]"                       
+                                //"[resourceId('Microsoft.Storage/storageAccounts/', variables('azureStorageAcountFunction'))]"                       
                                 ],
                             "properties": {
                                 "name": "[variables('azureFunctionName')]",
@@ -118,10 +118,6 @@
                                         {
                                             "name": "FUNCTIONS_WORKER_RUNTIME",
                                             "value": "python"
-                                        },
-                                        {
-                                            "name": "AzureWebJobsStorage",
-                                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('azureStorageAcountFunction'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
                                         }
                                     ],
                                     "cors": {
@@ -132,7 +128,7 @@
                                     "use32BitWorkerProcess": false,
                                     "linuxFxVersion": "Python|3.9"
                                 },
-                                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', variables('azureFunctionRgName'), '/providers/Microsoft.Web/serverfarms/', variables('azureServicePlanFunction'))]",
+                                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('azureServicePlanFunction'))]",
                                 "clientAffinityEnabled": false,
                                 "virtualNetworkSubnetId": null
                             }
@@ -143,9 +139,6 @@
                             "type": "Microsoft.Storage/storageAccounts",
                             "name": "[variables('azureStorageAcountFunction')]",
                             "location": "[parameters('loactionAzureFunction')]",
-                            "dependsOn":[
-                                "[resourceId(parameters('subscriptionId'),'Microsoft.Resources/resourceGroups', variables('azureFunctionRgName'))]"
-                            ],
                             "tags": {},
                             "sku": {
                                 "name": "Standard_LRS"
@@ -163,9 +156,6 @@
                             "location": "[parameters('loactionAzureFunction')]",
                             "kind": "linux",
                             "tags": {},
-                            "dependsOn": [
-                                "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction'))]" 
-                             ],
                             "properties": {
                                 "name": "[variables('azureServicePlanFunction')]",
                                 "workerSize": 0,

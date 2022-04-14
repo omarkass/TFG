@@ -96,17 +96,17 @@
                     "parameters": {},
                     "variables": {},
                     "resources": [
-                        {
-                            "apiVersion": "2021-03-01",
+                       {
+                            "apiVersion": "2018-11-01",
                             "name": "[variables('azureFunctionName')]",
                             "type": "Microsoft.Web/sites",
                             "kind": "functionapp,linux",
                             "location": "[parameters('loactionAzureFunction')]",
                             "tags": {},
                             "dependsOn": [
-                                "[resourceId('Microsoft.Web/serverfarms/', variables('azureServicePlanFunction'))]",
-                                //"[resourceId('Microsoft.Storage/storageAccounts/', variables('azureStorageAcountFunction'))]"                       
-                                ],
+                                "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Web/serverfarms', variables('azureServicePlanFunction'))]",
+                                "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction'))]"
+                            ],
                             "properties": {
                                 "name": "[variables('azureFunctionName')]",
                                 "siteConfig": {
@@ -128,28 +128,12 @@
                                     "use32BitWorkerProcess": false,
                                     "linuxFxVersion": "Python|3.9"
                                 },
-                                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('azureServicePlanFunction'))]",
+                                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', variables('azureFunctionRgName'), '/providers/Microsoft.Web/serverfarms/', variables('azureServicePlanFunction'))]",
                                 "clientAffinityEnabled": false,
                                 "virtualNetworkSubnetId": null
                             }
                         },
-                        
                         {
-                            "apiVersion": "2019-06-01",
-                            "type": "Microsoft.Storage/storageAccounts",
-                            "name": "[variables('azureStorageAcountFunction')]",
-                            "location": "[parameters('loactionAzureFunction')]",
-                            "tags": {},
-                            "sku": {
-                                "name": "Standard_LRS"
-                            },
-                            "properties": {
-                                "supportsHttpsTrafficOnly": true,
-                                "minimumTlsVersion": "TLS1_2"
-                            }
-                        },
-                        {
-
                             "apiVersion": "2018-11-01",
                             "name": "[variables('azureServicePlanFunction')]",
                             "type": "Microsoft.Web/serverfarms",
