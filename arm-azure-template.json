@@ -104,7 +104,7 @@
                             "location": "[parameters('loactionAzureFunction')]",
                             "tags": {},
                             "dependsOn": [
-                                "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Web/serverfarms/', variables('azureServicePlanFunction'))]",
+                                "[resourceId('Microsoft.Web/serverfarms/', variables('azureServicePlanFunction'))]",
                                 "[resourceId('Microsoft.Storage/storageAccounts/', variables('azureStorageAcountFunction'))]"                       
                                 ],
                             "properties": {
@@ -121,7 +121,7 @@
                                         },
                                         {
                                             "name": "AzureWebJobsStorage",
-                                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('azureStorageAcountFunction'),';AccountKey=',listKeys(resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
+                                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('azureStorageAcountFunction'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
                                         }
                                     ],
                                     "cors": {
@@ -164,7 +164,7 @@
                             "kind": "linux",
                             "tags": {},
                             "dependsOn": [
-                                "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction'))]" ,
+                                "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction'))]" 
                              ],
                             "properties": {
                                 "name": "[variables('azureServicePlanFunction')]",
