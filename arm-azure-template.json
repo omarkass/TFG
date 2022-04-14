@@ -90,7 +90,7 @@
             "resourceGroup": "[variables('azureFunctionRgName')]",
             "subscriptionId": "[parameters('subscriptionId')]",
             "dependsOn": [
-                "[resourceId(variables('azureFunctionRgName'),'Microsoft.Resources/resourceGroups', variables('azureFunctionRgName'))]"
+                "[resourceId('Microsoft.Resources/resourceGroups', variables('azureFunctionRgName'))]"
             ],
             "properties": {
                 "mode": "Incremental",
