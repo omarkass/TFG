@@ -109,8 +109,8 @@
                             "tags": {},
                             "dependsOn": [
                                 "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Web/serverfarms', variables('azureServicePlanFunction'))]",
-                                "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction'))]" ,   
-                                "[resourceId(parameters('subscriptionId'),'Microsoft.Resources/resourceGroups', variables('azureFunctionRgName'))]"                        
+                              // "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction'))]" ,  
+                                 "[concat('Microsoft.Storage/storageAccounts/', variables('azureStorageAcountFunction'))]" 
                                 ],
                             "properties": {
                                 "name": "[variables('azureFunctionName')]",
@@ -169,8 +169,9 @@
                             "kind": "linux",
                             "tags": {},
                             "dependsOn": [
-                                "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction'))]" ,
-                                "[resourceId(parameters('subscriptionId'),'Microsoft.Resources/resourceGroups', variables('azureFunctionRgName'))]"                       ],
+                                "[concat('Microsoft.Storage/storageAccounts/', variables('azureStorageAcountFunction'))]" ,
+                                "[resourceId(parameters('subscriptionId'),'Microsoft.Resources/resourceGroups', variables('azureFunctionRgName'))]"                       
+                                ],
                             "properties": {
                                 "name": "[variables('azureServicePlanFunction')]",
                                 "workerSize": 0,
