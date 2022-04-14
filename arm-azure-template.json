@@ -109,7 +109,9 @@
                             "tags": {},
                             "dependsOn": [
                                 "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Web/serverfarms', variables('azureServicePlanFunction'))]",
-                                "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction'))]"                            ],
+                                "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction'))]" ,   
+                                "[resourceId('Microsoft.Resources/resourceGroups', variables('azureFunctionRgName'))]"                        
+                                ],
                             "properties": {
                                 "name": "[variables('azureFunctionName')]",
                                 "siteConfig": {
@@ -146,6 +148,9 @@
                             "type": "Microsoft.Storage/storageAccounts",
                             "name": "[variables('azureStorageAcountFunction')]",
                             "location": "[parameters('loactionAzureFunction')]",
+                            "dependsOn":[
+                                "[resourceId('Microsoft.Resources/resourceGroups', variables('azureFunctionRgName'))]"
+                            ],
                             "tags": {},
                             "sku": {
                                 "name": "Standard_LRS"
@@ -164,7 +169,8 @@
                             "kind": "linux",
                             "tags": {},
                             "dependsOn": [
-                                "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction'))]"                            ],
+                                "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction'))]" ,
+                                "[resourceId('Microsoft.Resources/resourceGroups', variables('azureFunctionRgName'))]"                       ],
                             "properties": {
                                 "name": "[variables('azureServicePlanFunction')]",
                                 "workerSize": 0,
