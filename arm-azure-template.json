@@ -97,7 +97,7 @@
                     "variables": {},
                     "resources": [
                         {
-                            "apiVersion": "2018-11-01",
+                            "apiVersion": "2021-03-01",
                             "name": "[variables('azureFunctionName')]",
                             "type": "Microsoft.Web/sites",
                             "kind": "functionapp,linux",
@@ -105,7 +105,7 @@
                             "tags": {},
                             "dependsOn": [
                                 "[resourceId('Microsoft.Web/serverfarms/', variables('azureServicePlanFunction'))]",
-                                "[resourceId('Microsoft.Storage/storageAccounts/', variables('azureStorageAcountFunction'))]"                       
+                                //"[resourceId('Microsoft.Storage/storageAccounts/', variables('azureStorageAcountFunction'))]"                       
                                 ],
                             "properties": {
                                 "name": "[variables('azureFunctionName')]",
