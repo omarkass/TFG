@@ -75,6 +75,14 @@
             "dependsOn": [],
             "tags": {}
         },
+                {
+            "name": "[variables('azureWebAppRgName')]",
+            "type": "Microsoft.Resources/resourceGroups",
+            "apiVersion": "2021-01-01",
+            "location": "[parameters('loactionWebApp')]",
+            "dependsOn": [],
+            "tags": {}
+        },
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
@@ -82,7 +90,7 @@
             "resourceGroup": "[variables('azureFunctionRgName')]",
             "subscriptionId": "[parameters('subscriptionId')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Resources/resourceGroups', variables('azureFunctionRgName'))]"
+                "[resourceId(variables('azureFunctionRgName'),'Microsoft.Resources/resourceGroups', variables('azureFunctionRgName'))]"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -131,7 +139,7 @@
                                         },
                                         {
                                             "name": "AzureWebJobsStorage",
-                                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('azureStorageAcountFunction'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
+                                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('azureStorageAcountFunction'),';AccountKey=',listKeys(resourceId(variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
                                         }
                                     ],
                                     "cors": {
