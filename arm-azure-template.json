@@ -55,7 +55,7 @@
         ///functions variables  
         "azureFunctionRgName": "[concat(variables('proj'), '-', concat(variables('env'), '-func-rg'))]",
         "azureFunctionName": "[concat(variables('proj'), '-', concat(variables('env'), '-func'))]",
-        "azureStorageAcountFunction": "[concat(variables('proj'), '-', concat(variables('env'), '-func-st'))]",
+        "azureStorageAcountFunction": "[concat(variables('proj'), concat(variables('env'), 'funcst'))]",
         "azureServicePlanFunction": "[concat(variables('proj'), '-', concat(variables('env'), '-func-plan'))]"
     },
     "resources": [
