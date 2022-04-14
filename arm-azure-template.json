@@ -139,9 +139,6 @@
                             "type": "Microsoft.Storage/storageAccounts",
                             "name": "[variables('azureStorageAcountFunction')]",
                             "location": "[parameters('loactionAzureFunction')]",
-                            "dependsOn":[
-                                "[resourceId(parameters('subscriptionId'),'Microsoft.Resources/resourceGroups', variables('azureFunctionRgName'))]"
-                            ],
                             "tags": {},
                             "sku": {
                                 "name": "Standard_LRS"
@@ -159,9 +156,6 @@
                             "location": "[parameters('loactionAzureFunction')]",
                             "kind": "linux",
                             "tags": {},
-                            "dependsOn": [
-                                "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction'))]" 
-                             ],
                             "properties": {
                                 "name": "[variables('azureServicePlanFunction')]",
                                 "workerSize": 0,
