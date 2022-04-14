@@ -2,49 +2,72 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-    "loactionAks": {
-      "type": "string",
-      "defaultValue": "westus",
-      "metadata": {
-        "description": "Project prefix."
-      }
-    },
-    "loactionAzureFunction": {
-      "type": "string",
-      "defaultValue": "westus3",
-      "metadata": {
-        "description": "Project prefix."
-      }
-    },
-    "loactionWebApp": {
-      "type": "string",
-      "defaultValue": "westus2",
-      "metadata": {
-        "description": "Project prefix."
-      }
-    }
+        "numberOfWorkers": {
+            "defaultValue": "1",
+            "type": "string"
+        },
+        "skuFunction": {
+            "defaultValue": "Dynamic",
+            "type": "string"
+        },
+        "skuCodeFunction": {
+            "defaultValue": "Y1",
+            "type": "string"
+        },
+
+        "loactionAks": {
+            "type": "string",
+            "defaultValue": "westus",
+            "metadata": {
+                "description": "Project prefix."
+            }
+        },
+        "subscriptionId": {
+            "defaultValue": "b5621309-22cd-4fc5-930c-dabc2c4c9ae7",
+            "type": "string"
+        },
+        "loactionAzureFunction": {
+            "type": "string",
+            "defaultValue": "westus3",
+            "metadata": {
+                "description": "Project prefix."
+            }
+        },
+        "loactionWebApp": {
+            "type": "string",
+            "defaultValue": "westus2",
+            "metadata": {
+                "description": "Project prefix."
+            }
+        }
     },
     "functions": [],
     "variables": {
-        "proj":"proj",
-        "env":"dev" ,
+        "proj": "proj",
+        "env": "dev",
         "aksName": "[concat(variables('proj'), '-', concat(variables('env'), '-aks'))]",
-        "azureFunctionName": "[concat(variables('proj'), '-', concat(variables('env'), '-func'))]",
+
         "azureWebAppName": "[concat(variables('proj'), '-', concat(variables('env'), '-app'))]",
-        "aksRgName" : "[concat(variables('proj'), '-', concat(variables('env'), '-aks-rg'))]",
-        "azureFunctionRgName" : "[concat(variables('proj'), '-', concat(variables('env'), '-func-rg'))]",
-        "azureWebAppRgName" : "[concat(variables('proj'), '-', concat(variables('env'), '-app-rg'))]"
-        },
+        "aksRgName": "[concat(variables('proj'), '-', concat(variables('env'), '-aks-rg'))]",
+
+        "azureWebAppRgName": "[concat(variables('proj'), '-', concat(variables('env'), '-app-rg'))]",
+
+        ///functions variables  
+        "azureFunctionRgName": "[concat(variables('proj'), '-', concat(variables('env'), '-func-rg'))]",
+        "azureFunctionName": "[concat(variables('proj'), '-', concat(variables('env'), '-func'))]",
+        "azureStorageAcountFunction": "[concat(variables('proj'), '-', concat(variables('env'), '-func-st'))]",
+        "azureServicePlanFunction": "[concat(variables('proj'), '-', concat(variables('env'), '-func-plan'))]"
+    },
     "resources": [
         {
             "name": "[variables('aksRgName')]",
             "type": "Microsoft.Resources/resourceGroups",
             "apiVersion": "2022-01-01",
-            "location":"[parameters('loactionAks')]",
+            "location": "[parameters('loactionAks')]",
             "dependsOn": [],
             "tags": {}
         },
-                {
+        {
             "name": "[variables('azureFunctionRgName')]",
             "type": "Microsoft.Resources/resourceGroups",
             "apiVersion": "2021-01-01",
@@ -52,14 +75,91 @@
             "dependsOn": [],
             "tags": {}
         },
-                {
+        {
             "name": "[variables('azureWebAppName')]",
             "type": "Microsoft.Resources/resourceGroups",
             "apiVersion": "2021-01-01",
             "location": "[parameters('loactionWebApp')]",
             "dependsOn": [],
             "tags": {}
+        },
+        {
+            "apiVersion": "2018-11-01",
+            "name": "[variables('azureFunctionName')]",
+            "type": "Microsoft.Web/sites",
+            "kind": "functionapp,linux",
+            "location": "[parameters('loactionAzureFunction')]",
+            "tags": {},
+            "dependsOn": [
+                "[concat('Microsoft.Web/serverfarms/', variables('azureServicePlanFunction'))]",
+                "[concat('Microsoft.Storage/storageAccounts/', variables('azureStorageAcountFunction'))]"
+            ],
+            "properties": {
+                "name": "[variables('azureFunctionName')]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "FUNCTIONS_EXTENSION_VERSION",
+                            "value": "~4"
+                        },
+                        {
+                            "name": "FUNCTIONS_WORKER_RUNTIME",
+                            "value": "python"
+                        },
+                        {
+                            "name": "AzureWebJobsStorage",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('azureStorageAcountFunction'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
+                        }
+                    ],
+                    "cors": {
+                        "allowedOrigins": [
+                            "https://portal.azure.com"
+                        ]
+                    },
+                    "use32BitWorkerProcess": false,
+                    "linuxFxVersion": "Python|3.9"
+                },
+                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', variables('azureFunctionRgName'), '/providers/Microsoft.Web/serverfarms/', variables('azureServicePlanFunction'))]",
+                "clientAffinityEnabled": false,
+                "virtualNetworkSubnetId": null
+            }
+        },
+        {
+            "apiVersion": "2018-11-01",
+            "name": "[variables('azureServicePlanFunction')]",
+            "type": "Microsoft.Web/serverfarms",
+            "location": "[parameters('loactionAzureFunction')]",
+            "kind": "linux",
+            "tags": {},
+            "dependsOn": [],
+            "properties": {
+                "name": "[variables('azureServicePlanFunction')]",
+                "workerSize": 0,
+                "workerSizeId": 0,
+                "numberOfWorkers": "[parameters('numberOfWorkers')]",
+                "reserved": true
+            },
+            "sku": {
+                "Tier": "[parameters('skuFunction')]",
+                "Name": "[parameters('skuCodeFunction')]"
+            }
+        },
+        {
+            "apiVersion": "2019-06-01",
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[variables('azureStorageAcountFunction')]",
+            "location": "[parameters('loactionAzureFunction')]",
+            "tags": {},
+            "sku": {
+                "name": "Standard_LRS"
+            },
+            "properties": {
+                "supportsHttpsTrafficOnly": true,
+                "minimumTlsVersion": "TLS1_2"
+            }
         }
+
+
     ],
     "outputs": {}
 }
