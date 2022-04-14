@@ -93,14 +93,6 @@
                     "variables": {},
                     "resources": [
                         {
-                            "name": "[variables('azureWebAppName')]",
-                            "type": "Microsoft.Resources/resourceGroups",
-                            "apiVersion": "2021-01-01",
-                            "location": "[parameters('loactionWebApp')]",
-                            "dependsOn": [],
-                            "tags": {}
-                        },
-                        {
                             "apiVersion": "2018-11-01",
                             "name": "[variables('azureFunctionName')]",
                             "type": "Microsoft.Web/sites",
@@ -108,8 +100,8 @@
                             "location": "[parameters('loactionAzureFunction')]",
                             "tags": {},
                             "dependsOn": [
-                                "[concat('Microsoft.Web/serverfarms/', variables('azureServicePlanFunction'))]",
-                                "[concat('Microsoft.Storage/storageAccounts/', variables('azureStorageAcountFunction'))]"
+                                "[resourceId('Microsoft.Web/serverfarms/', variables('azureServicePlanFunction'))]",
+                                "[resourceId('Microsoft.Storage/storageAccounts/', variables('azureStorageAcountFunction'))]"
                             ],
                             "properties": {
                                 "name": "[variables('azureFunctionName')]",
@@ -148,7 +140,6 @@
                             "location": "[parameters('loactionAzureFunction')]",
                             "kind": "linux",
                             "tags": {},
-                            "dependsOn": [],
                             "properties": {
                                 "name": "[variables('azureServicePlanFunction')]",
                                 "workerSize": 0,
