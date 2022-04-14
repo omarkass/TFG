@@ -90,10 +90,10 @@
             "resourceGroup": "[variables('azureFunctionRgName')]",
             "subscriptionId": "[parameters('subscriptionId')]",
             "dependsOn": [
-                "[resourceId(parameters('subscriptionId'),'Microsoft.Resources/resourceGroups', variables('azureFunctionRgName'))]"
+                "[resourceId('Microsoft.Resources/resourceGroups/', variables('azureFunctionRgName'))]"
             ],
             "properties": {
-                "mode": "Complete",
+                "mode": "Incremental",
                 "template": {
                     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
                     "contentVersion": "1.0.0.0",
@@ -108,9 +108,8 @@
                             "location": "[parameters('loactionAzureFunction')]",
                             "tags": {},
                             "dependsOn": [
-                                "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Web/serverfarms', variables('azureServicePlanFunction'))]",
-                                "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction'))]" ,   
-                                "[resourceId(parameters('subscriptionId'),'Microsoft.Resources/resourceGroups', variables('azureFunctionRgName'))]"                        
+                                "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Web/serverfarms/', variables('azureServicePlanFunction'))]",
+                                "[resourceId('Microsoft.Storage/storageAccounts/', variables('azureStorageAcountFunction'))]"                       
                                 ],
                             "properties": {
                                 "name": "[variables('azureFunctionName')]",
