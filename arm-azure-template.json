@@ -93,14 +93,13 @@
                 "[resourceId('Microsoft.Resources/resourceGroups', variables('azureFunctionRgName'))]"
             ],
             "properties": {
-                "mode": "Incremental",
+                "mode": "Complete",
                 "template": {
                     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
                     "contentVersion": "1.0.0.0",
                     "parameters": {},
                     "variables": {},
                     "resources": [
-                        
                         {
                             "apiVersion": "2018-11-01",
                             "name": "[variables('azureFunctionName')]",
