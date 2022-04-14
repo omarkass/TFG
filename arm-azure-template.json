@@ -100,6 +100,7 @@
                     "parameters": {},
                     "variables": {},
                     "resources": [
+                        /*
                         {
                             "apiVersion": "2018-11-01",
                             "name": "[variables('azureFunctionName')]",
@@ -141,6 +142,7 @@
                                 "virtualNetworkSubnetId": null
                             }
                         },
+                        */
                         {
                             "apiVersion": "2019-06-01",
                             "type": "Microsoft.Storage/storageAccounts",
