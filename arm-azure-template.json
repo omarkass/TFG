@@ -62,25 +62,22 @@
         {
             "name": "[variables('aksRgName')]",
             "type": "Microsoft.Resources/resourceGroups",
-            "apiVersion": "2022-01-01",
+            "apiVersion":  "2021-04-01",
             "location": "[parameters('loactionAks')]",
-            "dependsOn": [],
             "tags": {}
         },
         {
             "name": "[variables('azureFunctionRgName')]",
             "type": "Microsoft.Resources/resourceGroups",
-            "apiVersion": "2021-01-01",
+            "apiVersion":  "2021-04-01",
             "location": "[parameters('loactionAzureFunction')]",
-            "dependsOn": [],
             "tags": {}
         },
                 {
             "name": "[variables('azureWebAppRgName')]",
             "type": "Microsoft.Resources/resourceGroups",
-            "apiVersion": "2021-01-01",
+            "apiVersion":  "2021-04-01",
             "location": "[parameters('loactionWebApp')]",
-            "dependsOn": [],
             "tags": {}
         },
         {
@@ -88,7 +85,6 @@
             "apiVersion": "2021-04-01",
             "name": "nestedTemplate",
             "resourceGroup": "[variables('azureFunctionRgName')]",
-            "subscriptionId": "[parameters('subscriptionId')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Resources/resourceGroups/', variables('azureFunctionRgName'))]"
             ],
@@ -169,7 +165,7 @@
                             "tags": {},
                             "dependsOn": [
                                 "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction'))]" ,
-                                "[resourceId(parameters('subscriptionId'),'Microsoft.Resources/resourceGroups', variables('azureFunctionRgName'))]"                       ],
+                             ],
                             "properties": {
                                 "name": "[variables('azureServicePlanFunction')]",
                                 "workerSize": 0,
