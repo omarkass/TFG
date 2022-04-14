@@ -128,7 +128,7 @@
                                     "use32BitWorkerProcess": false,
                                     "linuxFxVersion": "Python|3.9"
                                 },
-                                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('azureServicePlanFunction'))]",,
+                                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('azureServicePlanFunction'))]",
                                 "clientAffinityEnabled": false,
                                 "virtualNetworkSubnetId": null
                             }
