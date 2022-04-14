@@ -93,6 +93,20 @@
                     "variables": {},
                     "resources": [
                         {
+                            "apiVersion": "2019-06-01",
+                            "type": "Microsoft.Storage/storageAccounts",
+                            "name": "[variables('azureStorageAcountFunction')]",
+                            "location": "[parameters('loactionAzureFunction')]",
+                            "tags": {},
+                            "sku": {
+                                "name": "Standard_LRS"
+                            },
+                            "properties": {
+                                "supportsHttpsTrafficOnly": true,
+                                "minimumTlsVersion": "TLS1_2"
+                            }
+                        },
+                        {
                             "apiVersion": "2018-11-01",
                             "name": "[variables('azureFunctionName')]",
                             "type": "Microsoft.Web/sites",
@@ -150,20 +164,6 @@
                             "sku": {
                                 "Tier": "[parameters('skuFunction')]",
                                 "Name": "[parameters('skuCodeFunction')]"
-                            }
-                        },
-                        {
-                            "apiVersion": "2019-06-01",
-                            "type": "Microsoft.Storage/storageAccounts",
-                            "name": "[variables('azureStorageAcountFunction')]",
-                            "location": "[parameters('loactionAzureFunction')]",
-                            "tags": {},
-                            "sku": {
-                                "name": "Standard_LRS"
-                            },
-                            "properties": {
-                                "supportsHttpsTrafficOnly": true,
-                                "minimumTlsVersion": "TLS1_2"
                             }
                         }
                     ]
