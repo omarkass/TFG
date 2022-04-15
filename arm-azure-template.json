@@ -243,10 +243,19 @@
                     "variables": {},
                     "resources": [
                         {
-                            "apiVersion": "2021-07-01",
                             "type": "Microsoft.ContainerService/managedClusters",
-                            "location": "[parameters('loactionAks')]",
+                            "apiVersion": "2021-07-01",
                             "name": "[variables('aksName')]",
+                            "location": "[parameters('loactionAks')]",
+                            "dependsOn": [],
+                            "tags": {},
+                            "sku": {
+                                "name": "Basic",
+                                "tier": "Free"
+                            },
+                            "identity": {
+                                "type": "SystemAssigned"
+                            },
                             "properties": {
                                 "kubernetesVersion": "[parameters('kubernetesVersion')]",
                                 "enableRBAC": true,
@@ -255,7 +264,7 @@
                                     {
                                         "name": "agentpool",
                                         "osDiskSizeGB": 0,
-                                        "count": 1,
+                                        "count": 2,
                                         "enableAutoScaling": false,
                                         "vmSize": "Standard_B2s",
                                         "osType": "Linux",
@@ -263,7 +272,7 @@
                                         "type": "VirtualMachineScaleSets",
                                         "mode": "System",
                                         "maxPods": 110,
-                                        "availabilityZones": null,
+                                        "availabilityZones": [],
                                         "enableNodePublicIP": false,
                                         "tags": {}
                                     }
@@ -286,14 +295,6 @@
                                         "enabled": false
                                     }
                                 }
-                            },
-                            "tags": {},
-                            "sku": {
-                                "name": "Basic",
-                                "tier": "Free"
-                            },
-                            "identity": {
-                                "type": "SystemAssigned"
                             }
                         }
                     ]
