@@ -269,7 +269,7 @@
                                         "vmSize": "Standard_B2s",
                                         "osType": "Linux",
                                         "storageProfile": "ManagedDisks",
-                                        "type": "VirtualMachineScaleSets",
+                                        "type": "AvailabilitySet",
                                         "mode": "System",
                                         "maxPods": 110,
                                         "availabilityZones": [],
