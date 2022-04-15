@@ -47,36 +47,36 @@
         "env": "dev",
         "aksName": "[concat(variables('proj'), '-', concat(variables('env'), '-aks'))]",
 
-        "azureWebAppName": "[concat(variables('proj'), '-', concat(variables('env'), '-app'))]",
+  
         "aksRgName": "[concat(variables('proj'), '-', concat(variables('env'), '-aks-rg'))]",
-
+        ///webApp variables  
         "azureWebAppRgName": "[concat(variables('proj'), '-', concat(variables('env'), '-app-rg'))]",
-
-        ///functions variables  
+        "azureServicePlanWebApp": "[concat(variables('proj'), '-', concat(variables('env'), '-app-plan'))]",
+       "azureWebAppName": "[concat(variables('proj'), '-', concat(variables('env'), '-app'))]",
+        ///function variables  
         "azureFunctionRgName": "[concat(variables('proj'), '-', concat(variables('env'), '-func-rg'))]",
         "azureFunctionName": "[concat(variables('proj'), '-', concat(variables('env'), '-func'))]",
-        "azureStorageAcountFunction": "[concat(variables('proj'), concat(variables('env'), 'funcst'))]",
         "azureServicePlanFunction": "[concat(variables('proj'), '-', concat(variables('env'), '-func-plan'))]"
     },
     "resources": [
         {
             "name": "[variables('aksRgName')]",
             "type": "Microsoft.Resources/resourceGroups",
-            "apiVersion":  "2021-04-01",
+            "apiVersion": "2021-04-01",
             "location": "[parameters('loactionAks')]",
             "tags": {}
         },
         {
             "name": "[variables('azureFunctionRgName')]",
             "type": "Microsoft.Resources/resourceGroups",
-            "apiVersion":  "2021-04-01",
+            "apiVersion": "2021-04-01",
             "location": "[parameters('loactionAzureFunction')]",
             "tags": {}
         },
-                {
+        {
             "name": "[variables('azureWebAppRgName')]",
             "type": "Microsoft.Resources/resourceGroups",
-            "apiVersion":  "2021-04-01",
+            "apiVersion": "2021-04-01",
             "location": "[parameters('loactionWebApp')]",
             "tags": {}
         },
@@ -96,7 +96,7 @@
                     "parameters": {},
                     "variables": {},
                     "resources": [
-                       {
+                        {
                             "apiVersion": "2018-11-01",
                             "name": "[variables('azureFunctionName')]",
                             "type": "Microsoft.Web/sites",
@@ -149,6 +149,69 @@
                             "sku": {
                                 "Tier": "[parameters('skuFunction')]",
                                 "Name": "[parameters('skuCodeFunction')]"
+                            }
+                        }
+                    ]
+                },
+                "parameters": {}
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2021-04-01",
+            "name": "nestedTemplate",
+            "resourceGroup": "[variables('azureWebAppRgName')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/resourceGroups/', variables('azureWebAppRgName'))]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            "type": "Microsoft.Web/sites",
+                            "apiVersion": "2018-11-01",
+                            "name": "[variables('azureWebAppName')]",
+                            "location": "[parameters('loactionWebApp')]",
+                            "dependsOn": [
+                                "[concat('Microsoft.Web/serverfarms/', variables('azureServicePlanWebApp'))]"
+                            ],
+                            "tags": {},
+                            "properties": {
+                                "name": "[variables('azureWebAppName')]",
+                                "siteConfig": {
+                                    "appSettings": [],
+                                    "linuxFxVersion": "PYTHON|3.9",
+                                    "alwaysOn": false
+                                },
+                                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                                "clientAffinityEnabled": false,
+                                "virtualNetworkSubnetId": null
+                            }
+                        },
+                        {
+                            "type": "Microsoft.Web/serverfarms",
+                            "apiVersion": "2018-11-01",
+                            "name": "[variables('azureServicePlanWebApp')]",
+                            "location": "[parameters('loactionWebApp')]",
+                            "dependsOn": [],
+                            "tags": {},
+                            "sku": {
+                                "Tier": "Free",
+                                "Name": "F1"
+                            },
+                            "kind": "linux",
+                            "properties": {
+                                "name": "[variables('azureServicePlanWebApp')]",
+                                "workerSize": 0,
+                                "workerSizeId": 0,
+                                "numberOfWorkers": 1,
+                                "reserved": true,
+                                "zoneRedundant": false
                             }
                         }
                     ]
