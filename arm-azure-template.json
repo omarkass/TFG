@@ -17,7 +17,7 @@
 
         "loactionAks": {
             "type": "string",
-            "defaultValue": "westus",
+            "defaultValue": "East US",
             "metadata": {
                 "description": "Project prefix."
             }
@@ -28,14 +28,14 @@
         },
         "loactionAzureFunction": {
             "type": "string",
-            "defaultValue": "westus3",
+            "defaultValue": "East US",
             "metadata": {
                 "description": "Project prefix."
             }
         },
         "loactionWebApp": {
             "type": "string",
-            "defaultValue": "westus2",
+            "defaultValue": "East US",
             "metadata": {
                 "description": "Project prefix."
             }
