@@ -188,7 +188,7 @@
                                     "linuxFxVersion": "PYTHON|3.9",
                                     "alwaysOn": false
                                 },
-                                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', variables('azureWebAppRgName'), '/providers/Microsoft.Web/serverfarms/', variables('azureServicePlanWebApp'))]",
                                 "clientAffinityEnabled": false,
                                 "virtualNetworkSubnetId": null
                             }
