@@ -83,7 +83,7 @@
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
-            "name": "nestedTemplate",
+            "name": "functionDeployment",
             "resourceGroup": "[variables('azureFunctionRgName')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Resources/resourceGroups/', variables('azureFunctionRgName'))]"
@@ -159,7 +159,7 @@
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
-            "name": "nestedTemplate",
+            "name": "webAppDeployment",
             "resourceGroup": "[variables('azureWebAppRgName')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Resources/resourceGroups/', variables('azureWebAppRgName'))]"
