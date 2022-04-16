@@ -90,7 +90,7 @@
         //sql database variables 
         "sqlServerName": "[concat(variables('proj'), '-', concat(variables('env'), 'sql'))]",
         "sqlDatabaseName": "[concat(variables('sqlServerName'),'/',concat(variables('proj'), '-', concat(variables('env'), '-sqldb')))]",
-        "sqlRgName": "[concat(variables('proj'), '-', concat(variables('env'), 'sql-rg'))]"
+        "sqlRgName": "[concat(variables('proj'), '-', concat(variables('env'), '-sql-rg'))]"
         //"SqlDataBaseValencia": "[concat(variables('SQLServer'),'/',concat(parameters('Project'), '-', concat(parameters('Environment'), '-valencia-db')))]",
 
     },
@@ -343,9 +343,9 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
             "name": "sqlDeployment",
-            "resourceGroup": "[variables('aksRgName')]",
+            "resourceGroup": "[variables('sqlRgName')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Resources/resourceGroups/', variables('aksRgName'))]"
+                "[resourceId('Microsoft.Resources/resourceGroups/', variables('sqlRgName'))]"
             ],
             "properties": {
                 "mode": "Incremental",
