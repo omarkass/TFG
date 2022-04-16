@@ -19,7 +19,7 @@
             "metadata": {
                 "description": "SQL administrator user password."
             }
-        }
+        },
         "kubernetesVersion": {
             "type": "string",
             "defaultValue": "1.23.3",
