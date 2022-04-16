@@ -342,7 +342,7 @@
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
-            "name": "aksDeployment",
+            "name": "sqlDeployment",
             "resourceGroup": "[variables('aksRgName')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Resources/resourceGroups/', variables('aksRgName'))]"
