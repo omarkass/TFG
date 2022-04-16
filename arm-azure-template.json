@@ -382,7 +382,7 @@
                                     ],
                                     "apiVersion": "2021-02-01-preview",
                                     "properties": {
-                                        "collation": "SQL_Latin1_General_CP1_CI_AS",
+                                        "collation": "SQL_Latin1_General_CP1_CI_AS"
                                     }
                                 }
                             ]
