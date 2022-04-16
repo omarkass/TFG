@@ -6,6 +6,20 @@
             "defaultValue": "1",
             "type": "string"
         },
+        "SQL-User": {
+            "type": "string",
+            "minLength": 5,
+            "metadata": {
+                "description": "SQL administrator user."
+            }
+        },
+        "SQL-Pass": {
+            "type": "string",
+            "minLength": 5,
+            "metadata": {
+                "description": "SQL administrator user password."
+            }
+        }
         "kubernetesVersion": {
             "type": "string",
             "defaultValue": "1.23.3",
@@ -40,6 +54,13 @@
                 "description": "Project prefix."
             }
         },
+        "loactionSqlDatabase": {
+            "type": "string",
+            "defaultValue": "East US",
+            "metadata": {
+                "description": "Project prefix."
+            }
+        },
         "loactionWebApp": {
             "type": "string",
             "defaultValue": "East US",
@@ -63,7 +84,13 @@
         ///function variables  
         "azureFunctionRgName": "[concat(variables('proj'), '-', concat(variables('env'), '-func-rg'))]",
         "azureFunctionName": "[concat(variables('proj'), '-', concat(variables('env'), '-func'))]",
-        "azureServicePlanFunction": "[concat(variables('proj'), '-', concat(variables('env'), '-func-plan'))]"
+        "azureServicePlanFunction": "[concat(variables('proj'), '-', concat(variables('env'), '-func-plan'))]",
+        //sql database variables 
+        "sqlServerName": "[concat(variables('proj'), '-', concat(variables('env'), 'sql'))]",
+        "sqlDatabaseName": "[concat(variables('sqlServerName'),'/',concat(variables('proj'), '-', concat(variables('env'), '-sqldb')))]",
+        "sqlRgName": "[concat(variables('proj'), '-', concat(variables('env'), 'sql-rg'))]"
+        //"SqlDataBaseValencia": "[concat(variables('SQLServer'),'/',concat(parameters('Project'), '-', concat(parameters('Environment'), '-valencia-db')))]",
+
     },
     "resources": [
         {
@@ -78,6 +105,13 @@
             "type": "Microsoft.Resources/resourceGroups",
             "apiVersion": "2021-04-01",
             "location": "[parameters('loactionAzureFunction')]",
+            "tags": {}
+        },
+        {
+            "name": "[variables('sqlRgName')]",
+            "type": "Microsoft.Resources/resourceGroups",
+            "apiVersion": "2021-04-01",
+            "location": "[parameters('loactionSqlDatabase')]",
             "tags": {}
         },
         {
@@ -298,6 +332,63 @@
                             }
                         }
                     ]
+
+                },
+                "parameters": {}
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2021-04-01",
+            "name": "aksDeployment",
+            "resourceGroup": "[variables('aksRgName')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/resourceGroups/', variables('aksRgName'))]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            ///Sql Server
+                            "name": "[variables('sqlServerName')]",
+                            "type": "Microsoft.Sql/servers",
+                            "apiVersion": "2021-05-01-preview",
+                            "location": "[parameters('loactionSqlDatabase')]",
+                            "dependsOn": [],
+                            "tags": {
+                                "displayName": "SQL"
+                            },
+                            "kind": "v12.0",
+                            "properties": {
+                                "administratorLogin": "[parameters('SQL-User')]",
+                                "administratorLoginPassword": "[parameters('SQL-Pass')]",
+                                "version": "12.0",
+                                "publicNetworkAccess": "Enabled",
+                                "restrictOutboundNetworkAccess": "Disabled"
+                            },
+                            "resources": [
+                                {
+                                    "type": "Microsoft.Sql/servers/databases",
+
+                                    "name": "[variables('sqlDatabaseName')]",
+                                    "location": "[parameters('loactionSqlDatabase')]",
+                                    "dependsOn": [
+                                        "[resourceId('Microsoft.Sql/servers', variables('sqlServerName'))]"
+                                    ],
+                                    "apiVersion": "2021-02-01-preview",
+                                    "properties": {
+                                        "collation": "SQL_Latin1_General_CP1_CI_AS",
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+
                 },
                 "parameters": {}
             }
