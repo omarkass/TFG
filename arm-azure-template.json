@@ -88,7 +88,7 @@
         "azureFunctionName": "[concat(variables('proj'), '-', concat(variables('env'), '-func'))]",
         "azureServicePlanFunction": "[concat(variables('proj'), '-', concat(variables('env'), '-func-plan'))]",
         //sql database variables 
-        "sqlServerName": "[concat(variables('proj'), '-', concat(variables('env'), 'sql'))]",
+        "sqlServerName": "[concat(variables('proj'), '-', concat(variables('env'), '-sql'))]",
         "sqlDatabaseName": "[concat(variables('sqlServerName'),'/',concat(variables('proj'), '-', concat(variables('env'), '-sqldb')))]",
         "sqlRgName": "[concat(variables('proj'), '-', concat(variables('env'), '-sql-rg'))]"
         //"SqlDataBaseValencia": "[concat(variables('SQLServer'),'/',concat(parameters('Project'), '-', concat(parameters('Environment'), '-valencia-db')))]",
@@ -379,7 +379,7 @@
                                     "name": "[variables('sqlDatabaseName')]",
                                     "location": "[parameters('loactionSqlDatabase')]",
                                     "dependsOn": [
-                                        "[resourceId('Microsoft.Sql/servers', variables('sqlServerName'))]"
+                                        "[resourceId(parameters('subscriptionId'),variables('sqlRgName'),'Microsoft.Sql/servers', variables('sqlServerName'))]"
                                     ],
                                     "apiVersion": "2021-02-01-preview",
                                     "properties": {
