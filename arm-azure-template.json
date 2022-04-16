@@ -8,6 +8,7 @@
         },
         "SQL-User": {
             "type": "string",
+            "defaultValue" : "omar1",
             "minLength": 5,
             "metadata": {
                 "description": "SQL administrator user."
@@ -15,6 +16,7 @@
         },
         "SQL-Pass": {
             "type": "string",
+            "defaultValue" : "Kassar@14689",
             "minLength": 5,
             "metadata": {
                 "description": "SQL administrator user password."
