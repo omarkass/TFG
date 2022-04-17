@@ -29,13 +29,12 @@ stages:
     variables:
       projectRoot: '$(System.DefaultWorkingDirectory)'
       pythonVersion: '3.9'
+      webAppName : 'proj-dev-app'
     steps:
       - task: UsePythonVersion@0
         displayName: 'Use Python $(pythonVersion)'
         inputs:
           versionSpec: '$(pythonVersion)'
-
-
       - script: |
           python -m venv antenv
           source antenv/bin/activate
