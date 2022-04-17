@@ -3,17 +3,61 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-trigger:
-- master
-
+trigger: none
+variables:
+  # Azure Resource Manager connection created during pipeline creation
+  azureServiceConnectionId: 'Azure para estudiantes(b5621309-22cd-4fc5-930c-dabc2c4c9ae7)'
 pool:
   vmImage: ubuntu-latest
+stages:
+- stage: "deploy azure infrastructure"
+  jobs :
+  - job: "execute arm file"
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: $(azureServiceConnectionId)
+        scriptType: 'pscore'
+        scriptLocation: 'inlineScript'
+        inlineScript: 'az deployment create --location "West Europe" --name "rg1" --template-file arm-azure-template.json'
+        workingDirectory: '$(system.defaultworkingdirectory)'
+- stage: "deploy content to azure infrastructure"
+  jobs:
+  - job: "deploy content to azure service app"
+    variables:
+      projectRoot: '$(System.DefaultWorkingDirectory)'
+      pythonVersion: '3.9'
+      steps:
+        - task: UsePythonVersion@0
+          inputs:
+            versionSpec: '$(pythonVersion)'
+          displayName: 'Use Python $(pythonVersion)'
 
-steps:
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'Azure para estudiantes(b5621309-22cd-4fc5-930c-dabc2c4c9ae7)'
-    scriptType: 'pscore'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'az deployment create --location "West Europe" --name "rg1" --template-file arm-azure-template.json'
-    workingDirectory: '$(system.defaultworkingdirectory)'
+        - script: |
+            python -m venv antenv
+            source antenv/bin/activate
+            python -m pip install --upgrade pip
+            pip install setup
+            pip install -r requirements.txt
+          workingDirectory: $(projectRoot)
+          displayName: "Install requirements"
+
+        - task: ArchiveFiles@2
+          displayName: 'Archive files'
+          inputs:
+            rootFolderOrFile: '$(projectRoot)'
+            includeRootFolder: false
+            archiveType: zip
+            archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+            replaceExistingArchive: true
+
+        - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+          displayName: 'Upload package'
+          artifact: drop
+        
+        - task: AzureWebApp@1
+          displayName: 'Deploy Azure Web App : webapppython43'
+          inputs:
+            azureSubscription: $(azureServiceConnectionId)
+            appName: $(webAppName)
+            package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
