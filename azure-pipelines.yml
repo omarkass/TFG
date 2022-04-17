@@ -29,38 +29,38 @@ stages:
     variables:
       projectRoot: '$(System.DefaultWorkingDirectory)'
       pythonVersion: '3.9'
-      steps:
-        - task: UsePythonVersion@0
-          displayName: 'Use Python $(pythonVersion)'
-          inputs:
-           versionSpec: '$(pythonVersion)'
+    steps:
+      - task: UsePythonVersion@0
+        displayName: 'Use Python $(pythonVersion)'
+        inputs:
+          versionSpec: '$(pythonVersion)'
 
 
-        - script: |
-            python -m venv antenv
-            source antenv/bin/activate
-            python -m pip install --upgrade pip
-            pip install setup
-            pip install -r requirements.txt
-          workingDirectory: $(projectRoot)
-          displayName: "Install requirements"
+      - script: |
+          python -m venv antenv
+          source antenv/bin/activate
+          python -m pip install --upgrade pip
+          pip install setup
+          pip install -r requirements.txt
+        workingDirectory: $(projectRoot)
+        displayName: "Install requirements"
 
-        - task: ArchiveFiles@2
-          displayName: 'Archive files'
-          inputs:
-            rootFolderOrFile: '$(projectRoot)'
-            includeRootFolder: false
-            archiveType: zip
-            archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-            replaceExistingArchive: true
+      - task: ArchiveFiles@2
+        displayName: 'Archive files'
+        inputs:
+          rootFolderOrFile: '$(projectRoot)'
+          includeRootFolder: false
+          archiveType: zip
+          archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+          replaceExistingArchive: true
 
-        - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-          displayName: 'Upload package'
-          artifact: drop
-        
-        - task: AzureWebApp@1
-          displayName: 'Deploy Azure Web App : webapppython43'
-          inputs:
-            azureSubscription: $(azureServiceConnectionId)
-            appName: $(webAppName)
-            package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+      - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        displayName: 'Upload package'
+        artifact: drop
+      
+      - task: AzureWebApp@1
+        displayName: 'Deploy Azure Web App : webapppython43'
+        inputs:
+          azureSubscription: $(azureServiceConnectionId)
+          appName: $(webAppName)
+          package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
