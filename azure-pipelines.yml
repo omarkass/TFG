@@ -41,13 +41,13 @@ stages:
           python -m pip install --upgrade pip
           pip install setup
           pip install -r requirements.txt
-        workingDirectory: $(projectRoot)/content/webapp-content/
+        workingDirectory: $(projectRoot)/content/webapp-content
         displayName: "Install requirements"
 
       - task: ArchiveFiles@2
         displayName: 'Archive files'
         inputs:
-          rootFolderOrFile: '$(projectRoot)'
+          rootFolderOrFile: '$(projectRoot)/content/webapp-content'
           includeRootFolder: false
           archiveType: zip
           archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
