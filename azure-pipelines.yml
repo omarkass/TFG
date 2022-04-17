@@ -10,7 +10,7 @@ variables:
 pool:
   vmImage: ubuntu-latest
 stages:
-- stage: "deploy azure infrastructure"
+- stage: deploy-infrastructure
   jobs :
   - job: "execute arm file"
     steps:
@@ -21,7 +21,9 @@ stages:
         scriptLocation: 'inlineScript'
         inlineScript: 'az deployment create --location "West Europe" --name "rg1" --template-file arm-azure-template.json'
         workingDirectory: '$(system.defaultworkingdirectory)'
-- stage: "deploy content to azure infrastructure"
+- stage: "deploy content to azure infrastructure" 
+  dependsOn:
+  - deploy-infrastructure
   jobs:
   - job: "deploy content to azure service app"
     variables:
