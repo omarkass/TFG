@@ -22,8 +22,8 @@ stages:
         inlineScript: 'az deployment create --location "West Europe" --name "rg1" --template-file arm-azure-template.json'
         workingDirectory: '$(system.defaultworkingdirectory)'
 - stage: "deploy content to azure infrastructure" 
- # dependsOn:
- # - deploy-infrastructure
+  dependsOn:
+  - deploy-infrastructure
   jobs:
   - job: service-app-content
     variables:
