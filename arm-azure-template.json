@@ -149,7 +149,8 @@
                                 "[concat('Microsoft.Web/serverfarms/', variables('azureServicePlanFunction'))]",
                                 "[concat('Microsoft.Storage/storageAccounts/', variables('azureStorageAcountFunction'))]"
                             ],
-                            "tags": {},
+                            "tags": {
+                            },
                             "kind": "functionapp,linux",
                             "properties": {
                                 "name": "[variables('azureFunctionName')]",
@@ -165,8 +166,7 @@
                                         },
                                         {
                                             "name": "AzureWebJobsStorage",
-                                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('azureStorageAcountFunction'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts/', variables('azureStorageAcountFunction')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
-
+                                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('azureStorageAcountFunction'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
                                         }
                                     ],
                                     "cors": {
@@ -177,7 +177,7 @@
                                     "use32BitWorkerProcess": false,
                                     "linuxFxVersion": "Python|3.9"
                                 },
-                                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', variables('azureFunctionRgName'), '/providers/Microsoft.Web/serverfarms/', variables('azureServicePlanFunction'))]",
+                                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms',variables('azureServicePlanFunction'))]",
                                 "clientAffinityEnabled": false,
                                 "virtualNetworkSubnetId": null
                             }
@@ -197,7 +197,7 @@
                                 "name": "[variables('azureServicePlanFunction')]",
                                 "workerSize": "0",
                                 "workerSizeId": "0",
-                                "numberOfWorkers": "1",
+                                "numberOfWorkers": "[parameters('numberOfWorkers')]",
                                 "reserved": true
                             }
                         },

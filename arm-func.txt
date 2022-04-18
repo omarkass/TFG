@@ -63,12 +63,10 @@
             "name": "[parameters('name')]",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "microsoft.insights/components/functionfunc",
                 "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
                 "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]"
             ],
             "tags": {
-                "hidden-link: /app-insights-resource-id": "/subscriptions/b5621309-22cd-4fc5-930c-dabc2c4c9ae7/resourceGroups/sadsad_group/providers/Microsoft.Insights/components/functionfunc"
             },
             "kind": "functionapp,linux",
             "properties": {
