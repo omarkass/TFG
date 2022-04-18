@@ -141,26 +141,13 @@
                     "variables": {},
                     "resources": [
                         {
-                            "type": "Microsoft.Storage/storageAccounts",
-                            "apiVersion": "2019-06-01",
-                            "name": "[variables('azureStorageAcountFunction')]",
-                            "location": "[parameters('loactionAzureFunction')]",
-                            "sku": {
-                                "name": "Standard_LRS"
-                            },
-                            "properties": {
-                                "supportsHttpsTrafficOnly": true,
-                                "minimumTlsVersion": "TLS1_2"
-                            }
-                        },
-                        {
                             "type": "Microsoft.Web/sites",
                             "apiVersion": "2018-11-01",
                             "name": "[variables('azureFunctionName')]",
                             "location": "[parameters('loactionAzureFunction')]",
                             "dependsOn": [
-                                "[concat('Microsoft.Web/serverfarms/', variables('azureServicePlanFunction'))]",
-                                "[concat('Microsoft.Storage/storageAccounts/', variables('azureStorageAcountFunction'))]"
+                                "[resourceId('Microsoft.Web/serverfarms',variables('azureServicePlanFunction'))]",
+                                "[resourceId('Microsoft.Storage/storageAccounts',variables('azureStorageAcountFunction'))]"
                             ],
                             "tags": {
                             },
@@ -212,6 +199,19 @@
                                 "workerSizeId": "0",
                                 "numberOfWorkers": "[parameters('numberOfWorkers')]",
                                 "reserved": true
+                            }
+                        },
+                        {
+                            "type": "Microsoft.Storage/storageAccounts",
+                            "apiVersion": "2019-06-01",
+                            "name": "[variables('azureStorageAcountFunction')]",
+                            "location": "[parameters('loactionAzureFunction')]",
+                            "sku": {
+                                "name": "Standard_LRS"
+                            },
+                            "properties": {
+                                "supportsHttpsTrafficOnly": true,
+                                "minimumTlsVersion": "TLS1_2"
                             }
                         }
                     ]
