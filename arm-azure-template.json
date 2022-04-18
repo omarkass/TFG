@@ -160,7 +160,7 @@
                             "location": "[parameters('loactionAzureFunction')]",
                             "dependsOn": [
                                 "[concat('Microsoft.Web/serverfarms/', variables('azureServicePlanFunction'))]",
-                                "[concat('Microsoft.Storage/storageAccounts/', variables('azureStorageAcountFunction'))]"
+                                "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts',variables('azureStorageAcountFunction'))]"
                             ],
                             "tags": {
                             },
