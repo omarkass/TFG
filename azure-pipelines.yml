@@ -97,10 +97,10 @@ stages:
           rootFolderOrFile: '$(workingDirectory)'
           includeRootFolder: false
           archiveType: zip
-          archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+          archiveFile: $(Build.ArtifactStagingDirectory)/$(functionAppName).zip
           replaceExistingArchive: true
 
-      - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+      - publish: $(Build.ArtifactStagingDirectory)/$(functionAppName).zip
         artifact: drop
 
 
@@ -110,4 +110,4 @@ stages:
           azureSubscription: '$(azureSubscription)'
           appType: functionAppLinux
           appName: $(functionAppName)
-          package: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+          package: $(Build.ArtifactStagingDirectory)/$(functionAppName).zip
