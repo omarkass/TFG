@@ -148,7 +148,7 @@
                             "dependsOn": [
                                 
                                 "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Web/serverfarms', variables('azureServicePlanFunction'))]",
-                                "[resourceId('Microsoft.Storage/storageAccounts',variables('azureStorageAcountFunction'))]"
+                               // "[resourceId('Microsoft.Storage/storageAccounts',variables('azureStorageAcountFunction'))]"
                             ],
                             "tags": {
                             },
