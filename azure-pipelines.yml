@@ -6,7 +6,8 @@
 trigger: none
 variables:
   # Azure Resource Manager connection created during pipeline creation
-  azureServiceConnectionId: 'Azure para estudiantes(b5621309-22cd-4fc5-930c-dabc2c4c9ae7)'
+  #azureServiceConnectionId: 'ad39f181-531d-47fd-b9dc-1b0488bcaa1d'
+  azureSubscription: 'ad39f181-531d-47fd-b9dc-1b0488bcaa1d'
 pool:
   vmImage: ubuntu-latest
 stages:
@@ -16,7 +17,7 @@ stages:
     steps:
     - task: AzureCLI@2
       inputs:
-        azureSubscription: $(azureServiceConnectionId)
+        azureSubscription: $(azureSubscription)
         scriptType: 'pscore'
         scriptLocation: 'inlineScript'
         inlineScript: 'az deployment create --location "West Europe" --name "rg1" --template-file arm-azure-template.json'
@@ -60,6 +61,51 @@ stages:
       - task: AzureWebApp@1
         displayName: 'Deploy Azure Web App : webapppython43'
         inputs:
-          azureSubscription: $(azureServiceConnectionId)
+          azureSubscription: $(azureSubscription)
           appName: $(webAppName)
           package: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+
+  - job: azure_function_content
+    variables:
+      azureSubscription: 'ad39f181-531d-47fd-b9dc-1b0488bcaa1d'
+      functionAppName: 'proj-dev-func'
+      vmImageName: 'ubuntu-latest'
+      workingDirectory: './content/function-content'
+    steps:
+      - bash: |
+          if [ -f extensions.csproj ]
+          then
+              dotnet build extensions.csproj --runtime ubuntu.16.04-x64 --output ./bin
+          fi
+        workingDirectory: $(workingDirectory)
+        displayName: 'Build extensions'
+
+      - task: UsePythonVersion@0
+        displayName: 'Use Python 3.9'
+        inputs:
+          versionSpec: 3.9 
+
+      - bash: |
+          pip install --target="./.python_packages/lib/site-packages" -r ./requirements.txt
+        workingDirectory: $(workingDirectory)
+        displayName: 'Install application dependencies'
+
+      - task: ArchiveFiles@2
+        displayName: 'Archive files'
+        inputs:
+          rootFolderOrFile: '$(workingDirectory)'
+          includeRootFolder: false
+          archiveType: zip
+          archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+          replaceExistingArchive: true
+
+      - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        artifact: drop
+
+      - task: AzureFunctionApp@1
+        displayName: 'Azure functions app deploy'
+        inputs:
+          azureSubscription: '$(azureSubscription)'
+          appType: functionAppLinux
+          appName: $(functionAppName)
+          package: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
