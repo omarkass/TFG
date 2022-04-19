@@ -52,7 +52,7 @@ resource sql_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   location: locationSqlDatabase
 }
 resource app_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-  name: azureFunctionRgName
+  name: azureWebAppRgName
   location: locationAzureFunction
 }
 resource aks_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
