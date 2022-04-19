@@ -16,17 +16,17 @@ param skuFunction string = 'Dynamic'
 param skuCodeFunction string = 'Y1'
 
 @description('Project prefix.')
-param loactionAks string = 'East US'
+param locationAks string = 'East US'
 param subscriptionId string = 'b5621309-22cd-4fc5-930c-dabc2c4c9ae7'
 
 @description('Project prefix.')
-param loactionAzureFunction string = 'East US'
+param locationAzureFunction string = 'East US'
 
 @description('Project prefix.')
-param loactionSqlDatabase string = 'East US'
+param locationSqlDatabase string = 'East US'
 
 @description('Project prefix.')
-param loactionWebApp string = 'East US'
+param locationWebApp string = 'East US'
 
 var proj = 'proj'
 var env = 'dev'
@@ -45,7 +45,19 @@ var sqlRgName = '${proj}-${env}-sql-rg'
 // Creating resource group
 resource func_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: azureFunctionRgName
-  location: loactionAzureFunction
+  location: locationAzureFunction
+}
+resource sql_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+  name: sqlDatabaseName
+  location: locationSqlDatabase
+}
+resource app_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+  name: azureFunctionRgName
+  location: locationAzureFunction
+}
+resource aks_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+  name: aksRgName
+  location: locationAks
 }
 
 // Deploying storage account using module
@@ -54,7 +66,7 @@ module func_st './bicep-templates/func-st.bicep' = {
   scope: func_rg    // Deployed in the scope of resource group we created above
   params: {
     name: azureStorageAcountFunction
-    location:loactionAzureFunction
+    location:locationAzureFunction
   }
 }
 
@@ -63,7 +75,7 @@ module func_plan './bicep-templates/func-plan.bicep' = {
   scope: func_rg    // Deployed in the scope of resource group we created above
   params: {
     name: azureServicePlanFunction
-    location:loactionAzureFunction
+    location:locationAzureFunction
     skuFunction: skuFunction
     skuCodeFunction: skuCodeFunction
     numberOfWorkers : numberOfWorkers
@@ -75,7 +87,7 @@ module func 'bicep-templates/func.bicep' = {
   scope: func_rg    // Deployed in the scope of resource group we created above
   params: {
     name: azureFunctionName
-    location:loactionAzureFunction
+    location:locationAzureFunction
     planName: azureServicePlanFunction
     StorageAcountName: azureStorageAcountFunction
     subscriptionId: subscriptionId
@@ -87,3 +99,37 @@ module func 'bicep-templates/func.bicep' = {
   ]
 }
 
+module sqldb 'bicep-templates/sqldb.bicep' = {
+  name: 'sqdbl'
+  scope: sql_rg    // Deployed in the scope of resource group we created above
+  params: {
+    name: sqlServerName
+    location:locationSqlDatabase
+    SQL_Pass: SQL_Pass
+    SQL_User: SQL_User
+  }
+  dependsOn:[
+    sql
+  ]
+  }
+
+
+module sql 'bicep-templates/sql.bicep' = {
+name: 'sql'
+scope: sql_rg    // Deployed in the scope of resource group we created above
+params: {
+  name: sqlDatabaseName
+  location:locationSqlDatabase
+}
+}
+
+module aks 'bicep-templates//aks.bicep' = {
+  name: 'aks'
+  scope: aks_rg    // Deployed in the scope of resource group we created above
+  params: {
+    name: aksName
+    location:locationAks
+    version: kubernetesVersion
+  }
+  }
+  

@@ -15,7 +15,7 @@
             "type": "string"
         },
 
-        "loactionAks": {
+        "locationAks": {
             "type": "string",
             "defaultValue": "westus",
             "metadata": {
@@ -26,14 +26,14 @@
             "defaultValue": "b5621309-22cd-4fc5-930c-dabc2c4c9ae7",
             "type": "string"
         },
-        "loactionAzureFunction": {
+        "locationAzureFunction": {
             "type": "string",
             "defaultValue": "westus3",
             "metadata": {
                 "description": "Project prefix."
             }
         },
-        "loactionWebApp": {
+        "locationWebApp": {
             "type": "string",
             "defaultValue": "westus2",
             "metadata": {
@@ -63,21 +63,21 @@
             "name": "[variables('aksRgName')]",
             "type": "Microsoft.Resources/resourceGroups",
             "apiVersion":  "2021-04-01",
-            "location": "[parameters('loactionAks')]",
+            "location": "[parameters('locationAks')]",
             "tags": {}
         },
         {
             "name": "[variables('azureFunctionRgName')]",
             "type": "Microsoft.Resources/resourceGroups",
             "apiVersion":  "2021-04-01",
-            "location": "[parameters('loactionAzureFunction')]",
+            "location": "[parameters('locationAzureFunction')]",
             "tags": {}
         },
                 {
             "name": "[variables('azureWebAppRgName')]",
             "type": "Microsoft.Resources/resourceGroups",
             "apiVersion":  "2021-04-01",
-            "location": "[parameters('loactionWebApp')]",
+            "location": "[parameters('locationWebApp')]",
             "tags": {}
         },
         {
@@ -101,7 +101,7 @@
                             "name": "[variables('azureFunctionName')]",
                             "type": "Microsoft.Web/sites",
                             "kind": "functionapp,linux",
-                            "location": "[parameters('loactionAzureFunction')]",
+                            "location": "[parameters('locationAzureFunction')]",
                             "tags": {},
                             "dependsOn": [
                                 "[resourceId('Microsoft.Web/serverfarms/', variables('azureServicePlanFunction'))]",
@@ -138,7 +138,7 @@
                             "apiVersion": "2019-06-01",
                             "type": "Microsoft.Storage/storageAccounts",
                             "name": "[variables('azureStorageAcountFunction')]",
-                            "location": "[parameters('loactionAzureFunction')]",
+                            "location": "[parameters('locationAzureFunction')]",
                             "tags": {},
                             "sku": {
                                 "name": "Standard_LRS"
@@ -153,7 +153,7 @@
                             "apiVersion": "2018-11-01",
                             "name": "[variables('azureServicePlanFunction')]",
                             "type": "Microsoft.Web/serverfarms",
-                            "location": "[parameters('loactionAzureFunction')]",
+                            "location": "[parameters('locationAzureFunction')]",
                             "kind": "linux",
                             "tags": {},
                             "properties": {
