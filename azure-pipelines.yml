@@ -58,7 +58,7 @@ stages:
 
       - upload: $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip
         displayName: 'Upload package'
-        artifact: drop
+        artifact: drop-webapp
       
       - task: AzureWebApp@1
         displayName: 'Deploy Azure Web App : webapppython43'
@@ -102,7 +102,7 @@ stages:
           replaceExistingArchive: true
 
       - publish: $(Build.ArtifactStagingDirectory)/$(functionAppName)-$(Build.BuildId).zip
-        artifact: drop
+        artifact: drop-function
 
 
       - task: AzureFunctionApp@1
