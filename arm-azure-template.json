@@ -6,7 +6,7 @@
             "defaultValue": "1",
             "type": "string"
         },
-        "deployThisResource":{
+        "deployThisResource": {
             "type": "bool",
             "defaultValue": true
         },
@@ -128,7 +128,6 @@
             "location": "[parameters('loactionWebApp')]",
             "tags": {}
         },
-        /*
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
@@ -146,7 +145,7 @@
                     "variables": {},
                     "resources": [
                         {
-                            "type": "Microsoft.Web/sites",  
+                            "type": "Microsoft.Web/sites",
                             "condition": "[parameters('deployThisResource')]",
                             "apiVersion": "2018-11-01",
                             "name": "[variables('azureFunctionName')]",
@@ -170,8 +169,8 @@
                                         {
                                             "name": "FUNCTIONS_WORKER_RUNTIME",
                                             "value": "python"
-                                        }
-                                       , {
+                                        },
+                                        {
                                             "name": "AzureWebJobsStorage",
                                             "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('azureStorageAcountFunction'),';AccountKey=',if(parameters('deployThisResource'),listKeys(resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction')), '2019-06-01').keys[0].value,'dosent matter'),';EndpointSuffix=','core.windows.net')]"
                                         }
@@ -226,11 +225,10 @@
                     ]
                 },
                 "parameters": {},
-                "variables":{ }
+                "variables": {}
             }
-            
-        }
-              ,*/
+
+        },
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
@@ -426,7 +424,7 @@
                 "parameters": {}
             }
         }
-  
+
     ],
     "outputs": {}
 }
