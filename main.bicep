@@ -108,9 +108,6 @@ module sqldb 'bicep-templates/sqldb.bicep' = {
     SQL_Pass: SQL_Pass
     SQL_User: SQL_User
   }
-  dependsOn:[
-    sql
-  ]
   }
 
 
@@ -121,6 +118,9 @@ params: {
   name: sqlDatabaseName
   location:locationSqlDatabase
 }
+dependsOn:[
+  sqldb
+]
 }
 
 module aks 'bicep-templates//aks.bicep' = {
