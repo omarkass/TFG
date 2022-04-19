@@ -15,15 +15,12 @@ stages:
 - stage: deploy_infrastructure
   jobs :
   - job: "arm_execution"
+    variables:
+        LOCATION: 'northeurope'
     steps:
      - task: AzureCLI@2
-        displayName: '🛳 Production environments'
-        env:
-          subscriptionId: 'b5621309-22cd-4fc5-930c-dabc2c4c9ae7'
-          #MANAGEMENT_GROUP_ID: ${{ parameters.managementGroupId }}
-          LOCATION: 'northeurope'
-        inputs:
-          azureSubscription: $(azureServiceConnection)
+       inputs:
+          azureSubscription: $(azureSubscription)
           scriptType: bash
           scriptLocation: inlineScript
           inlineScript: |
