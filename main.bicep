@@ -48,7 +48,7 @@ resource func_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   location: locationAzureFunction
 }
 resource sql_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-  name: sqlDatabaseName
+  name: sqlRgName
   location: locationSqlDatabase
 }
 resource app_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
