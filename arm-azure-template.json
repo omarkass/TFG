@@ -128,6 +128,7 @@
             "location": "[parameters('loactionWebApp')]",
             "tags": {}
         },
+        /*
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
@@ -224,11 +225,12 @@
                         }
                     ]
                 },
-                "parameters": {}
+                "parameters": {},
+                "variables":{ }
             }
             
         }
-        /*,
+              ,*/
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2021-04-01",
@@ -424,7 +426,7 @@
                 "parameters": {}
             }
         }
-        */
+  
     ],
     "outputs": {}
 }
