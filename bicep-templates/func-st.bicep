@@ -28,3 +28,5 @@ resource azureStorageAcountFunction 'Microsoft.Storage/storageAccounts@2019-06-0
     minimumTlsVersion: 'TLS1_2'
   }
 }
+
+

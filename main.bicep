@@ -69,3 +69,21 @@ module func_plan './bicep-templates/func-plan.bicep' = {
     numberOfWorkers : numberOfWorkers
   }
 }
+
+module func 'bicep-templates/func.bicep' = {
+  name: 'func'
+  scope: func_rg    // Deployed in the scope of resource group we created above
+  params: {
+    name: azureFunctionName
+    location:loactionAzureFunction
+    planName: azureServicePlanFunction
+    StorageAcountName: azureStorageAcountFunction
+    subscriptionId: subscriptionId
+    rgName: azureFunctionRgName
+  }
+  dependsOn:[
+    func_plan
+    func_st
+  ]
+}
+
