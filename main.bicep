@@ -62,7 +62,7 @@ module func_plan './bicep-templates/func-plan.bicep' = {
   name: 'func_plan'
   scope: func_rg    // Deployed in the scope of resource group we created above
   params: {
-    name: azureStorageAcountFunction
+    name: azureServicePlanFunction
     location:loactionAzureFunction
     skuFunction: skuFunction
     skuCodeFunction: skuCodeFunction
