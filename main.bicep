@@ -123,7 +123,7 @@ dependsOn:[
 ]
 }
 
-module aks 'bicep-templates//aks.bicep' = {
+module aks 'bicep-templates/aks.bicep' = {
   name: 'aks'
   scope: aks_rg    // Deployed in the scope of resource group we created above
   params: {
@@ -131,5 +131,30 @@ module aks 'bicep-templates//aks.bicep' = {
     location:locationAks
     version: kubernetesVersion
   }
+  }
+  
+
+  module app 'bicep-templates/app.bicep' = {
+  name: 'app'
+  scope: app_rg    // Deployed in the scope of resource group we created above
+  params: {
+    name: azureWebAppName
+    location: locationWebApp
+    azureServicePlanWebAppName: azureServicePlanWebApp
+    azureWebAppRgName: azureWebAppRgName
+    subscriptionId: subscriptionId
+  }
+  dependsOn:[
+    app_plan
+  ]
+  }
+
+  module app_plan 'bicep-templates/app-plan.bicep' = {
+    name: 'app_plan'
+    scope: app_rg 
+    params: {
+      name: azureServicePlanWebApp
+      location: locationWebApp
+    }
   }
   
