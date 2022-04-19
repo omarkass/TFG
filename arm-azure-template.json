@@ -6,6 +6,10 @@
             "defaultValue": "1",
             "type": "string"
         },
+        "deployThisResource":{
+            "type": "bool",
+            "defaultValue": true
+        },
         "SQL-User": {
             "type": "string",
             "defaultValue": "omar1",
@@ -141,10 +145,12 @@
                     "variables": {},
                     "resources": [
                         {
-                            "type": "Microsoft.Web/sites",
+                            "type": "Microsoft.Web/sites",  
+                            "condition": "[parameters('deployThisResource')]",
                             "apiVersion": "2018-11-01",
                             "name": "[variables('azureFunctionName')]",
                             "location": "[parameters('loactionAzureFunction')]",
+                            //  "value": "[if(parameters('deployThisResource'), listKeys(resourceId('Microsoft.DocumentDb/databaseAccounts', variables('cosmosAccountName')), '2020-04-01').primaryMasterKey, 'does not matter')]"
                             "dependsOn": [
                                 "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Web/serverfarms', variables('azureServicePlanFunction'))]",
                                 "[resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction'))]"
@@ -166,7 +172,7 @@
                                         }
                                        , {
                                             "name": "AzureWebJobsStorage",
-                                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('azureStorageAcountFunction'),';AccountKey=',listKeys(resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net')]"
+                                            "value": "[if(parameters('deployThisResource'),concat('DefaultEndpointsProtocol=https;AccountName=',variables('azureStorageAcountFunction'),';AccountKey=',listKeys(resourceId(parameters('subscriptionId'),variables('azureFunctionRgName'),'Microsoft.Storage/storageAccounts', variables('azureStorageAcountFunction')), '2019-06-01').keys[0].value,';EndpointSuffix=','core.windows.net'),'dosent matter')]"
                                         }
                                     ],
                                     "cors": {
