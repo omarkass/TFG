@@ -16,13 +16,18 @@ stages:
   jobs :
   - job: "arm_execution"
     steps:
-    - task: AzureCLI@2
-      inputs:
-        azureSubscription: $(azureSubscription)
-        scriptType: 'pscore'
-        scriptLocation: 'inlineScript'
-        inlineScript: 'az deployment create --location "West Europe" --name "rg1" --template-file arm-azure-template.json'
-        workingDirectory: '$(system.defaultworkingdirectory)'
+     - task: AzureCLI@2
+        displayName: '🛳 Production environments'
+        env:
+          subscriptionId: 'b5621309-22cd-4fc5-930c-dabc2c4c9ae7'
+          #MANAGEMENT_GROUP_ID: ${{ parameters.managementGroupId }}
+          LOCATION: 'northeurope'
+        inputs:
+          azureSubscription: $(azureServiceConnection)
+          scriptType: bash
+          scriptLocation: inlineScript
+          inlineScript: |
+            az deployment sub create  --template-file './bicep-templates/main.bicep' --location $LOCATION 
 - stage: "infrastructure_content" 
   dependsOn:
   - deploy_infrastructure
