@@ -52,10 +52,10 @@ stages:
           rootFolderOrFile: '$(projectRoot)/content/webapp-content'
           includeRootFolder: false
           archiveType: zip
-          archiveFile: $(Build.ArtifactStagingDirectory)/$(webAppName).zip
+          archiveFile: $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip
           replaceExistingArchive: true
 
-      - upload: $(Build.ArtifactStagingDirectory)/$(webAppName).zip
+      - upload: $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip
         displayName: 'Upload package'
         artifact: drop
       
@@ -64,7 +64,7 @@ stages:
         inputs:
           azureSubscription: $(azureSubscription)
           appName: $(webAppName)
-          package: $(Build.ArtifactStagingDirectory)/$(webAppName).zip
+          package: $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip
 
   - job: azure_function_content
     variables:
@@ -97,10 +97,10 @@ stages:
           rootFolderOrFile: '$(workingDirectory)'
           includeRootFolder: false
           archiveType: zip
-          archiveFile: $(Build.ArtifactStagingDirectory)/$(functionAppName).zip
+          archiveFile: $(Build.ArtifactStagingDirectory)/$(functionAppName)-$(Build.BuildId).zip
           replaceExistingArchive: true
 
-      - publish: $(Build.ArtifactStagingDirectory)/$(functionAppName).zip
+      - publish: $(Build.ArtifactStagingDirectory)/$(functionAppName)-$(Build.BuildId).zip
         artifact: drop
 
 
@@ -110,4 +110,4 @@ stages:
           azureSubscription: '$(azureSubscription)'
           appType: functionAppLinux
           appName: $(functionAppName)
-          package: $(Build.ArtifactStagingDirectory)/$(functionAppName).zip
+          package: $(Build.ArtifactStagingDirectory)/$(functionAppName)-$(Build.BuildId).zip
