@@ -3,8 +3,7 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-trigger: 
-- master
+
 variables:
   # Azure Resource Manager connection created during pipeline creation
   #azureServiceConnectionId: 'ad39f181-531d-47fd-b9dc-1b0488bcaa1d'
