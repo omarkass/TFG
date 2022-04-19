@@ -24,7 +24,7 @@ stages:
           scriptType: bash
           scriptLocation: inlineScript
           inlineScript: |
-            az deployment sub create  --template-file './bicep-templates/main.bicep' --location $LOCATION 
+            az deployment sub create  --template-file './main.bicep' --location $LOCATION 
 - stage: "infrastructure_content" 
   dependsOn:
   - deploy_infrastructure

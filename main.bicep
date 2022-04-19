@@ -43,16 +43,29 @@ var sqlServerName = '${proj}-${env}-sql'
 var sqlDatabaseName = '${sqlServerName}/${proj}-${env}-sqldb'
 var sqlRgName = '${proj}-${env}-sql-rg'
 // Creating resource group
-resource rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+resource func_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: azureFunctionRgName
   location: loactionAzureFunction
 }
 
 // Deploying storage account using module
-module stg './bicep-templates/storage.bicep' = {
-  name: 'storageDeployment'
-  scope: rg    // Deployed in the scope of resource group we created above
+module func_st './bicep-templates/func-st.bicep' = {
+  name: 'func_st'
+  scope: func_rg    // Deployed in the scope of resource group we created above
   params: {
-    storageAccountName: azureStorageAcountFunction
+    name: azureStorageAcountFunction
+    location:loactionAzureFunction
+  }
+}
+
+module func_plan './bicep-templates/func-plan.bicep' = {
+  name: 'func_plan'
+  scope: func_rg    // Deployed in the scope of resource group we created above
+  params: {
+    name: azureStorageAcountFunction
+    location:loactionAzureFunction
+    skuFunction: skuFunction
+    skuCodeFunction: skuCodeFunction
+    numberOfWorkers : numberOfWorkers
   }
 }
