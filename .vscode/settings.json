@@ -1,0 +1,9 @@
+{
+    "azureFunctions.deploySubpath": "python-provas\\function\\func1",
+    "azureFunctions.scmDoBuildDuringDeployment": true,
+    "azureFunctions.pythonVenv": ".venv",
+    "azureFunctions.projectLanguage": "Python",
+    "azureFunctions.projectRuntime": "~4",
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.projectSubpath": "python-provas\\function\\func1"
+}

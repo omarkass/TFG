@@ -10,7 +10,7 @@ def home():
 '''
 
 from flask import Flask , request
-from function_name import primeNum ,sumNum
+from functions import primeNum ,sumNum
 app = Flask(__name__)
 
 #http://127.0.0.1:5000/prime?num=30
