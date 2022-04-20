@@ -42,6 +42,8 @@ var azureStorageAcountFunction = '${proj}${env}funcst55'
 var sqlServerName = '${proj}-${env}-sql'
 var sqlDatabaseName = '${sqlServerName}/${proj}-${env}-sqldb'
 var sqlRgName = '${proj}-${env}-sql-rg'
+var logAnalyticName = '${proj}-${env}-func-log'
+var applicationInsghtsName = '${proj}-${env}-func-appi'
 // Creating resource group
 resource func_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: azureFunctionRgName
@@ -82,6 +84,28 @@ module func_plan './bicep-templates/func-plan.bicep' = {
   }
 }
 
+module func_log 'bicep-templates/func-log.bicep' = {
+  name: logAnalyticName
+  scope: func_rg
+  params:{
+    name: logAnalyticName
+    location: locationAzureFunction
+  }
+}
+
+module func_appi 'bicep-templates/func-appi.bicep' = {
+  name : 'func_appi'
+  scope: func_rg 
+  params:{
+    name: applicationInsghtsName
+    location: locationAzureFunction
+    logAnaliticName: logAnalyticName
+  }
+  dependsOn:[
+    func_log
+  ]
+}
+
 module func 'bicep-templates/func.bicep' = {
   name: 'func'
   scope: func_rg    // Deployed in the scope of resource group we created above
@@ -92,10 +116,12 @@ module func 'bicep-templates/func.bicep' = {
     StorageAcountName: azureStorageAcountFunction
     subscriptionId: subscriptionId
     rgName: azureFunctionRgName
+    applicationInsightName:applicationInsghtsName
   }
   dependsOn:[
     func_plan
     func_st
+    func_appi
   ]
 }
 

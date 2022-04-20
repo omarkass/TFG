@@ -4,11 +4,13 @@ param subscriptionId string
 param StorageAcountName string
 param rgName string
 param planName string
-
+param applicationInsightName string 
 resource azureFunctionName 'Microsoft.Web/sites@2018-11-01' = {
   name: name
   location: location
-  tags: {}
+  tags: {
+    'hidden-link: /app-insights-resource-id': resourceId('Microsoft.Insights/components/',applicationInsightName)
+  }
   kind: 'functionapp,linux'
   properties: {
     name: name
