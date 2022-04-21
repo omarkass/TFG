@@ -11,7 +11,7 @@ resource AzureapplicationInsghts 'microsoft.insights/components@2020-02-02' = {
     Application_Type: 'web'
     Flow_Type: 'Redfield'
     Request_Source: 'IbizaWebAppExtensionCreate'
-    RetentionInDays: 10
+    RetentionInDays: 30
     WorkspaceResourceId: resourceId('microsoft.operationalinsights/workspaces',logAnaliticName)
     IngestionMode: 'LogAnalytics'
     publicNetworkAccessForIngestion: 'Enabled'

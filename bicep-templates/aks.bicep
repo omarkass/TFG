@@ -21,9 +21,9 @@ resource azureakscluster 'Microsoft.ContainerService/managedClusters@2021-07-01'
       {
         name: 'agentpool'
         osDiskSizeGB: 0
-        count: 2
+        count: 1
         enableAutoScaling: false
-        vmSize: 'Standard_B2s'
+        vmSize: 'Standard_D2as_v5'
         osType: 'Linux'
         storageProfile: 'ManagedDisks'
         type: 'VirtualMachineScaleSets'
