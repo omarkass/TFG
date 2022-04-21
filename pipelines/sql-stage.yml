@@ -17,15 +17,24 @@ parameters:
 - name: sqlServerName
   type: string
 
+stages:
+- stage: deploy_infrastructure
+  jobs :
+  - job: "arm_execution"
+    variables:
+        LOCATION: 'northeurope'
+    steps:
 
 stages:
 - stage: deploy_sql_content
-  - task: SqlAzureDacpacDeployment@1
-    displayName: Execute Azure SQL : DacpacTask
-    inputs:
-      azureSubscription: $(azureSubscription)
-      ServerName: $(sqlServerName)
-      DatabaseName: $(databaseName)
-      SqlUsername: $(sqlUserName)
-      SqlPassword: $(sqlPassword)
-      DacpacFile: 'content\sql-content\proj-dev-sqldb-2022-4-21-17-56.bacpac'
+  jobs :
+  - job: "import_sql_database "
+    steps:
+    - task: SqlAzureDacpacDeployment@1
+      inputs:
+        azureSubscription: $(azureSubscription)
+        ServerName: $(sqlServerName)
+        DatabaseName: $(databaseName)
+        SqlUsername: $(sqlUserName)
+        SqlPassword: $(sqlPassword)
+        DacpacFile: 'content\sql-content\proj-dev-sqldb-2022-4-21-17-56.bacpac'
