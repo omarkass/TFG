@@ -14,9 +14,6 @@ parameters:
 - name: sqlServerName
   type: string
 
-- name: sqlServerName
-  type: string
-
 stages:
 - stage: deploy_sql_content
   jobs :
