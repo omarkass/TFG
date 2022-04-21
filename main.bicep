@@ -16,7 +16,7 @@ param skuFunction string = 'Dynamic'
 param skuCodeFunction string = 'Y1'
 
 @description('Project prefix.')
-param locationAks string = 'East US'
+param locationAks string = 'West Europe'
 param subscriptionId string = 'b5621309-22cd-4fc5-930c-dabc2c4c9ae7'
 
 @description('Project prefix.')
