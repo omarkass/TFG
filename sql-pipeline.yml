@@ -27,7 +27,7 @@ stages:
 - template: 'pipelines\sql-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
-    ServerName: $(sqlServerName)
+    sqlServerName: $(sqlServerName)
     DatabaseName: $(databaseName)
     SqlUsername: $(sqlUserName)
     SqlPassword: $(sqlPassword)
