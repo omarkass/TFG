@@ -7,7 +7,7 @@ resource azurelogAnalytics 'microsoft.operationalinsights/workspaces@2021-12-01-
     sku: {
       name: 'PerGB2018'
     }
-    retentionInDays: 10
+    retentionInDays: 30
     features: {
       enableLogAccessUsingOnlyResourcePermissions: true
     }
