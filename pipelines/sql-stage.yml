@@ -1,6 +1,9 @@
 parameters:
 - name: databaseName
   type: string
+  
+- name: DacpacFile
+  type: string
 
 - name: sqlUserName
   type: string
