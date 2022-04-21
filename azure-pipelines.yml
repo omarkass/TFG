@@ -6,7 +6,7 @@
 variables:
   # Azure Resource Manager connection created during pipeline creation
   #azureServiceConnectionId: 'ad39f181-531d-47fd-b9dc-1b0488bcaa1d'
-  azureSubscription: 'ad39f181-531d-47fd-b9dc-1b0488bcaa1d'
+  azureSubscription: 'Azure subscription 1(2c02e9f9-7fad-4208-82e1-4e97500b5e0e)'
 pool:
   vmImage: ubuntu-latest
 stages:
@@ -18,11 +18,10 @@ stages:
     steps:
      - task: AzureCLI@2
        inputs:
-          azureSubscription: $(azureSubscription)
-          scriptType: bash
-          scriptLocation: inlineScript
-          inlineScript: |
-            az deployment sub create  --template-file './main.bicep' --location $LOCATION 
+         azureSubscription: 'Azure subscription 1(2c02e9f9-7fad-4208-82e1-4e97500b5e0e)'
+         scriptType: 'bash'
+         scriptLocation: 'inlineScript'
+         inlineScript: 'az deployment sub create  --template-file ''./main.bicep'' --location $LOCATION'
 - stage: "infrastructure_content" 
   dependsOn:
   - deploy_infrastructure
