@@ -166,7 +166,7 @@ module aks 'bicep-templates/aks.bicep' = {
   params: {
     name: azureWebAppName
     location: locationWebApp
-    azureServicePlanWebAppName: azureServicePlanWebApp
+    planeName: azureServicePlanWebApp
     azureWebAppRgName: azureWebAppRgName
     subscriptionId: subscriptionId
   }

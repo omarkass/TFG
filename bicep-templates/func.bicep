@@ -26,7 +26,7 @@ resource azureFunctionName 'Microsoft.Web/sites@2018-11-01' = {
         }
         {
           name: 'AzureWebJobsStorage'
-          value: 'DefaultEndpointsProtocol=https;AccountName=${StorageAcountName};AccountKey=${listKeys(resourceId(subscriptionId, rgName, 'Microsoft.Storage/storageAccounts', StorageAcountName), '2019-06-01').keys[0].value};EndpointSuffix=core.windows.net'
+          value: 'DefaultEndpointsProtocol=https;AccountName=${StorageAcountName};AccountKey=${listKeys(resourceId('Microsoft.Storage/storageAccounts', StorageAcountName), '2019-06-01').keys[0].value};EndpointSuffix=core.windows.net'
         }
       ]
       cors: {
@@ -37,7 +37,7 @@ resource azureFunctionName 'Microsoft.Web/sites@2018-11-01' = {
       use32BitWorkerProcess: false
       linuxFxVersion: 'Python|3.9'
     }
-    serverFarmId: '/subscriptions/${subscriptionId}/resourcegroups/${rgName}/providers/Microsoft.Web/serverfarms/${planName}'
+    serverFarmId:  resourceId('Microsoft.Web/serverfarms/',planName)   //'/subscriptions/${subscriptionId}/resourcegroups/${rgName}/providers/Microsoft.Web/serverfarms/${planName}'
     clientAffinityEnabled: false
     virtualNetworkSubnetId: null
   }

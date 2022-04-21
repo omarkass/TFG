@@ -2,7 +2,7 @@ param name string
 param location string
 param subscriptionId string
 param azureWebAppRgName string
-param azureServicePlanWebAppName string 
+param planeName string 
 
 resource azureWebApp 'Microsoft.Web/sites@2018-11-01' = {
   name: name
@@ -15,7 +15,7 @@ resource azureWebApp 'Microsoft.Web/sites@2018-11-01' = {
       linuxFxVersion: 'PYTHON|3.9'
       alwaysOn: false
     }
-    serverFarmId: '/subscriptions/${subscriptionId}/resourcegroups/${azureWebAppRgName}/providers/Microsoft.Web/serverfarms/${azureServicePlanWebAppName}'
+    serverFarmId: resourceId('providers/Microsoft.Web/serverfarms',planeName)//'/subscriptions/${subscriptionId}/resourcegroups/${azureWebAppRgName}/providers/Microsoft.Web/serverfarms/${azureServicePlanWebAppName}'
     clientAffinityEnabled: false
     virtualNetworkSubnetId: null
   }
