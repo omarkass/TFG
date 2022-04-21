@@ -15,7 +15,7 @@ resource azureWebApp 'Microsoft.Web/sites@2018-11-01' = {
       linuxFxVersion: 'PYTHON|3.9'
       alwaysOn: false
     }
-    serverFarmId: resourceId('providers/Microsoft.Web/serverfarms',planeName)//'/subscriptions/${subscriptionId}/resourcegroups/${azureWebAppRgName}/providers/Microsoft.Web/serverfarms/${azureServicePlanWebAppName}'
+    serverFarmId: resourceId('Microsoft.Web/serverfarms',planeName)//'/subscriptions/${subscriptionId}/resourcegroups/${azureWebAppRgName}/providers/Microsoft.Web/serverfarms/${azureServicePlanWebAppName}'
     clientAffinityEnabled: false
     virtualNetworkSubnetId: null
   }
