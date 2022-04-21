@@ -17,7 +17,7 @@ parameters:
 stages:
 - stage: deploy_sql_content
   jobs :
-  - job: "import_sql_database "
+  - job: import_sql_database_to_sqlServer
     steps:
     - task: SqlAzureDacpacDeployment@1
       inputs:
