@@ -36,4 +36,4 @@ stages:
     Username: $(sqlUserName)
     Password: $(sqlPassword)
     serverFqdn: $(sqlServerFqdn)
-    resourceGroupName: sqlResourceGroupName
+    resourceGroupName: $(sqlResourceGroupName)
