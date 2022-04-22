@@ -25,7 +25,7 @@ stages:
     steps:
     - task: SqlAzureDacpacDeployment@1
       inputs:
-        azureSubscription: ${{azureSubscription}}
+        azureSubscription: $(azureSubscription)
         ServerName: $(sqlServerName)
         DatabaseName: $(databaseName)
         SqlUsername: $(sqlUserName)
