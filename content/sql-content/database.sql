@@ -1,10 +1,5 @@
-CREATE DATABASE omar
 
-GO
-
-
-
-CREATE TABLE omar.dbo.Tarifa (
+CREATE dbo.Tarifa (
 	IdTarifa             char(1)  NOT NULL ,
 	PrecioVenta          money  NOT NULL ,
 	Descripcion          varchar(50)  NOT NULL ,

@@ -13,7 +13,7 @@ parameters:
 - name: azureSubscription
   type: string
 
-- name: SERVERNAME
+- name: serverName
   type: string
 
 - name: resourceGroupName
