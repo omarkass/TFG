@@ -8,8 +8,11 @@ parameters:
 - name: pythonVersion
   type: string
 
+- name: dependsOn  
+  type: string
 stages:
 - stage: deploy_webapp_content
+  dependson : ${{parameters.dependsOn}}
   jobs :
   - job: service_app_content
     variables:

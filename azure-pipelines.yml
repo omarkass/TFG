@@ -19,15 +19,13 @@ stages:
     azureSubscription: $(azureSubscription)
     webAppName: $(webAppName)
     pythonVersion: $(pythonVersion)
-  dependsOn: 
-  - deploy_infrastructure
+    dependsOn: deploy_infrastructure
     
 - template: 'pipelines\function-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     webAppName: $(functionAppName)
     pythonVersion: $(pythonVersion)
-  dependsOn: 
-  - deploy_infrastructure
+    dependsOn: deploy_infrastructure
 
   
