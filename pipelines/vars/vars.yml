@@ -10,7 +10,7 @@ variables:
   value: 'Kassar@14689'
 
 - name: functionAppName
-  vaule: 'proj-dev-func'
+  value: 'proj-dev-func'
 
 - name: pythonVersion
   value: '3.9'  
