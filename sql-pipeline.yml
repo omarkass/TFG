@@ -23,10 +23,10 @@ trigger: none
 
 pool:
   vmImage: ubuntu-latest
+variables:
+- template:   /pipelines/vars/Sche/vars.yml  
 stages:
 - template: 'pipelines\sql-stage.yml'
-  variables:
-  - template:   /pipelines/vars/Sche/vars.yml
   parameters:
     azureSubscription: '${{azureSubscription}}'
     sqlServerName: $(sqlServerName)
