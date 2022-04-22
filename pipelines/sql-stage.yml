@@ -29,13 +29,13 @@ stages:
   - job: deploy_sql_content
     steps:
     #open the firewall of the sql server 
-#    - task: AzurePowerShell@5
-#      displayName: open sql server firewall
-#      inputs:
-#        azureSubscription: ${{parameters.azureSubscription}}
-#        ScriptPath: 'content\sql-content\set-azure-firewall-rule.ps1'
-#        ScriptArguments: "-ServerName ${{ parameters.serverName }} -ResourceGroup ${{ parameters.resourceGroupName }}"
-#        azurePowerShellVersion: LatestVersion
+    - task: AzurePowerShell@5
+      displayName: open sql server firewall
+      inputs:
+        azureSubscription: ${{parameters.azureSubscription}}
+        ScriptPath: 'content\sql-content\set-azure-firewall-rule.ps1'
+        ScriptArguments: "-ServerName ${{ parameters.serverName }} -ResourceGroup ${{ parameters.resourceGroupName }}"
+        azurePowerShellVersion: LatestVersion
 
     #execute the sql script
     - task: CmdLine@1
