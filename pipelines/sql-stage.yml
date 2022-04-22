@@ -32,7 +32,7 @@ stages:
     - task: AzurePowerShell@5
       displayName: open sql server firewall
       inputs:
-        azureSubscription: '${{parameters.azureSubscription}}
+        azureSubscription: ${{parameters.azureSubscription}}
         ScriptPath: 'content\sql-content\set-azure-firewall-rule.ps1'
         ScriptArguments: "-ServerName ${{ parameters.serverName }} -ResourceGroup ${{ parameters.resourceGroupName }}"
         azurePowerShellVersion: LatestVersion
