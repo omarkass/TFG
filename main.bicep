@@ -1,25 +1,27 @@
 targetScope = 'subscription'
 //parameters 
-param numberOfWorkers string = '1'
+//sql parameters 
 @minLength(5)
 param SQL_User string = 'omar1'
 @minLength(5)
 param SQL_Pass string = 'Kassar@14689'
 param locationSqlDatabase string = 'East US'
 
-@description('The version of Kubernetes.')
+// kubernetes parameters
+param locationAks string = 'West Europe'
+param numberOfWorkers string = '1'
 param kubernetesVersion string = '1.23.3'
+
+//function parameters 
 param skuFunction string = 'Dynamic'
 param skuCodeFunction string = 'Y1'
-
-@description('Project prefix.')
-param locationAks string = 'West Europe'
-param subscriptionId string = 'b5621309-22cd-4fc5-930c-dabc2c4c9ae7'
-
-@description('Project prefix.')
 param locationAzureFunction string = 'East US'
 
-@description('Project prefix.')
+
+param subscriptionId string = 'b5621309-22cd-4fc5-930c-dabc2c4c9ae7'
+
+
+//webapp parameters
 param locationWebApp string = 'East US'
 
 var proj = 'proj'

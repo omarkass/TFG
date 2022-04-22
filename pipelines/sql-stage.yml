@@ -3,20 +3,25 @@ parameters:
 - name: databaseName
   type: string
   
-- name: DacpacFile
+
+- name: userName
   type: string
 
-- name: sqlUserName
-  type: string
-
-- name: sqlPassword
+- name: password
   type: string
 
 - name: azureSubscription
   type: string
 
-- name: sqlServerName
+- name: serverName
   type: string
+
+- name: resourceGroupName
+  type: string  
+
+- name: serverFqdn
+  type: string
+
 
 stages:
 #import the bacpac file database
@@ -24,11 +29,37 @@ stages:
   jobs :
   - job: import_sql_database_to_sqlServer
     steps:
-    - task: SqlAzureDacpacDeployment@1
+    
+  #  - task: SqlAzureDacpacDeployment@1
+  #    inputs:
+  #      azureSubscription: $(azureSubscription)
+  #      ServerName: $(serverName)
+  #      DatabaseName: $(databaseName)
+  #      SqlUsername: $(userName)
+  #      SqlPassword: $(password)
+  #      DacpacFile: 'content\sql-content\proj-dev-sqldb-2022-4-21-17-56.bacpac'
+
+    - task: AzurePowerShell@2
+      displayName: Azure PowerShell script: FilePath
       inputs:
-        azureSubscription: $(azureSubscription)
-        ServerName: $(sqlServerName)
-        DatabaseName: $(databaseName)
-        SqlUsername: $(sqlUserName)
-        SqlPassword: $(sqlPassword)
-        DacpacFile: 'content\sql-content\proj-dev-sqldb-2022-4-21-17-56.bacpac'
+        azureSubscription: '$(azureSubscription)'
+        ScriptPath: 'content\sql-content\setAzureFirewallRule.ps1'
+        ScriptArguments: '-ServerName $(serverName) -ResourceGroupName $(resourceGroupName)'
+        azurePowerShellVersion: LatestVersion
+
+    - task: CmdLine@1
+      displayName: Run Sqlcmd
+      inputs:
+        filename: Sqlcmd
+      arguments: '-S $(serverFqdn) -U $(userName) -P $(password) -d $(databaseName) -i "content\sql-content\database.sql"'
+
+    - task: AzurePowerShell@2
+      displayName: Azure PowerShell script: FilePath
+      inputs:
+        azureSubscription: '$(azureSubscription)'
+        ScriptPath: 'content\sql-content\RemoveAzureFirewallRule.ps1'
+        ScriptArguments: '$(serverName) -ResourceGroup $(resourceGroupName)'
+        azurePowerShellVersion: LatestVersion
+
+
+
