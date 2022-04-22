@@ -40,8 +40,8 @@ stages:
     - task: CmdLine@1
       displayName: Run Sqlcmd
       inputs:
-        filename: Sqlcmd
-      arguments: '-S $(serverFqdn) -U $(userName) -P $(password) -d $(databaseName) -i "content\sql-content\database.sql"'
+        filename: 'Sqlcmd'
+        arguments: '-S $(serverFqdn) -U $(userName) -P $(password) -d $(databaseName) -i "content\sql-content\database.sql"'
 
     - task: AzurePowerShell@2
       displayName: close sql server firewall
