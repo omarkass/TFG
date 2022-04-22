@@ -41,7 +41,7 @@ stages:
     - task: CmdLine@1
       displayName: execute sql script
       inputs:
-        filename: 'database'
+        filename: 'database.sql'
         arguments: "-S ${{parameters.serverFqdn}} -U ${{parameters.userName}} -P ${{parameters.password}} -d ${{parameters.databaseName}} -i '$(Build.SourcesDirectory)\\content\\sql-content'"
 
     #close the sql firewall
