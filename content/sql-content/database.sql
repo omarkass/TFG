@@ -1,5 +1,5 @@
 
-CREATE dbo.Tarifa (
+CREATE Tarifa (
 	IdTarifa             char(1)  NOT NULL ,
 	PrecioVenta          money  NOT NULL ,
 	Descripcion          varchar(50)  NOT NULL ,

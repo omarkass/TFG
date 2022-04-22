@@ -1,8 +1,6 @@
 param name string
 param location string 
-param subscriptionId string 
 param StorageAcountName string
-param rgName string
 param planName string
 param applicationInsightName string 
 resource azureFunctionName 'Microsoft.Web/sites@2018-11-01' = {

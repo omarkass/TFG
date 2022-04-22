@@ -1,7 +1,5 @@
 param name string 
 param location string
-param subscriptionId string
-param azureWebAppRgName string
 param planeName string 
 
 resource azureWebApp 'Microsoft.Web/sites@2018-11-01' = {

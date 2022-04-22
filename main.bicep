@@ -18,14 +18,12 @@ param skuCodeFunction string = 'Y1'
 param locationAzureFunction string = 'East US'
 
 
-param subscriptionId string = 'b5621309-22cd-4fc5-930c-dabc2c4c9ae7'
-
-
 //webapp parameters
 param locationWebApp string = 'East US'
 
-var proj = 'proj'
-var env = 'dev'
+param proj string = 'proj'
+param env string = 'dev'
+
 var aksName = '${proj}-${env}-aks'
 var aksRgName = '${proj}-${env}-aks-rg'
 var azureWebAppRgName = '${proj}-${env}-app-rg'
@@ -110,8 +108,6 @@ module func 'bicep-templates/func.bicep' = {
     location:locationAzureFunction
     planName: azureServicePlanFunction
     StorageAcountName: azureStorageAcountFunction
-    subscriptionId: subscriptionId
-    rgName: azureFunctionRgName
     applicationInsightName:applicationInsghtsName
   }
   dependsOn:[
@@ -163,8 +159,6 @@ module aks 'bicep-templates/aks.bicep' = {
     name: azureWebAppName
     location: locationWebApp
     planeName: azureServicePlanWebApp
-    azureWebAppRgName: azureWebAppRgName
-    subscriptionId: subscriptionId
   }
   dependsOn:[
     app_plan
