@@ -41,8 +41,8 @@ stages:
     - task: CmdLine@1
       displayName: execute sql script
       inputs:
-        filename: database.sql
-        arguments: "-S ${{parameters.serverFqdn}} -U ${{parameters.userName}} -P ${{parameters.password}} -d ${{parameters.databaseName}} -i '$(Build.SourcesDirectory)\\content\\sql-content'"
+        filename: Sqlcmd
+        arguments: '-S ${{parameters.serverFqdn}} -U ${{parameters.userName}} -P ${{parameters.password}} -d ${{parameters.databaseName}} -i "$(Build.SourcesDirectory)\\content\\sql-content\\database.sql"'
 
     #close the sql firewall
     - task: AzurePowerShell@5
