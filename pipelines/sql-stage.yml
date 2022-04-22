@@ -19,6 +19,7 @@ parameters:
   type: string
 
 stages:
+#import the bacpac file database
 - stage: deploy_sql_content
   jobs :
   - job: import_sql_database_to_sqlServer
