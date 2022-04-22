@@ -32,9 +32,9 @@ stages:
     - task: AzurePowerShell@5
       displayName: open sql server firewall
       inputs:
-        azureSubscription: '$(azureSubscription)'
+        azureSubscription: '${{parameters.azureSubscription}}
         ScriptPath: 'content\sql-content\set-azure-firewall-rule.ps1'
-        ScriptArguments: "-ServerName ${{ parameters.SERVERNAME }} -ResourceGroup 'proj-dev-sql-rg"
+        ScriptArguments: "-ServerName ${{ parameters.serverName }} -ResourceGroup ${{ parameters.resourceGroupName }}"
         azurePowerShellVersion: LatestVersion
 
 
@@ -42,14 +42,14 @@ stages:
       displayName: Run Sqlcmd
       inputs:
         filename: 'Sqlcmd'
-        arguments: "-S '$(serverFqdn)' -U '$(userName)' -P '$(password)' -d '$(databaseName)' -i 'content\\sql-content\\database.sql'"
+        arguments: "-S ${{parameters.serverFqdn}} -U ${{parameters.userName}} -P ${{parameters.password}} -d ${{parameters.databaseName}} -i 'content\\sql-content\\database.sql'"
 
     - task: AzurePowerShell@5
       displayName: close sql server firewall
       inputs:
-        azureSubscription: '$(azureSubscription)'
+        azureSubscription: '${{parameters.azureSubscription}}
         ScriptPath: 'content\sql-content\remove-azure-firewall.ps1'
-        ScriptArguments: "'$(serverName)' -ResourceGroup '$(resourceGroupName)'"
+        ScriptArguments: "${{parameters.serverName}} -ResourceGroup ${{parameters.resourceGroupName}}"
         azurePowerShellVersion: LatestVersion
 
 
@@ -57,9 +57,9 @@ stages:
     
   #  - task: SqlAzureDacpacDeployment@1
   #    inputs:
-  #      azureSubscription: $(azureSubscription)
-  #      ServerName: $(serverName)
-  #      DatabaseName: $(databaseName)
-  #      SqlUsername: $(userName)
-  #      SqlPassword: $(password)
+  #      azureSubscription: ${{parameters.azureSubscription)
+  #      ServerName: ${{parameters.serverName)
+  #      DatabaseName: ${{parameters.databaseName)
+  #      SqlUsername: ${{parameters.userName)
+  #      SqlPassword: ${{parameters.password)
   #      DacpacFile: 'content\sql-content\proj-dev-sqldb-2022-4-21-17-56.bacpac'
