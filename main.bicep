@@ -1,14 +1,11 @@
 targetScope = 'subscription'
+//parameters 
 param numberOfWorkers string = '1'
-param deployThisResource bool = true
-
-@description('SQL administrator user.')
 @minLength(5)
 param SQL_User string = 'omar1'
-
-@description('SQL administrator user password.')
 @minLength(5)
 param SQL_Pass string = 'Kassar@14689'
+param locationSqlDatabase string = 'East US'
 
 @description('The version of Kubernetes.')
 param kubernetesVersion string = '1.23.3'
@@ -21,9 +18,6 @@ param subscriptionId string = 'b5621309-22cd-4fc5-930c-dabc2c4c9ae7'
 
 @description('Project prefix.')
 param locationAzureFunction string = 'East US'
-
-@description('Project prefix.')
-param locationSqlDatabase string = 'East US'
 
 @description('Project prefix.')
 param locationWebApp string = 'East US'
