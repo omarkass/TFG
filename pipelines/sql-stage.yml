@@ -29,14 +29,13 @@ stages:
   jobs :
   - job: import_sql_database_to_sqlServer
     steps:
+
     - task: AzurePowerShell@2
       displayName: open sql server firewall
       inputs:
         azureSubscription: '$(azureSubscription)'
         ScriptPath: 'content\sql-content\set-azure-firewall-rule.ps1'
-        ScriptArguments: -ServerName $(serverName) -ResourceGroupName $(resourceGroupName)
-        azurePowerShellVersion: LatestVersion
-
+        ScriptArguments: "-ServerName $(serverName) -ResourceGroupName $(resourceGroupName)"
 
 
     - task: CmdLine@1
