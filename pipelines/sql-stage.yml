@@ -35,7 +35,8 @@ stages:
       inputs:
         azureSubscription: '$(azureSubscription)'
         ScriptPath: 'content\sql-content\set-azure-firewall-rule.ps1'
-        ScriptArguments: "-ServerName $(serverName) -ResourceGroupName $(resourceGroupName)"
+        ScriptArguments: "-ServerName '$(serverName)' -ResourceGroupName '$(resourceGroupName)'"
+        azurePowerShellVersion: LatestVersion
 
 
     - task: CmdLine@1
