@@ -29,9 +29,6 @@ stages:
   jobs :
   - job: import_sql_database_to_sqlServer
     steps:
-    - powershell: |
-          Write-Host "You can use macro syntax for variables: $(SERVERNAME)"
-
     - task: AzurePowerShell@5
       displayName: open sql server firewall
       inputs:
