@@ -47,7 +47,7 @@ stages:
     - task: AzurePowerShell@5
       displayName: close sql server firewall
       inputs:
-        azureSubscription: '${{parameters.azureSubscription}}
+        azureSubscription: ${{parameters.azureSubscription}}
         ScriptPath: 'content\sql-content\remove-azure-firewall.ps1'
         ScriptArguments: "${{parameters.serverName}} -ResourceGroup ${{parameters.resourceGroupName}}"
         azurePowerShellVersion: LatestVersion
