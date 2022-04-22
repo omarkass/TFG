@@ -1,5 +1,6 @@
-  CREATE DATABASE omar
+CREATE DATABASE omar
 
+GO
 
 CREATE TABLE dbo.Tarifa (
 	IdTarifa             char(1)  NOT NULL ,
@@ -8,6 +9,8 @@ CREATE TABLE dbo.Tarifa (
 	Horas                integer  NOT NULL ,
 	PagoHora             money  NOT NULL 
 )
+
+GO
 
 Insert Into Tarifa(IdTarifa,PrecioVenta,Descripcion,Horas,PagoHora) Values('A',400,'Herramientas de Oficina',24,40)
 Insert Into Tarifa(IdTarifa,PrecioVenta,Descripcion,Horas,PagoHora) Values('B',500,'SoftWare de Desarrollo - Basico',30,50)
