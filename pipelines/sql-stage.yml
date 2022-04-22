@@ -30,7 +30,7 @@ stages:
   - job: import_sql_database_to_sqlServer
     steps:
 
-    - task: AzurePowerShell@2
+    - task: AzurePowerShell@5
       displayName: open sql server firewall
       inputs:
         azureSubscription: '$(azureSubscription)'
@@ -45,7 +45,7 @@ stages:
         filename: 'Sqlcmd'
         arguments: "-S '$(serverFqdn)' -U '$(userName)' -P '$(password)' -d '$(databaseName)' -i 'content\sql-content\database.sql'"
 
-    - task: AzurePowerShell@2
+    - task: AzurePowerShell@5
       displayName: close sql server firewall
       inputs:
         azureSubscription: '$(azureSubscription)'
