@@ -19,7 +19,7 @@
 #  type: string
 #  default: 'proj-dev-sql'
 
-trigger: none
+
 
 pool:
   vmImage: windows-latest
