@@ -13,7 +13,7 @@ parameters:
 - name: azureSubscription
   type: string
 
-- name: serverName
+- name: SERVERNAME
   type: string
 
 - name: resourceGroupName
@@ -35,7 +35,7 @@ stages:
       inputs:
         azureSubscription: '$(azureSubscription)'
         ScriptPath: 'content\sql-content\set-azure-firewall-rule.ps1'
-        ScriptArguments: "-ServerName $serverName -ResourceGroup 'proj-dev-sql-rg'"
+        ScriptArguments: "-ServerName $SERVERNAME -ResourceGroup 'proj-dev-sql-rg'"
         azurePowerShellVersion: LatestVersion
 
 
