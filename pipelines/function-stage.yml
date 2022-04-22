@@ -10,9 +10,10 @@ parameters:
 
 - name: dependsOn  
   type: string
+
 stages:
 - stage: deploy_function_content
-  dependson: ${{parameters.dependsOn}}
+  dependsOn: ${{parameters.dependsOn}}
  - job: azure_function_content
     variables:
       vmImageName: 'ubuntu-latest'
