@@ -44,10 +44,10 @@ stages:
           rootFolderOrFile: '$(workingDirectory)'
           includeRootFolder: false
           archiveType: zip
-          archiveFile: $(Build.ArtifactStagingDirectory)/${{functionAppName}}-$(Build.BuildId).zip
+          archiveFile: $(Build.ArtifactStagingDirectory)/${{parameters.functionAppName}}-$(Build.BuildId).zip
           replaceExistingArchive: true
 
-      - publish: $(Build.ArtifactStagingDirectory)/${{functionAppName}}-$(Build.BuildId).zip
+      - publish: $(Build.ArtifactStagingDirectory)/${{parameters.functionAppName}}-$(Build.BuildId).zip
         artifact: drop-function
 
 
