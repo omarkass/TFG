@@ -1,0 +1,49 @@
+parameters:
+- name: azureSubscription
+  type: string
+
+- name: webAppName
+  type: string
+  
+- name: pythonVersion
+  type: string
+
+stages:
+- stage: deploy_webapp_content
+  jobs :
+  - job: service_app_content
+    variables:
+      projectRoot: '$(System.DefaultWorkingDirectory)'
+    steps:
+      - task: UsePythonVersion@0
+        displayName: 'Use Python ${{parameters.pythonVersion}}'
+        inputs:
+          versionSpec: '${{parameters.pythonVersion}}'
+      - script: |
+          python -m venv antenv
+          source antenv/bin/activate
+          python -m pip install --upgrade pip
+          pip install setup
+          pip install -r requirements.txt
+        workingDirectory: $(projectRoot)/content/webapp-content
+        displayName: "Install requirements"
+
+      - task: ArchiveFiles@2
+        displayName: 'Archive files'
+        inputs:
+          rootFolderOrFile: '$(projectRoot)/content/webapp-content'
+          includeRootFolder: false
+          archiveType: zip
+          archiveFile: $(Build.ArtifactStagingDirectory)/${{parameters.webAppName}}-$(Build.BuildId).zip
+          replaceExistingArchive: true
+
+      - upload: $(Build.ArtifactStagingDirectory)/${{parameters.webAppName}}-$(Build.BuildId).zip
+        displayName: 'Upload package'
+        artifact: drop-webapp
+      
+      - task: AzureWebApp@1
+        displayName: 'Deploy Azure Web App : webapppython43'
+        inputs:
+          azureSubscription: ${{parameters.azureSubscription}}
+          appName: ${{parameters.webAppName}}
+          package: $(Build.ArtifactStagingDirectory)/${{parameters.webAppName}}-$(Build.BuildId).zip

@@ -1,0 +1,17 @@
+parameters:
+- name: azureSubscription
+  type: string
+
+stages:
+- stage: deploy_infrastructure
+  jobs :
+  - job: "arm_execution"
+    variables:
+        LOCATION: 'northeurope'
+    steps:
+     - task: AzureCLI@2
+       inputs:
+         azureSubscription:  ${{parameters.azureSubscription}}
+         scriptType: 'bash'
+         scriptLocation: 'inlineScript'
+         inlineScript: 'az deployment sub create  --template-file ''./main.bicep'' --location $LOCATION'
