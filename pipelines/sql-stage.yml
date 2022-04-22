@@ -35,7 +35,7 @@ stages:
       inputs:
         azureSubscription: '$(azureSubscription)'
         ScriptPath: 'content\sql-content\set-azure-firewall-rule.ps1'
-        ScriptArguments: "-ServerName '$(serverName)' -ResourceGroup '$(resourceGroupName)'"
+        ScriptArguments: '-ServerName "$(serverName)" -ResourceGroup "$(resourceGroupName)"'
         azurePowerShellVersion: LatestVersion
 
 
@@ -50,7 +50,7 @@ stages:
       inputs:
         azureSubscription: '$(azureSubscription)'
         ScriptPath: 'content\sql-content\remove-azure-firewall.ps1'
-        ScriptArguments: "'${{serverName}}' -ResourceGroup '${{resourceGroupName}}'"
+        ScriptArguments: "'$(serverName)' -ResourceGroup '$(resourceGroupName)'"
         azurePowerShellVersion: LatestVersion
 
 
