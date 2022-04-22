@@ -1,0 +1,8 @@
+variables:
+azureServiceConnection: pohlcon-dev
+databaseName: 'proj-dev-sqldb'
+sqlUserName: 'omar1'
+sqlPassword: 'Kassar@14689'
+azureSubscription :  'Azure subscription 1(2c02e9f9-7fad-4208-82e1-4e97500b5e0e)'
+sqlServerName : 'proj-dev-sql'
+DacpacFile : 'content\sql-content\proj-dev-sqldb-2022-4-21-17-56.bacpac'

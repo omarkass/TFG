@@ -25,10 +25,12 @@ pool:
   vmImage: ubuntu-latest
 stages:
 - template: 'pipelines\sql-stage.yml'
+  variables:
+      - template:   /pipelines/vars/Sche/vars.yml
   parameters:
-    azureSubscription: $(azureSubscription)
+    azureSubscription: '${{azureSubscription}}'
     ServerName: $(sqlServerName)
     DatabaseName: $(databaseName)
     SqlUsername: $(sqlUserName)
     SqlPassword: $(sqlPassword)
-    DacpacFile: 'content\sql-content\proj-dev-sqldb-2022-4-21-17-56.bacpac'
+    DacpacFile: $(DacpacFile)
