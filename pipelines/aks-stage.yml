@@ -20,17 +20,18 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
-    - task: Docker@2
-      inputs:
-        containerRegistry: '${{parameters.acrName}}'
-        repository: 'python'
-        command: 'build'
-        Dockerfile: 'content/aks-content/Dockerfile'
-    - task: Docker@2
-      inputs:
-        containerRegistry: '${{parameters.acrName}}'
-        repository: "python"
-        command: 'push'
-        Dockerfile: 'Dockerfile'
-        buildContext: 
- 
+      - task: DockerInstaller@0
+        inputs:
+          dockerVersion: '17.09.0-ce'
+      - task: AzureCLI@2
+        inputs:
+          azureSubscription: ${{ parameters.azureSubscription }} 
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            ls
+            az aks get-credentials --name $(akscluster) --resource-group $(rgAksName) 
+            az acr login --name $(acrUrl)
+            docker tag "$(appName)_${{parameters.serviceName}}:latest" '$(acrUrl)'"/$(appName)""_""${{parameters.serviceName}}:${{parameters.newVersion}}"
+            docker image ls
+            docker push '$(acrUrl)'"/$(appName)""_""${{parameters.serviceName}}:${{parameters.newVersion}}"
