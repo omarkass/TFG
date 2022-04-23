@@ -1,22 +1,19 @@
 
+parameters:
+- name: azureSubscription
+  type: string
+  default: 'Azure subscription 1(2c02e9f9-7fad-4208-82e1-4e97500b5e0e)'
+
+- name: acrName
+  type: string 
+  default: 'projcr22er'
 trigger: none
 
-resources:
-- repo: self
-
-variables:
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'e8af7df2-8775-4f07-9b51-91922a3c6855'
-  imageRepository: 'polconautomateaksimages'
-  containerRegistry: 'mycontainerregistryprueba.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
-
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
 
 stages:
+
 - stage: Build
+  vmImageName: 'ubuntu-latest'
   displayName: Build and push stage
   jobs:
   - job: Build
@@ -26,14 +23,14 @@ stages:
     steps:
     - task: Docker@2
       inputs:
-        containerRegistry: 'pohlcon-acr-connection'
-        repository: '$(appName)-$(serviceName)'
+        containerRegistry: '${{parameters.acrName}}'
+        repository: 'python'
         command: 'build'
         Dockerfile: '**/Dockerfile'
     - task: Docker@2
       inputs:
-        containerRegistry: 'pohlcon-acr-connection'
-        repository: "$(appName)-$(serviceName)"
+        containerRegistry: '${{parameters.acrName}}'
+        repository: "python"
         command: 'push'
         Dockerfile: 'Dockerfile'
         buildContext: 
