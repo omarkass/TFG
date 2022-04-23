@@ -1,0 +1,41 @@
+
+trigger:
+- main
+
+resources:
+- repo: self
+
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'e8af7df2-8775-4f07-9b51-91922a3c6855'
+  imageRepository: 'polconautomateaksimages'
+  containerRegistry: 'mycontainerregistryprueba.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: '$(Build.BuildId)'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'pohlcon-acr-connection'
+        repository: '$(appName)-$(serviceName)'
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'pohlcon-acr-connection'
+        repository: "$(appName)-$(serviceName)"
+        command: 'push'
+        Dockerfile: 'Dockerfile'
+        buildContext: 
+ 
