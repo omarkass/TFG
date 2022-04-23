@@ -12,7 +12,7 @@ parameters:
 stages:
 
 - stage: Build
-  vmImageName: 'ubuntu-latest'
+  #vmImageName: 'ubuntu-latest'
   displayName: Build and push stage
   jobs:
   - job: Build
