@@ -42,8 +42,8 @@ stages:
           scriptLocation: 'inlineScript'
           inlineScript: |
             docker build ./content/aks-content -t python
-            az aks get-credentials --name ${{parameters.aksclusterName}} --resource-group $(resourceGroupName) 
-            az acr login --name $(acrUrl)
-            docker tag "python:latest" '$(acrUrl)'"/python:latest"
+            az aks get-credentials --name ${{parameters.aksclusterName}} --resource-group ${{parameters.resourceGroupName}}
+            az acr login --name ${{parameters.acrUrl}}
+            docker tag "python:latest" '${{parameters.acrUrl}}'"/python:latest"
             docker image ls
-            docker push '$(acrUrl)'"/python:latest"
+            docker push '${{parameters.acrUrl}}'"/python:latest"
