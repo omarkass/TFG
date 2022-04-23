@@ -1,3 +1,4 @@
+trigger: none
 
 parameters:
 - name: azureSubscription
@@ -7,8 +8,6 @@ parameters:
 - name: acrName
   type: string 
   default: 'projcr22er'
-trigger: none
-
 
 stages:
 
@@ -26,7 +25,7 @@ stages:
         containerRegistry: '${{parameters.acrName}}'
         repository: 'python'
         command: 'build'
-        Dockerfile: '**/Dockerfile'
+        Dockerfile: 'content/aks-content/Dockerfile'
     - task: Docker@2
       inputs:
         containerRegistry: '${{parameters.acrName}}'
