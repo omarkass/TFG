@@ -1,32 +1,14 @@
-'''
-from flask import Flask
+from flask import Flask, render_template
+import os
+
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route('/')
 def home():
-    exec(open("./primernumb.py").read())
-    return "Hello, this is a sample Python Web App running on Flask Framework new version"
-'''
+    return render_template('./index.html')
 
-from flask import Flask , request
-from functions import primeNum ,sumNum
-app = Flask(__name__)
 
-#http://127.0.0.1:5000/prime?num=30
-@app.route('/prime')
-def prime():
-    num = request.args['num']
-   # return 'The value is: ' + num
-    msg = primeNum(int(num))
-    return  num + ' ' +msg
-
-       
-#http://127.0.0.1:5000/sum?num1=30&num2=4
-@app.route('/sum')
-def sum():
-    num1 = request.args['num1']
-    num2 = request.args['num2']
-   # return 'The value is: ' + num
-    num = sumNum(int(num1), int(num2))
-    return  'The result is ' + str(num) 
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)

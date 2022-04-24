@@ -1,9 +1,16 @@
+# start by pulling the python image
 FROM python:3.9
 
-WORKDIR /usr/src/app
+# copy the files into the image
+COPY ./app /app
+# switch working directory
+WORKDIR /app
 
-COPY ./app/* ./
-RUN pip install --no-cache-dir -r requirements.txt
+# install the dependencies and packages in the requirements file
+RUN pip install -r requirements.txt
 
 
-CMD [ "python", "./app.py" ]
+# configure the container to run in an executed manner
+ENTRYPOINT [ "python" ]
+
+CMD ["app.py" ]
