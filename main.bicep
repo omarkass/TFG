@@ -25,7 +25,7 @@ param proj string = 'proj'
 param env string = 'dev'
 
 var aksName = '${proj}-${env}-aks'
-var acrName = '${proj}-${env}-aks-acr'
+var acrName = '${proj}${env}aksacr'
 var aksRgName = '${proj}-${env}-aks-rg'
 var azureWebAppRgName = '${proj}-${env}-app-rg'
 var azureServicePlanWebApp = '${proj}-${env}-app-plan'
