@@ -184,4 +184,7 @@ module aks 'bicep-templates/aks.bicep' = {
       location: locationAks
       aksName: aksName
     }
+    dependsOn:[
+      aks
+    ]
   }
