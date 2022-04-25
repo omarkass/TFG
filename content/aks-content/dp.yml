@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proj-deployment
+  labels:
+    app: proj
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: proj
+  template:
+    metadata:
+      labels:
+        app: proj
+    spec:
+      containers:
+      - name: proj
+        image: projdevacr.azurecr.io/proj:latest
+        ports:
+        - containerPort: 30000
+

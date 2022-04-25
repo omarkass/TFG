@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-service
+spec:
+  selector:
+    app: proj
+  ports:
+    - port: 30000
+  type: LoadBalancer
