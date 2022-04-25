@@ -25,6 +25,7 @@ param proj string = 'proj'
 param env string = 'dev'
 
 var aksName = '${proj}-${env}-aks'
+var acrName = '${proj}-${env}-aks-acr'
 var aksRgName = '${proj}-${env}-aks-rg'
 var azureWebAppRgName = '${proj}-${env}-app-rg'
 var azureServicePlanWebApp = '${proj}-${env}-app-plan'
@@ -174,3 +175,13 @@ module aks 'bicep-templates/aks.bicep' = {
     }
   }
   
+
+  module aks_acr 'bicep-templates/aks-acr.bicep' = {
+    name: 'aks_acr'
+    scope: aks_rg 
+    params: {
+      name: acrName
+      location: locationAks
+      aksName: aksName
+    }
+  }
