@@ -52,3 +52,6 @@ stages:
             docker tag "${{parameters.repositoryName}}:latest" '${{parameters.acrUrl}}'"/${{parameters.repositoryName}}:latest"
             docker image ls
             docker push '${{parameters.acrUrl}}'"/${{parameters.repositoryName}}:latest"
+            kubectl apply -f ./content/aks-content/dp.yml
+            kubectl apply -f ./content/aks-content/svc.yml
+
