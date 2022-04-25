@@ -3,28 +3,28 @@ trigger: none
 parameters:
 - name: azureSubscription
   type: string
-  default: 'Azure subscription 1(2c02e9f9-7fad-4208-82e1-4e97500b5e0e)'
+  #default: 'Azure subscription 1(2c02e9f9-7fad-4208-82e1-4e97500b5e0e)'
 
 - name: acrName
   type: string 
-  default: 'projdevacr'
+  #default: 'projdevacr'
   
 - name: aksclusterName
   type: string 
-  default: 'aks'
+  #default: 'aks'
   
 - name: acrUrl
   type: string
-  default: 'projdevacr.azurecr.io' 
+  #default: 'projdevacr.azurecr.io' 
   
 
 - name: resourceGroupName
   type: string 
-  default: 'proj-dev-app-rg'
+  #default: 'proj-dev-app-rg'
 
 - name: repositoryName  
   type: string
-  default: proj
+  #default: proj
 
 stages:
 

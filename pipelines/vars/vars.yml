@@ -27,6 +27,20 @@ variables:
 - name: sqlResourceGroupName
   value: 'proj-dev-sql-rg'
 
+- name: repositoryName  
+  value: proj
+
+- name: aksResourceGroupName
+  value: 'proj-dev-aks-rg'
+
 - name: sqlServerFqdn
   value: 'proj-dev-sql.database.windows.net'  
    
+- name: acrName
+  value: 'projdevaksacr' 
+
+- name: aksclusterName  
+  value: 'proj-dev-aks'
+
+- name: acrUrl
+  value: 'projdevaksacr.azurecr.io'

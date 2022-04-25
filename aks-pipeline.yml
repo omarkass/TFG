@@ -1,0 +1,18 @@
+
+trigger: none
+pool:
+  vmImage: windows-latest
+#load vars from the vars.yml file
+variables:
+- template:   pipelines\vars\vars.yml  
+stages:
+#calling the sql-stage to import the database to azure
+- template: 'pipelines\aks-stage.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    aksclusterName: $(aksclusterName)
+    acrUrl: $(acrUrl)
+    resourceGroupName: $(aksResourceGroupName)
+    Password: $(sqlPassword)
+    serverFqdn: $(sqlServerFqdn)
+    resourceGroupName: $(sqlResourceGroupName)
