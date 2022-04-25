@@ -22,6 +22,10 @@ parameters:
   type: string 
   default: 'proj-dev-app-rg'
 
+- name: repositoryName  
+  type: string
+  default: proj
+
 stages:
 
 - stage: Build
@@ -42,9 +46,9 @@ stages:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            docker build ./content/aks-content -t python
+            docker build ./content/aks-content -t ${{parameters.repositoryName}}
             az aks get-credentials --name ${{parameters.aksclusterName}} --resource-group ${{parameters.resourceGroupName}}
             az acr login --name ${{parameters.acrUrl}}
-            docker tag "python:latest" '${{parameters.acrUrl}}'"/python:latest"
+            docker tag "${{parameters.repositoryName}}:latest" '${{parameters.acrUrl}}'"/${{parameters.repositoryName}}:latest"
             docker image ls
-            docker push '${{parameters.acrUrl}}'"/python:latest"
+            docker push '${{parameters.acrUrl}}'"/${{parameters.repositoryName}}:latest"
