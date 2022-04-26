@@ -34,7 +34,7 @@ stages:
     aksclusterName: $(aksclusterName)
     acrUrl: $(acrUrl)
     resourceGroupName: $(aksResourceGroupName)
-    repositoryName: $(repositoracrRepositoryNameyName)
+    repositoryName: $(acrRepositoryName)
     dependsOn: deploy_infrastructure
   
 - template: 'pipelines\sql-stage.yml'
