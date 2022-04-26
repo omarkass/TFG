@@ -8,7 +8,7 @@
 			"isBackground": true,
 			"dependsOn": "pip install (functions)",
 			"options": {
-				"cwd": "${workspaceFolder}/python-provas\\function\\func1"
+				"cwd": "${workspaceFolder}/python-provas"
 			}
 		},
 		{
@@ -25,7 +25,7 @@
 			},
 			"problemMatcher": [],
 			"options": {
-				"cwd": "${workspaceFolder}/python-provas\\function\\func1"
+				"cwd": "${workspaceFolder}/python-provas"
 			}
 		}
 	]
