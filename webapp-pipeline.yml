@@ -6,12 +6,9 @@ variables:
 - template:   pipelines\vars\vars.yml  
 stages:
 #calling the sql-stage to import the database to azure
-- template: 'pipelines\sql-stage.yml'
+- template: 'pipelines\webapp-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
-    serverName: $(sqlServerName)
-    DatabaseName: $(databaseName)
-    Username: $(sqlUserName)
-    Password: $(sqlPassword)
-    serverFqdn: $(sqlServerFqdn)
-    resourceGroupName: $(sqlResourceGroupName)
+    webAppName: $(webAppName)
+    pythonVersion: $(pythonVersion)
+    dependsOn: deploy_infrastructure

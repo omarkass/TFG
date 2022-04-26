@@ -1,0 +1,13 @@
+trigger: none
+pool:
+  vmImage: windows-latest
+#load vars from the vars.yml file
+variables:
+- template:   pipelines\vars\vars.yml  
+stages:
+- template: 'pipelines\function-stage.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    functionAppName: $(functionAppName)
+    pythonVersion: $(pythonVersion)
+    dependsOn: deploy_infrastructure
