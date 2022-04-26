@@ -1,4 +1,8 @@
-trigger: none
+trigger:
+  paths:
+    include:
+    - function-pipeline.yml
+    - content/function-content/*
 pool:
   vmImage: windows-latest
 #load vars from the vars.yml file

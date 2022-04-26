@@ -1,4 +1,8 @@
-trigger: none
+trigger:
+  paths:
+    include:
+    - sql-pipeline.yml
+    - content/sql-content/*
 pool:
   vmImage: windows-latest
 #load vars from the vars.yml file

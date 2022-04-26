@@ -1,4 +1,8 @@
-
+trigger:
+  paths:
+    include:
+    - aks-pipeline.yml
+    - content/aks-content/*
 trigger: none
 pool:
   vmImage: windows-latest

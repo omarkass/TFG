@@ -1,4 +1,8 @@
-trigger: none
+trigger:
+  paths:
+    include:
+    - webapp-pipeline.yml
+    - content/webapp-content/*
 pool:
   vmImage: windows-latest
 #load vars from the vars.yml file
