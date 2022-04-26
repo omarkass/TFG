@@ -20,10 +20,15 @@ parameters:
   type: string
   #default: proj
 
+- name: dependsOn
+  type: string
+  default: ''  
+
 stages:
 
 - stage: deploy_k8s_content
   displayName: create and push kubernetes content
+  dependsOn: ${{parameters.dependsOn}}
   jobs:
   - job: deploy_k8s_content
     pool:

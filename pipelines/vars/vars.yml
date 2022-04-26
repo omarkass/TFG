@@ -47,3 +47,6 @@ variables:
 
 - name: acrRepositoryName
   value: proj
+
+- name: baseStage
+  value: deploy_infrastructure  

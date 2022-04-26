@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: proj
-        image: projdevacr.azurecr.io/proj:latest
+        image: projdevaksacr.azurecr.io/proj:latest
         ports:
         - containerPort: 30000
 

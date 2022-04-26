@@ -19,14 +19,14 @@ stages:
     azureSubscription: $(azureSubscription)
     webAppName: $(webAppName)
     pythonVersion: $(pythonVersion)
-    dependsOn: deploy_infrastructure
+    dependsOn: ${baseStage}
     
 - template: 'pipelines\function-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     functionAppName: $(functionAppName)
     pythonVersion: $(pythonVersion)
-    dependsOn: deploy_infrastructure
+    dependsOn: ${baseStage}
 
 - template: 'pipelines\aks-stage.yml'
   parameters:
@@ -35,4 +35,16 @@ stages:
     acrUrl: $(acrUrl)
     resourceGroupName: $(aksResourceGroupName)
     repositoryName: $(repositoracrRepositoryNameyName)
+    dependsOn: ${baseStage}
+  
+- template: 'pipelines\sql-stage.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    serverName: $(sqlServerName)
+    DatabaseName: $(databaseName)
+    Username: $(sqlUserName)
+    Password: $(sqlPassword)
+    serverFqdn: $(sqlServerFqdn)
+    resourceGroupName: $(sqlResourceGroupName)
+    dependsOn: ${baseStage}
   

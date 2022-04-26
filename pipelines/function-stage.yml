@@ -8,8 +8,9 @@ parameters:
 - name: pythonVersion
   type: string
 
-- name: dependsOn  
+- name: dependsOn
   type: string
+  default: ''  
 
 stages:
 - stage: deploy_function_content

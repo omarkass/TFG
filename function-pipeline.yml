@@ -10,4 +10,4 @@ stages:
     azureSubscription: $(azureSubscription)
     functionAppName: $(functionAppName)
     pythonVersion: $(pythonVersion)
-    dependsOn: deploy_infrastructure
+    #dependsOn: deploy_infrastructure

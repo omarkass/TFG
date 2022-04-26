@@ -8,9 +8,10 @@ parameters:
 - name: pythonVersion
   type: string
 
-- name: dependsOn  
+- name: dependsOn
   type: string
-
+  default: ''  
+  
 stages:
 - stage: deploy_webapp_content
   displayName: push webapp code to azure webapp

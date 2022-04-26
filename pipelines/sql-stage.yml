@@ -22,10 +22,14 @@ parameters:
 - name: serverFqdn
   type: string
 
+- name: dependsOn
+  type: string
+  default: ''  
 
 stages:
 - stage: deploy_sql_content
   displayName: create and push sql database
+  dependsOn: ${{parameters.dependsOn}}
   jobs :
   - job: deploy_sql_content
     steps:
