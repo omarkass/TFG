@@ -44,3 +44,6 @@ variables:
 
 - name: acrUrl
   value: 'projdevaksacr.azurecr.io'
+
+- name: acrRepositoryName
+  value: proj

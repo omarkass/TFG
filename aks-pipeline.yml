@@ -13,6 +13,4 @@ stages:
     aksclusterName: $(aksclusterName)
     acrUrl: $(acrUrl)
     resourceGroupName: $(aksResourceGroupName)
-    Password: $(sqlPassword)
-    serverFqdn: $(sqlServerFqdn)
-    resourceGroupName: $(sqlResourceGroupName)
+    repositoryName: $(repositoracrRepositoryNameyName)

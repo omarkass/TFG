@@ -13,9 +13,10 @@ parameters:
 
 stages:
 - stage: deploy_function_content
+  displayName: push python code to azure function
   dependsOn: ${{parameters.dependsOn}}
   jobs: 
-  - job: azure_function_content
+  - job: deploy_function_content
     variables:
       vmImageName: 'ubuntu-latest'
       workingDirectory: './content/function-content'

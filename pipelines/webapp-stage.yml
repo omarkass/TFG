@@ -13,9 +13,10 @@ parameters:
 
 stages:
 - stage: deploy_webapp_content
+  displayName: push webapp code to azure webapp
   dependsOn : ${{parameters.dependsOn}}
   jobs :
-  - job: service_app_content
+  - job: deploy_webapp_content
     variables:
       projectRoot: '$(System.DefaultWorkingDirectory)'
     steps:

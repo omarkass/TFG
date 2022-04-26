@@ -4,8 +4,9 @@ parameters:
 
 stages:
 - stage: deploy_infrastructure
+  displayName: deploy Azure infrastructure
   jobs :
-  - job: "arm_execution"
+  - job: deploy_infrastructure
     variables:
         LOCATION: 'northeurope'
     steps:

@@ -25,6 +25,7 @@ parameters:
 
 stages:
 - stage: deploy_sql_content
+  displayName: create and push sql database
   jobs :
   - job: deploy_sql_content
     steps:
@@ -54,13 +55,3 @@ stages:
         azurePowerShellVersion: LatestVersion
 
 
-
-    
-  #  - task: SqlAzureDacpacDeployment@1
-  #    inputs:
-  #      azureSubscription: ${{parameters.azureSubscription)
-  #      ServerName: ${{parameters.serverName)
-  #      DatabaseName: ${{parameters.databaseName)
-  #      SqlUsername: ${{parameters.userName)
-  #      SqlPassword: ${{parameters.password)
-  #      DacpacFile: 'content\sql-content\proj-dev-sqldb-2022-4-21-17-56.bacpac'

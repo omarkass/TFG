@@ -28,12 +28,10 @@ parameters:
 
 stages:
 
-- stage: Build
-  #vmImageName: 'ubuntu-latest'
-  displayName: Build and push stage
+- stage: deploy_k8s_content
+  displayName: create and push kubernetes content
   jobs:
-  - job: Build
-    displayName: Build
+  - job: deploy_k8s_content
     pool:
       vmImage: 'ubuntu-latest'
     steps:
@@ -55,4 +53,5 @@ stages:
             kubectl delete --all deployment --namespace=default
             kubectl apply -f ./content/aks-content/dp.yml
             kubectl apply -f ./content/aks-content/svc.yml
+            kubectl get svc 
 
