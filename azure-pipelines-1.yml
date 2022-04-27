@@ -11,7 +11,6 @@ pool:
 
 steps:
 
-- 
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'Azure subscription 1(2c02e9f9-7fad-4208-82e1-4e97500b5e0e)'
