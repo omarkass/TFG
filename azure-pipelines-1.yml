@@ -22,5 +22,4 @@ steps:
       cd ./content/function-content
       ls
       pwd
-      func azure functionapp publish 'proj-dev-func' --build-native-deps --python
-    #--no-bundler --build remote  
+      func azure functionapp publish 'proj-dev-func' --build-native-deps --python --no-bundler --build remote  
