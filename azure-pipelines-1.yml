@@ -17,7 +17,7 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
-    npm install --global azure-functions-core-tools@2
+      npm install --global azure-functions-core-tools@2
       choco install azure-functions-core-tools
       cd ./content/function-content
       ls
