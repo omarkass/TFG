@@ -16,32 +16,32 @@ variables:
 pool:
   vmImage: ubuntu-latest
 stages:
-- template: 'pipelines\infraestructure-stage.yml'
-  parameters:
-    azureSubscription: $(azureSubscription)
+#- template: 'pipelines\infraestructure-stage.yml'
+#  parameters:
+#    azureSubscription: $(azureSubscription)
 
-- template: 'pipelines\webapp-stage.yml'
-  parameters:
-    azureSubscription: $(azureSubscription)
-    webAppName: $(webAppName)
-    pythonVersion: $(pythonVersion)
-    dependsOn: deploy_infrastructure
+#- template: 'pipelines\webapp-stage.yml'
+#  parameters:
+#    azureSubscription: $(azureSubscription)
+#    webAppName: $(webAppName)
+#    pythonVersion: $(pythonVersion)
+#    dependsOn: deploy_infrastructure
     
-- template: 'pipelines\function-stage.yml'
-  parameters:
-    azureSubscription: $(azureSubscription)
-    functionAppName: $(functionAppName)
-    pythonVersion: $(pythonVersion)
-    dependsOn: deploy_infrastructure
+#- template: 'pipelines\function-stage.yml'
+#  parameters:
+#    azureSubscription: $(azureSubscription)
+#    functionAppName: $(functionAppName)
+#    pythonVersion: $(pythonVersion)
+#    dependsOn: deploy_infrastructure
 
-- template: 'pipelines\aks-stage.yml'
-  parameters:
-    azureSubscription: $(azureSubscription)
-    aksclusterName: $(aksclusterName)
-    acrUrl: $(acrUrl)
-    resourceGroupName: $(aksResourceGroupName)
-    repositoryName: $(acrRepositoryName)
-    dependsOn: deploy_infrastructure
+#- template: 'pipelines\aks-stage.yml'
+#  parameters:
+#    azureSubscription: $(azureSubscription)
+#    aksclusterName: $(aksclusterName)
+#    acrUrl: $(acrUrl)
+#    resourceGroupName: $(aksResourceGroupName)
+#    repositoryName: $(acrRepositoryName)
+#    dependsOn: deploy_infrastructure
   
 - template: 'pipelines\sql-stage.yml'
   parameters:
