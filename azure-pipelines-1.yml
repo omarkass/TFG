@@ -17,5 +17,8 @@ steps:
     scriptType: 'ps'
     scriptLocation: 'inlineScript'
     inlineScript: |
+      choco install azure-functions-core-tools
       cd ./content/function-content
+      ls
+      pwd
       func azure functionapp publish 'proj-dev-func' --no-bundler
