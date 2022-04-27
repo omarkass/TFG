@@ -43,7 +43,14 @@ stages:
         azurePowerShellVersion: LatestVersion
 
 
-  
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Write your PowerShell commands here.
+          
+          ls
+          pwd
     #execute the sql script
     - task: CmdLine@1
       displayName: execute sql script
