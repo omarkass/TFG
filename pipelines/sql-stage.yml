@@ -42,6 +42,8 @@ stages:
         ScriptArguments: "-ServerName ${{ parameters.serverName }} -ResourceGroup ${{ parameters.resourceGroupName }}"
         azurePowerShellVersion: LatestVersion
 
+
+  
     #execute the sql script
     - task: CmdLine@1
       displayName: execute sql script
