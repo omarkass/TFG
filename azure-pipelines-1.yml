@@ -7,7 +7,7 @@ trigger:
 - bicep-version
 
 pool:
-  vmImage: linux-latest
+  vmImage: ubuntu-latest
 
 steps:
 
