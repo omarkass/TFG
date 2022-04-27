@@ -48,9 +48,9 @@ stages:
         targetType: 'inline'
         script: |
           # Write your PowerShell commands here.
-          
           ls
           pwd
+          ls $(Build.SourcesDirectory)/content/sql-content\database.sql
     #execute the sql script
     - task: CmdLine@1
       displayName: execute sql script
