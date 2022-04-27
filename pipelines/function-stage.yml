@@ -36,7 +36,7 @@ stages:
           versionSpec: '${{parameters.pythonVersion}}'
 
       - bash: |
-          pip install --target="./.python_packages/lib/site-packages" -r ./requirements.txt --no-bundler
+          pip install --target="./.python_packages/lib/site-packages" -r ./requirements.txt 
         workingDirectory: $(workingDirectory)
         displayName: 'Install application dependencies'
 
