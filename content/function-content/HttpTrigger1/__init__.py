@@ -1,6 +1,6 @@
 import logging
 import azure.functions as func
-import pyodbc 
+import pypyodbc 
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
@@ -11,7 +11,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     database = 'proj-dev-sqldb' 
     username = 'omar1' 
     password = 'Kassar@14689' 
-    cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
+    cnxn = pypyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
     cursor = cnxn.cursor()
     cursor.execute('SELECT * FROM Tarifa')
     row = cursor.fetchone()
