@@ -14,34 +14,35 @@ variables:
   #azureServiceConnectionId: 'ad39f181-531d-47fd-b9dc-1b0488bcaa1d'
   - template:  pipelines\vars\vars.yml  
 pool:
-  vmImage: ubuntu-latest
+  #vmImage: ubuntu-latest
+  vmImage: windows-latest
 stages:
-#- template: 'pipelines\infraestructure-stage.yml'
-#  parameters:
-#    azureSubscription: $(azureSubscription)
+- template: 'pipelines\infraestructure-stage.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
 
-#- template: 'pipelines\webapp-stage.yml'
-#  parameters:
-#    azureSubscription: $(azureSubscription)
-#    webAppName: $(webAppName)
-#    pythonVersion: $(pythonVersion)
-#    dependsOn: deploy_infrastructure
+- template: 'pipelines\webapp-stage.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    webAppName: $(webAppName)
+    pythonVersion: $(pythonVersion)
+    dependsOn: deploy_infrastructure
     
-#- template: 'pipelines\function-stage.yml'
-#  parameters:
-#    azureSubscription: $(azureSubscription)
-#    functionAppName: $(functionAppName)
-#    pythonVersion: $(pythonVersion)
-#    dependsOn: deploy_infrastructure
+- template: 'pipelines\function-stage.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    functionAppName: $(functionAppName)
+    pythonVersion: $(pythonVersion)
+    dependsOn: deploy_infrastructure
 
-#- template: 'pipelines\aks-stage.yml'
-#  parameters:
-#    azureSubscription: $(azureSubscription)
-#    aksclusterName: $(aksclusterName)
-#    acrUrl: $(acrUrl)
-#    resourceGroupName: $(aksResourceGroupName)
-#    repositoryName: $(acrRepositoryName)
-#    dependsOn: deploy_infrastructure
+- template: 'pipelines\aks-stage.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    aksclusterName: $(aksclusterName)
+    acrUrl: $(acrUrl)
+    resourceGroupName: $(aksResourceGroupName)
+    repositoryName: $(acrRepositoryName)
+    dependsOn: deploy_infrastructure
   
 - template: 'pipelines\sql-stage.yml'
   parameters:
@@ -52,5 +53,5 @@ stages:
     Password: $(sqlPassword)
     serverFqdn: $(sqlServerFqdn)
     resourceGroupName: $(sqlResourceGroupName)
-#    dependsOn: deploy_infrastructure
+    dependsOn: deploy_infrastructure
   
