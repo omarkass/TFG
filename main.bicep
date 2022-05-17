@@ -33,12 +33,15 @@ var azureWebAppName = '${proj}-${env}-app'
 var azureFunctionRgName = '${proj}-${env}-func-rg'
 var azureFunctionName = '${proj}-${env}-func'
 var azureServicePlanFunction = '${proj}-${env}-func-plan'
-var azureStorageAcountFunction = '${proj}${env}funcst55'
+var azureStorageAcountFunction = uniqueString(subscription().subscriptionId,proj,env,'func','st')//'${proj}${env}funcst55'
 var sqlServerName = '${proj}-${env}-sql'
 var sqlDatabaseName = '${sqlServerName}/${proj}-${env}-sqldb'
 var sqlRgName = '${proj}-${env}-sql-rg'
 var logAnalyticName = '${proj}-${env}-func-log'
 var applicationInsghtsName = '${proj}-${env}-func-appi'
+
+
+
 // Creating resource group
 resource func_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   name: azureFunctionRgName
