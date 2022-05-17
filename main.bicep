@@ -114,7 +114,6 @@ module func 'bicep-templates/func.bicep' = {
   }
   dependsOn:[
     func_plan
-    func_st
     func_appi
   ]
 }
