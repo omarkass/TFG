@@ -32,11 +32,11 @@ resource azureFunctionName 'Microsoft.Web/sites@2018-11-01' = {
         }
         {
           name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
-          value: reference('microsoft.insights/components/${planName}', '2015-05-01').InstrumentationKey
+          value: reference('microsoft.insights/components/${applicationInsightName}', '2015-05-01').InstrumentationKey
         }
         {
           name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
-          value: reference('microsoft.insights/components/${planName}', '2015-05-01').ConnectionString
+          value: reference('microsoft.insights/components/${applicationInsightName}', '2015-05-01').ConnectionString
         }
         {
           name: 'AzureWebJobsSecretStorageType'
