@@ -95,6 +95,7 @@ module func_appi 'bicep-templates/func-appi.bicep' = {
     name: applicationInsghtsName
     location: locationAzureFunction
     logAnaliticName: logAnalyticName
+    azureFunctionName: azureFunctionName
   }
   dependsOn:[
     func_log

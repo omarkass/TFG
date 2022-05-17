@@ -26,6 +26,26 @@ resource azureFunctionName 'Microsoft.Web/sites@2018-11-01' = {
           name: 'AzureWebJobsStorage'
           value: 'DefaultEndpointsProtocol=https;AccountName=${StorageAcountName};AccountKey=${listKeys(resourceId('Microsoft.Storage/storageAccounts', StorageAcountName), '2019-06-01').keys[0].value};EndpointSuffix=core.windows.net'
         }
+        {
+          name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
+          value: 'DefaultEndpointsProtocol=https;AccountName=${StorageAcountName};AccountKey=${listKeys(resourceId('Microsoft.Storage/storageAccounts', StorageAcountName), '2019-06-01').keys[0].value};EndpointSuffix=core.windows.net'
+        }
+        {
+          name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
+          value: reference('microsoft.insights/components/${planName}', '2015-05-01').InstrumentationKey
+        }
+        {
+          name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+          value: reference('microsoft.insights/components/${planName}', '2015-05-01').ConnectionString
+        }
+        {
+          name: 'AzureWebJobsSecretStorageType'
+          value: 'files'
+        }
+        {
+          name: 'WEBSITE_CONTENTSHARE'
+          value: toLower(planName)
+        }
       ]
       cors: {
         allowedOrigins: [

@@ -1,13 +1,14 @@
 param name string
 param location string 
 param logAnaliticName string
+param azureFunctionName string
 
-resource AzureapplicationInsghts 'microsoft.insights/components@2020-02-02' = {
+resource AzureapplicationInsghts 'microsoft.insights/components@2020-02-02-preview' = {
   name: name
   location:  location 
-
   kind: 'web'
   properties: {
+    ApplicationId: azureFunctionName
     Application_Type: 'web'
     Flow_Type: 'Redfield'
     Request_Source: 'IbizaWebAppExtensionCreate'

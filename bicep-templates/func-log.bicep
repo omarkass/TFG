@@ -1,6 +1,6 @@
 param name string 
 param location string 
-resource azurelogAnalytics 'microsoft.operationalinsights/workspaces@2021-12-01-preview' = {
+resource azurelogAnalytics 'Microsoft.OperationalInsights/workspaces@2020-08-01' = {
   name: name
   location: location
   properties: {
