@@ -102,7 +102,7 @@ module func_appi 'bicep-templates/func-appi.bicep' = {
   ]
 }
 
-module func 'bicep-templates/func.bicep' = {
+/*module func 'bicep-templates/func.bicep' = {
   name: 'func'
   scope: func_rg    // Deployed in the scope of resource group we created above
   params: {
@@ -117,7 +117,7 @@ module func 'bicep-templates/func.bicep' = {
     func_appi
   ]
 }
-
+*/
 module sqldb 'bicep-templates/sqldb.bicep' = {
   name: 'sqdbl'
   scope: sql_rg    // Deployed in the scope of resource group we created above
