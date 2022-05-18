@@ -3,13 +3,16 @@ import logging
 import azure.functions as func
 
 #import numpy as np
-import pandas as pd
+
+import random
+
+
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
     #s = pd.Series([1, 3, 5, np.nan, 6, 8])
-    s = pd.Series([1, 3, 5, 6, 8])
-    print(s)
+    for i in range(10):
+        print(random.randint(1, 25))
     name = req.params.get('name')
     if not name:
         try:
