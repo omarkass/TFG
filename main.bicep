@@ -140,6 +140,7 @@ module sqldb 'bicep-templates/sqldb.bicep' = {
     params: {
       name: AzureSqlRuleName
       serverName:sqlServerName
+      location:locationSqlDatabase
     }
     dependsOn:[
       sqldb
