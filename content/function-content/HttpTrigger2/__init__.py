@@ -1,6 +1,6 @@
 import logging
 import azure.functions as func
-import numpy as np
+from matplotlib import image
 import random
 
 
