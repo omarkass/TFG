@@ -24,6 +24,7 @@ param locationWebApp string = 'East US'
 param proj string = 'proj'
 param env string = 'dev'
 
+var AzureSqlRuleName = 'AllowAllWindowsAzureIps'
 var aksName = '${proj}-${env}-aks'
 var acrName = '${proj}${env}aksacr'
 var aksRgName = '${proj}-${env}-aks-rg'
@@ -132,6 +133,18 @@ module sqldb 'bicep-templates/sqldb.bicep' = {
   }
   }
 
+
+  module sql_rule 'bicep-templates/sql-rule.bicep' = {
+    name: 'sql_rule'
+    scope: sql_rg    // Deployed in the scope of resource group we created above
+    params: {
+      name: AzureSqlRuleName
+      serverName:sqlServerName
+    }
+    dependsOn:[
+      sqldb
+    ]
+    }
 
 module sql 'bicep-templates/sql.bicep' = {
 name: 'sql'
