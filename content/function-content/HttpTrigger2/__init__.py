@@ -1,11 +1,7 @@
 import logging
-
 import azure.functions as func
-
-#import numpy as np
-
+import numpy as np
 import random
-
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
