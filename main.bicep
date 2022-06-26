@@ -61,6 +61,7 @@ resource aks_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
   location: locationAks
 }
 
+
 // Deploying storage account using module
 module func_st './bicep-templates/func-st.bicep' = {
   name: 'func_st'
@@ -131,6 +132,9 @@ module sqldb 'bicep-templates/sqldb.bicep' = {
     SQL_Pass: SQL_Pass
     SQL_User: SQL_User
   }
+  dependsOn:[
+    sql
+  ]
   }
 
 
@@ -154,9 +158,6 @@ params: {
   name: sqlDatabaseName
   location:locationSqlDatabase
 }
-dependsOn:[
-  sqldb
-]
 }
 
 module aks 'bicep-templates/aks.bicep' = {
