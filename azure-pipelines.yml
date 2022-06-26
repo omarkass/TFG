@@ -11,7 +11,7 @@ trigger:
 
 variables:
   # Azure Resource Manager connection created during pipeline creation
-  #azureServiceConnectionId: 'ad39f181-531d-47fd-b9dc-1b0488bcaa1d'
+  #azureServiceConnectionId: 'Service_connection'
   - template:  pipelines\vars\vars.yml  
 pool:
   #vmImage: ubuntu-latest
