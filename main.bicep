@@ -8,7 +8,7 @@ param SQL_Pass string = 'Kassar@14689'
 param locationSqlDatabase string = 'East US'
 
 // kubernetes parameters
-param locationAks string = 'North Europe'
+param locationAks string = 'Korea Central'
 param numberOfWorkers string = '1'
 param kubernetesVersion string = '1.23.3'
 
