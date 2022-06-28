@@ -1,6 +1,7 @@
 param name string
 param location string 
 param version string
+param VmSize string
 
 resource azureakscluster 'Microsoft.ContainerService/managedClusters@2021-07-01' = {
   name: name
@@ -23,7 +24,7 @@ resource azureakscluster 'Microsoft.ContainerService/managedClusters@2021-07-01'
         osDiskSizeGB: 0
         count: 1
         enableAutoScaling: false
-        vmSize: 'Standard_D2as_v5'
+        vmSize: VmSize
         osType: 'Linux'
         storageProfile: 'ManagedDisks'
         type: 'VirtualMachineScaleSets'

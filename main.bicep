@@ -11,6 +11,7 @@ param locationSqlDatabase string = 'East US'
 param locationAks string = 'Korea Central'
 param numberOfWorkers string = '1'
 param kubernetesVersion string = '1.23.3'
+param aksVmSize string = 'standard_b2s'
 
 //function parameters 
 param skuFunction string = 'Dynamic'
@@ -167,6 +168,7 @@ module aks 'bicep-templates/aks.bicep' = {
     name: aksName
     location:locationAks
     version: kubernetesVersion
+    VmSize: aksVmSize
   }
   }
   
