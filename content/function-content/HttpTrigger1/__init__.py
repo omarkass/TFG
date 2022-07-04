@@ -15,6 +15,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     cursor = cnxn.cursor()
     cursor.execute('SELECT * FROM Tarifa')
     row = cursor.fetchone()
+    print("hola")
     while row is not None:
         print(row)
         print("hola")
