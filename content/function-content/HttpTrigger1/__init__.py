@@ -17,5 +17,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     row = cursor.fetchone()
     while row is not None:
         print(row)
+        print("hola")
         row = cursor.fetchone()
     return func.HttpResponse(f"this is the lis.")
