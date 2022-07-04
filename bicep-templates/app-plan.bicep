@@ -7,8 +7,8 @@ resource azureServicePlanWebApp 'Microsoft.Web/serverfarms@2018-11-01' = {
   location: location
   tags: {}
   sku: {
-    Tier: 'Free'
-    Name: 'F1'
+    tier: 'Free'
+    name: 'F1'
   }
   kind: 'linux'
   properties: {
