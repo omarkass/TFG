@@ -8,7 +8,7 @@ resource azureServicePlanFunction 'Microsoft.Web/serverfarms@2018-11-01' = {
   name: name
   location: location
   sku: {
-    Tier: skuFunction
+    tier: skuFunction
     name: skuCodeFunction
   }
   kind: 'linux'
