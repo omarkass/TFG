@@ -10,7 +10,7 @@ param locationSqlDatabase string = 'East US'
 // kubernetes parameters
 param locationAks string = 'Korea Central'
 param numberOfWorkers string = '1'
-param kubernetesVersion string = '1.23.3'
+param kubernetesVersion string = '1.22.11'
 param aksVmSize string = 'standard_b2s'
 
 //function parameters 
