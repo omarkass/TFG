@@ -1,27 +1,27 @@
-import logging
-import azure.functions as func
-import pypyodbc 
-import math
+from flask import Flask, render_template,request
+import pypyodbc
+import os
 
 
-def main(req: func.HttpRequest) -> func.HttpResponse:
+app = Flask(__name__)
+
+
+@app.route('/')
+def expo():
         server = 'tcp:proj-dev-sql.database.windows.net'
         database = 'proj-dev-sqldb'
         username = 'omar1'
         password = 'Kassar@14689'
-        num = int(req.params.get("num"))
-        ##print (num)
-        #num=32
-        print("holiiii")
+        num = request.args.get('num', default = 1, type = int)
         cnxn = pypyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
         cursor = cnxn.cursor()
-        query = "select result from squad where num=" + str(num)
+        query = "select result from exponentiation where num=" + str(num)
         cursor.execute(query)
         row = cursor.fetchone()
         result = 0
         if cursor.rowcount == 0:
-         result = math.sqrt(num)
-         query = """INSERT INTO squad VALUES (?, ?)"""
+         result = num ** num
+         query = """INSERT INTO exponentiation VALUES (?, ?)"""
          cursor.execute(query,(num,result))
          cnxn.commit()
          cursor.close()
@@ -32,5 +32,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         result = str(result)
         result = result.replace(",)" , "")
         result = result.replace("(" , "")
-        print(result)
-        return func.HttpResponse("hol")
+        return str(result)
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 30000))
+    app.run(debug=True, host='0.0.0.0', port=port)
