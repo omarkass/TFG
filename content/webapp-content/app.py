@@ -9,7 +9,7 @@ def home():
     return "Hello, this is a sample Python Web App running on Flask Framework new version"
 '''
 
-from flask import Flask , request , render_template
+from flask import Flask , request ,render_template
 from functions import primeNum ,sumNum
 app = Flask(__name__)
 
