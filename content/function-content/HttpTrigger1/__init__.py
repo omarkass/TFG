@@ -10,9 +10,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         username = 'omar1'
         password = 'Kassar@14689'
         num = int(req.params.get("num"))
-        ##print (num)
-        #num=32
-        print("holiiii")
         cnxn = pypyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
         cursor = cnxn.cursor()
         query = "select result from squad where num=" + str(num)
@@ -21,6 +18,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         result = 0
         if cursor.rowcount == 0:
          result = math.sqrt(num)
+         print(result)
          query = """INSERT INTO squad VALUES (?, ?)"""
          cursor.execute(query,(num,result))
          cnxn.commit()
@@ -33,4 +31,4 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         result = result.replace(",)" , "")
         result = result.replace("(" , "")
         print(result)
-        return func.HttpResponse("hol")
+        return func.HttpResponse(result)
