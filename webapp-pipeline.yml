@@ -12,5 +12,5 @@ stages:
 - template: 'pipelines\webapp-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
-    functionAppName: $(webAppName)
+    webAppName: $(webAppName)
     pythonVersion: $(pythonVersion)
