@@ -18,17 +18,17 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         result = 0
         if cursor.rowcount == 0:
          result = math.sqrt(num)
-         print(result)
+        # print(result)
          query = """INSERT INTO squad VALUES (?, ?)"""
          cursor.execute(query,(num,result))
          cnxn.commit()
          cursor.close()
          cnxn.close()
         else:
-         print(row)
+         #print(row)
          result= row
         result = str(result)
         result = result.replace(",)" , "")
         result = result.replace("(" , "")
-        print(result)
+       # print(result)
         return func.HttpResponse(result)
