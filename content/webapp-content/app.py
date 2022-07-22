@@ -30,3 +30,9 @@ def sum():
    # return 'The value is: ' + num
     num = sumNum(int(num1), int(num2))
     return  'The result is ' + str(num) 
+
+
+#http://127.0.0.1:5000/
+@app.route('/')
+def home():
+    return render_template('home.html')
