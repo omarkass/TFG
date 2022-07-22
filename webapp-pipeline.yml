@@ -1,0 +1,16 @@
+trigger:
+  paths:
+    include:
+    - webapp-pipeline.yml
+    - content/webapp-content/*
+pool:
+  vmImage: windows-latest
+#load vars from the vars.yml file
+variables:
+- template: pipelines\vars\vars.yml  
+stages:
+- template: 'pipelines\webapp-stage.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    functionAppName: $(webAppName)
+    pythonVersion: $(pythonVersion)
