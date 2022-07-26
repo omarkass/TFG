@@ -7,4 +7,5 @@ spec:
     app: proj
   ports:
     - port: 30000
+      targetPort: 30000
   type: LoadBalancer
