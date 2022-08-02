@@ -9,11 +9,24 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+variables:
+- template:   pipelines\vars\vars.yml  
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+steps:
+
+- task: HelmInstaller@0
+  inputs:
+    helmVersion: '2.14.1'
+    installKubectl: true
+    
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: $(azureSubscription)
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      docker build ./content/aks-content -t $(repositoracrRepositoryNameyName)
+      az aks get-credentials --name $(aksclusterName) --resource-group $(aksResourceGroupName)
+      helm create azure-vote-front
+      helm install azure-vote-front azure-vote-front/
+
