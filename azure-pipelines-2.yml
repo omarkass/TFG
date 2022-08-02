@@ -27,6 +27,6 @@ steps:
     inlineScript: |
       docker build ./content/aks-content -t $(repositoracrRepositoryNameyName)
       az aks get-credentials --name $(aksclusterName) --resource-group $(aksResourceGroupName)
-      helm create azure-vote-front
-      helm install azure-vote-front azure-vote-front/
+      helm create new-chart
+      helm install new-chart new-chart/
 
