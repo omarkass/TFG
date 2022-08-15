@@ -75,7 +75,7 @@ livenessProbe:
 image:
   repository: grafana/grafana
   # Overrides the Grafana image tag whose default is the chart appVersion
-  tag: ""
+  tag: "latest"
   sha: ""
   pullPolicy: IfNotPresent
 
@@ -590,6 +590,9 @@ grafana.ini:
     mode: console
   grafana_net:
     url: https://grafana.net
+  azure:
+    managed_identity_enabled: true
+
 ## grafana Authentication can be enabled with the following values on grafana.ini
  # server:
       # The full public facing url you use in browser, used for redirects and emails
