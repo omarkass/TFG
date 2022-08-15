@@ -58,15 +58,15 @@ stages:
             kubectl get svc 
             kubectl create ns monitoring 
             kubectl create ns ingress-ngnix
-            $output = $(helm list -A)             
-            if ($output -like '*grafana*'){
+            output=$(helm list -A)         
+            if [[ "$output" == *"grafana"* ]]; then    
               helm update -n monitoring grafana ./content/aks-content/kube-prometheus-stack
-             }else{
+             else
               helm install -n monitoring grafana ./content/aks-content/kube-prometheus-stack
-             }
-            if ($output -like '*ingress-ngnix*'){
+            fi 
+            if [[ "$output" == *"ingress-ngnix"* ]]; then 
               helm update -n ingress-ngnix ingress ./content/aks-content/ingress-ngnix
-             }else{
+            else
               helm install -n ingress-ngnix ingress ./content/aks-content/ingress-ngnix
-             }
+            fi
 
