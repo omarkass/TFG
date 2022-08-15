@@ -60,12 +60,12 @@ stages:
             kubectl create ns ingress-ngnix
             output=$(helm list -A)         
             if [[ "$output" == *"grafana"* ]]; then    
-              helm update -n monitoring grafana ./content/aks-content/kube-prometheus-stack
+              helm upgrade -n monitoring grafana ./content/aks-content/kube-prometheus-stack
              else
               helm install -n monitoring grafana ./content/aks-content/kube-prometheus-stack
             fi 
             if [[ "$output" == *"ingress-ngnix"* ]]; then 
-              helm update -n ingress-ngnix ingress ./content/aks-content/ingress-ngnix
+              helm upgrade -n ingress-ngnix ingress ./content/aks-content/ingress-ngnix
             else
               helm install -n ingress-ngnix ingress ./content/aks-content/ingress-ngnix
             fi
