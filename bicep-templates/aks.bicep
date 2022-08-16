@@ -35,9 +35,6 @@ resource azureakscluster 'Microsoft.ContainerService/managedClusters@2021-07-01'
         tags: {}
       }
     ]
-    servicePrincipalProfile: {
-      clientId: 'msi'
-    }
     networkProfile: {
       loadBalancerSku: 'standard'
       networkPlugin: 'kubenet'
