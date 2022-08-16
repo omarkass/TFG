@@ -26,7 +26,7 @@ resource azureakscluster 'Microsoft.ContainerService/managedClusters@2021-07-01'
         enableAutoScaling: false
         vmSize: VmSize
         osType: 'Linux'
-        storageProfile: 'ManagedDisks'
+        //storageProfile: 'ManagedDisks'
         type: 'VirtualMachineScaleSets'
         mode: 'System'
         maxPods: 110
@@ -35,6 +35,9 @@ resource azureakscluster 'Microsoft.ContainerService/managedClusters@2021-07-01'
         tags: {}
       }
     ]
+    servicePrincipalProfile: {
+      clientId: 'msi'
+    }
     networkProfile: {
       loadBalancerSku: 'standard'
       networkPlugin: 'kubenet'
