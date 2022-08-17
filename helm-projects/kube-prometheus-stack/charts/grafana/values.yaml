@@ -485,7 +485,12 @@ plugins: []
 ## ref: http://docs.grafana.org/administration/provisioning/#datasources
 ##
 datasources: {}
-#  datasources.yaml:
+  datasources.yaml:
+  - name: Azure Monitor
+    type: grafana-azure-monitor-datasource
+    access: proxy
+    jsonData:
+      azureAuthType: msi
 #    apiVersion: 1
 #    datasources:
 #    - name: Prometheus
