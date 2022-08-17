@@ -18,12 +18,12 @@ stages:
 - stage: set_aks_permissions
   displayName: set aks cluster permissions to retrieve monitoring data
   dependsOn: ${{parameters.dependsOn}}
+  condition: and(succeeded(), eq('${{ parameters.useAksMonitoring }}', 'true'))
   jobs:
   - job: set_aks_permissions
     pool:
       vmImage: 'windows-latest'
     steps:
-    condition: and(succeeded(), eq('${{ parameters.useAksMonitoring }}', 'true'))
       - task: AzureCLI@2
         inputs:
           azureSubscription: ${{ parameters.azureSubscription }} 
