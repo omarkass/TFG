@@ -23,7 +23,7 @@ stages:
 
   jobs:
   - job: set_aks_permissions
-    condition: (eq('${{ parameters.useAksMonitoring }}', 'true'))
+    condition: eq('${{ parameters.useAksMonitoring }}', 'true')
     pool:
       vmImage: 'windows-latest'
     steps:
