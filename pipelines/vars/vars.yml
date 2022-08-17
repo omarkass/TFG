@@ -19,7 +19,7 @@ variables:
   value: 'proj-dev-app'  
 
 - name: useAksMonitoring
-  value: 'true'
+  value: true
 
 - name: azureSubscription
   value: 'Service_connection'
