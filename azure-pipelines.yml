@@ -21,6 +21,7 @@ stages:
   parameters:
     azureSubscription: $(azureSubscription)
 
+
 - template: 'pipelines\webapp-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
@@ -35,6 +36,13 @@ stages:
     pythonVersion: $(pythonVersion)
     dependsOn: deploy_infrastructure
 
+- template: 'pipelines\aks-permissions-stage.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    aksclusterName: $(aksclusterName)
+    useAksMonitoring: $(useAksMonitoring)
+    dependsOn: deploy_infrastructure
+
 - template: 'pipelines\aks-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
@@ -42,7 +50,7 @@ stages:
     acrUrl: $(acrUrl)
     resourceGroupName: $(aksResourceGroupName)
     repositoryName: $(acrRepositoryName)
-    dependsOn: deploy_infrastructure
+    dependsOn: set_aks_permissions
   
 - template: 'pipelines\sql-stage.yml'
   parameters:
