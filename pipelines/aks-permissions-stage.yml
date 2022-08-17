@@ -8,7 +8,7 @@ parameters:
   #default: 'aks'
 
 - name: useAksMonitoring
-  type: String
+  type: string
 #  default: true  
   
 - name: dependsOn
