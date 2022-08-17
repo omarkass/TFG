@@ -15,6 +15,7 @@ parameters:
   type: string
   default: ''  
 
+
 stages:
 - stage: set_aks_permissions
   displayName: set aks cluster permissions to retrieve monitoring data
