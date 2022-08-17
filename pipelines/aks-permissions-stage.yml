@@ -7,8 +7,9 @@ parameters:
   type: string 
   #default: 'aks'
 
-- name: useAksMonitoring
-  type: boolean  
+#- name: useAksMonitoring
+#  type: boolean
+#  default: true  
   
 - name: dependsOn
   type: string
@@ -18,7 +19,7 @@ stages:
 - stage: set_aks_permissions
   displayName: set aks cluster permissions to retrieve monitoring data
   dependsOn: ${{parameters.dependsOn}}
-  condition: and(succeeded(), eq('${{ parameters.useAksMonitoring }}', 'true'))
+ # condition: and(succeeded(), eq('${{ parameters.useAksMonitoring }}', 'true'))
   jobs:
   - job: set_aks_permissions
     pool:
