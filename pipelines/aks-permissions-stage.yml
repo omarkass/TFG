@@ -9,7 +9,7 @@ parameters:
 
 - name: useAksMonitoring
   type: string
-#  default: true  
+  default: true  
   
 - name: dependsOn
   type: string
