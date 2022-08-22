@@ -11,15 +11,15 @@ parameters:
   type: string
   default: true  
   
-#- name: dependsOn
-#  type: string
-#  default:  
+- name: dependsOn
+  type: string
+  default:  
 
 
 stages:
 - stage: set_aks_permissions
   displayName: set aks cluster permissions to retrieve monitoring data
- # dependsOn: ${{parameters.dependsOn}}
+  dependsOn: ${{parameters.dependsOn}}
 
   jobs:
   - job: set_aks_permissions
