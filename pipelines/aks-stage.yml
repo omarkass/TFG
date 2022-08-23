@@ -16,7 +16,7 @@ parameters:
   type: string 
   #default: 'proj-dev-app-rg'
 
-- name: repositoryName  
+- name: appImageName  
   type: string
   #default: proj
 
@@ -46,12 +46,18 @@ stages:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            docker build ./content/aks-content -t ${{parameters.repositoryName}}
             az aks get-credentials --name ${{parameters.aksclusterName}} --resource-group ${{parameters.resourceGroupName}}
             az acr login --name ${{parameters.acrUrl}}
-            docker tag "${{parameters.repositoryName}}:latest" '${{parameters.acrUrl}}'"/${{parameters.repositoryName}}:latest"
+            docker build ./content/aks-content -t ${{parameters. appImageName}}
+            docker tag "${{parameters. appImageName}}:latest" '${{parameters.acrUrl}}'"/${{parameters. appImageName}}:latest"
             docker image ls
-            docker push '${{parameters.acrUrl}}'"/${{parameters.repositoryName}}:latest"
+            docker push '${{parameters.acrUrl}}'"/${{parameters. appImageName}}:latest"
+
+            docker build ./content/aks-content/prometheus-exporter -t ${{parameters.prometheusExporterImageName}}
+            docker tag "${{parameters.prometheusExporterImageName}}:latest" '${{parameters.acrUrl}}'"/${{parameters.prometheusExporterImageName}}:latest"
+            docker image ls
+            docker push '${{parameters.acrUrl}}'"/${{parameters.prometheusExporterImageName}}:latest"
+
             kubectl delete --all deployment --namespace=default
             kubectl apply -f ./content/aks-content/dp.yml
             kubectl apply -f ./content/aks-content/svc.yml

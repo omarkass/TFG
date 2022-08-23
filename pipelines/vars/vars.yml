@@ -48,7 +48,13 @@ variables:
 - name: acrUrl
   value: 'projdevaksacr.azurecr.io'
 
-- name: acrRepositoryName
+- name: appImageName
+  value: proj
+
+- name: prometheusExporterImageName
+  value: prometheus-exporter
+
+- name: 
   value: proj
 
 - name: baseStage

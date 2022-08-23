@@ -49,7 +49,8 @@ stages:
     aksclusterName: $(aksclusterName)
     acrUrl: $(acrUrl)
     resourceGroupName: $(aksResourceGroupName)
-    repositoryName: $(acrRepositoryName)
+    appImageName: $(appImageName)
+    prometheusExporterImageName: $(prometheusExporterImageName)
     dependsOn: set_aks_permissions
   
 - template: 'pipelines\sql-stage.yml'

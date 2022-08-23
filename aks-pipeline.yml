@@ -16,4 +16,5 @@ stages:
     aksclusterName: $(aksclusterName)
     acrUrl: $(acrUrl)
     resourceGroupName: $(aksResourceGroupName)
-    repositoryName: $(repositoracrRepositoryNameyName)
+    appImageName: $(appImageName)
+    prometheusExporterImageName: $(prometheusExporterImageName)
