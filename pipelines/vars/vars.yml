@@ -54,8 +54,5 @@ variables:
 - name: prometheusExporterImageName
   value: prometheus-exporter
 
-- name: 
-  value: proj
-
 - name: baseStage
   value: deploy_infrastructure  
