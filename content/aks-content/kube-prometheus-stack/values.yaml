@@ -2266,7 +2266,7 @@ prometheus:
     ## Defaults to 30s.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/release-0.44/pkg/prometheus/promcfg.go#L180-L183
     ##
-    scrapeInterval: "10m"
+    scrapeInterval: "2m"
 
     ## Number of seconds to wait for target to respond before erroring
     ##
@@ -2630,7 +2630,7 @@ prometheus:
       - job_name: 'azure'
       
         static_configs:
-        - targets: ['azure-exporter-svc:9276']
+        - targets: ['azure-exporter-svc:80']
     # - job_name: kube-etcd
     #   kubernetes_sd_configs:
     #     - role: node
