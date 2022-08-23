@@ -3094,7 +3094,7 @@ thanosRuler:
   serviceMonitor:
     ## Scrape interval. If not set, the Prometheus default scrape interval is used.
     ##
-    interval: ""
+    interval: "5m"
     selfMonitor: true
 
     ## proxyUrl: URL of a proxy that should be used for scraping.
