@@ -488,11 +488,11 @@ datasources:
   datasources.yaml:
     apiVersion: 1
     datasources:
-    - name: Azure Monitor
-      type: grafana-azure-monitor-datasource
-      access: proxy
-      jsonData:
-       azureAuthType: msi
+#    - name: Azure Monitor
+#      type: grafana-azure-monitor-datasource
+#      access: proxy
+#      jsonData:
+#       azureAuthType: msi
 #    - name: Prometheus
 #      type: prometheus
 #      url: http://prometheus-prometheus-server
