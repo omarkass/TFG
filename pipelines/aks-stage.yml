@@ -20,6 +20,11 @@ parameters:
   type: string
   #default: proj
 
+
+- name: prometheusExporterImageName  
+  type: string
+  #default: proj
+
 - name: dependsOn
   type: string
   default: ''  
