@@ -2629,7 +2629,6 @@ prometheus:
     additionalScrapeConfigs: 
       - job_name: 'azure'
       
-        scrape_interval: 1m
         static_configs:
         - targets: ['azure-exporter-svc:9276']
     # - job_name: kube-etcd
