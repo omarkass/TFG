@@ -2631,7 +2631,7 @@ prometheus:
       
         scrape_interval: 1m
         static_configs:
-        - targets: ['10.244.0.47:9276']
+        - targets: ['azure-exporter-svc:9276']
     # - job_name: kube-etcd
     #   kubernetes_sd_configs:
     #     - role: node
