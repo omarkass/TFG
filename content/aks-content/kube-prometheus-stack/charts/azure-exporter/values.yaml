@@ -1,0 +1,35 @@
+# Default values for azure-exporter.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+po:
+  name: azure-exporter-po
+  image: 
+    repository: projdevaksacr.azurecr.io
+    name: azure-exporter
+    tag: latest
+
+dp:
+  name: azure-exporter-dp
+
+ports:
+  name: exporter
+  targetPort: 9276
+  protocol: TCP
+
+svc:
+  name: azure-exporter-svc
+  type: ClusterIP
+  port: 80
+
+appSelector: exporter-po
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+

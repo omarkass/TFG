@@ -58,7 +58,7 @@ stages:
             docker image ls
             docker push '${{parameters.acrUrl}}'"/${{parameters. appImageName}}:latest"
 
-            docker build ./content/aks-content/prometheus-exporter -t ${{parameters.prometheusExporterImageName}}
+            docker build ./content/aks-content/docker-images/azure-exporter -t ${{parameters.prometheusExporterImageName}}
             docker tag "${{parameters.prometheusExporterImageName}}:latest" '${{parameters.acrUrl}}'"/${{parameters.prometheusExporterImageName}}:latest"
             docker image ls
             docker push '${{parameters.acrUrl}}'"/${{parameters.prometheusExporterImageName}}:latest"
@@ -84,5 +84,4 @@ stages:
               helm upgrade -n monitoring elasticsearch ./content/aks-content/elasticsearch
             else
               helm install -n monitoring elasticsearch ./content/aks-content/elasticsearch
-            fi
-
+            fi       

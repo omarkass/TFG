@@ -52,7 +52,7 @@ variables:
   value: proj
 
 - name: prometheusExporterImageName
-  value: prometheus-exporter
+  value: azure-exporter
 
 - name: baseStage
   value: deploy_infrastructure  
