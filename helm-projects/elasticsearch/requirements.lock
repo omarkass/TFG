@@ -1,9 +1,0 @@
-dependencies:
-- name: kibana
-  repository: https://helm.elastic.co
-  version: 7.17.3
-- name: metricbeat
-  repository: https://helm.elastic.co
-  version: 7.17.3
-digest: sha256:60b1989d370358ddbf759514b6fce834a2e3e40803aa74b02efeee4b27b2009d
-generated: "2022-08-13T00:44:55.8327236+02:00"
