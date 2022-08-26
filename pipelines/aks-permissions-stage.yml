@@ -32,7 +32,7 @@ stages:
           scriptType: 'ps'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            echo ${{parameters.aksclusterName}})
+            echo ${{parameters.aksclusterName}}
             #$aksInfo = $(az resource list --name ${{parameters.aksclusterName}}) | ConvertFrom-json
             #$nodePoolInfo = $(az aks nodepool list --cluster-name $aksInfo.name --resource-group $aksInfo.resourceGroup) | ConvertFrom-json
             #$backendInfo = az resource list --tag aks-managed-poolName=$($nodePoolInfo.name) | ConvertFrom-json
