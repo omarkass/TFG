@@ -11,9 +11,9 @@ parameters:
   type: string
   default: true  
   
-#- name: dependsOn
-#  type: string
-#  default:  
+- name: dependsOn
+  type: string
+  default:  
 
 
 stages:
