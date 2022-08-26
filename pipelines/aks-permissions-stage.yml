@@ -31,8 +31,8 @@ stages:
         targetType: 'inline'
         script: |
           # Write your PowerShell commands here.
-          Write-Host 'vmImage - ${{parameters.useAksMonitoring}}'
-          Write-Host 'vmImage - ${{parameters.aksclusterName}}'
+          Write-Host ${{parameters.useAksMonitoring}}
+          Write-Host ${{parameters.aksclusterName}}
 
   - job: set_aks_permissions
     condition: eq('${{ parameters.useAksMonitoring }}', 'true')
