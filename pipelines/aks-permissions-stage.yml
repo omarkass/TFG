@@ -32,7 +32,7 @@ stages:
         targetType: 'inline'
         script: |
           # Write your commands here
-          echo 'vmImage - ${{ parameters.vmImage }}'
+          echo 'vmImage - ${{ parameters.useAksMonitoring }}'
 
   - job: set_aks_permissions
     condition: eq('${{ parameters.useAksMonitoring }}', 'true')
