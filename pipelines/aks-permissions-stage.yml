@@ -19,7 +19,7 @@ parameters:
 stages:
 - stage: set_aks_permissions
   displayName: set aks cluster permissions to retrieve monitoring data
-  dependsOn: ${{parameters.dependsOn}}
+  #dependsOn: ${{parameters.dependsOn}}
 
   jobs:
   - job: set_aks_permissions
