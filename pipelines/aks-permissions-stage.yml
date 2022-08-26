@@ -33,10 +33,10 @@ stages:
           scriptLocation: 'inlineScript'
           inlineScript: |
             echo ${{parameters.aksclusterName}}
-            #$aksInfo = $(az resource list --name ${{parameters.aksclusterName}}) | ConvertFrom-json
-            #$nodePoolInfo = $(az aks nodepool list --cluster-name $aksInfo.name --resource-group $aksInfo.resourceGroup) | ConvertFrom-json
-            #$backendInfo = az resource list --tag aks-managed-poolName=$($nodePoolInfo.name) | ConvertFrom-json
-            #$account = $(az account show) | ConvertFrom-Json 
-            #az vmss identity assign -g  $backendInfo.resourcegroup  -n $backendInfo.name --role "Monitoring Reader" --scope /subscriptions/$($account.id) 
+            $aksInfo = $(az resource list --name ${{parameters.aksclusterName}}) | ConvertFrom-json
+            $nodePoolInfo = $(az aks nodepool list --cluster-name $aksInfo.name --resource-group $aksInfo.resourceGroup) | ConvertFrom-json
+            $backendInfo = az resource list --tag aks-managed-poolName=$($nodePoolInfo.name) | ConvertFrom-json
+            $account = $(az account show) | ConvertFrom-Json 
+            az vmss identity assign -g  $backendInfo.resourcegroup  -n $backendInfo.name --role "Monitoring Reader" --scope /subscriptions/$($account.id) 
 
 
