@@ -27,7 +27,7 @@ param skuCodeskuWebApp string = 'F1'
 param numberOfWorkersWebApp string = '1'
 
 param proj string = 'proj'
-param env string = 'dev'
+param env string = 'devprod'
 
 var AzureSqlRuleName = 'AllowAllWindowsAzureIps'
 var aksName = '${proj}-${env}-aks'
