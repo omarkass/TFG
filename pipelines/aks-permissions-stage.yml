@@ -23,7 +23,6 @@ stages:
 
   jobs:
   - job: prova
-    condition: eq('${{ parameters.useAksMonitoring }}', 'true')
     pool:
       vmImage: 'windows-latest'
     steps:
