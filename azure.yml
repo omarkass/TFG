@@ -14,6 +14,7 @@ pool:
 stages:
 
 - template: 'pipelines\aks-permissions-stage.yml'
+  condition: eq( "$(useAksMonitoring)" , 'true')
   parameters:
     azureSubscription: $(azureSubscription)
     aksclusterName: $(aksclusterName)
