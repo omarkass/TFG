@@ -11,19 +11,18 @@ parameters:
   type: string
   default: true  
   
-- name: dependsOn
-  type: string
-  default:  
+#- name: dependsOn
+#  type: string
+#  default:  
 
 
 stages:
 - stage: set_aks_permissions
   displayName: set aks cluster permissions to retrieve monitoring data
-  dependsOn: ${{parameters.dependsOn}}
+  #dependsOn: ${{parameters.dependsOn}}
 
   jobs:
   - job: set_aks_permissions
-    condition: eq('${{ parameters.useAksMonitoring }}', 'true')
     pool:
       vmImage: 'windows-latest'
     steps:
@@ -33,10 +32,11 @@ stages:
           scriptType: 'ps'
           scriptLocation: 'inlineScript'
           inlineScript: |
+            echo ${{parameters.aksclusterName}}
+            if (${{parameters.useAksMonitoring }}) {
             $aksInfo = $(az resource list --name ${{parameters.aksclusterName}}) | ConvertFrom-json
             $nodePoolInfo = $(az aks nodepool list --cluster-name $aksInfo.name --resource-group $aksInfo.resourceGroup) | ConvertFrom-json
             $backendInfo = az resource list --tag aks-managed-poolName=$($nodePoolInfo.name) | ConvertFrom-json
             $account = $(az account show) | ConvertFrom-Json 
             az vmss identity assign -g  $backendInfo.resourcegroup  -n $backendInfo.name --role "Monitoring Reader" --scope /subscriptions/$($account.id) 
-
-
+            }
