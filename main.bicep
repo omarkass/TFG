@@ -17,10 +17,14 @@ param aksVmSize string = 'standard_b2s'
 param skuFunction string = 'Dynamic'
 param skuCodeFunction string = 'Y1'
 param locationAzureFunction string = 'East US'
+param numberOfWorkersFunction string = '1'
 
 
 //webapp parameters
 param locationWebApp string = 'East US'
+param skuWebApp string = 'Free'
+param skuCodeskuWebApp string = 'F1'
+param numberOfWorkersWebApp string = '1'
 
 param proj string = 'proj'
 param env string = 'dev'
@@ -73,15 +77,15 @@ module func_st './bicep-templates/func-st.bicep' = {
   }
 }
 
-module func_plan './bicep-templates/func-plan.bicep' = {
+module func_plan './bicep-templates/plan.bicep' = {
   name: 'func_plan'
   scope: func_rg    // Deployed in the scope of resource group we created above
   params: {
     name: azureServicePlanFunction
     location:locationAzureFunction
-    skuFunction: skuFunction
-    skuCodeFunction: skuCodeFunction
-    numberOfWorkers : numberOfWorkers
+    sku: skuFunction
+    skuCode: skuCodeFunction
+    numberOfWorkers : numberOfWorkersFunction
   }
 }
 
@@ -161,6 +165,7 @@ dependsOn:[
 ]
 }
 
+/*
 module aks 'bicep-templates/aks.bicep' = {
   name: 'aks'
   scope: aks_rg    // Deployed in the scope of resource group we created above
@@ -171,7 +176,7 @@ module aks 'bicep-templates/aks.bicep' = {
     VmSize: aksVmSize
   }
   }
-  
+  */
 
   module app 'bicep-templates/app.bicep' = {
   name: 'app'
@@ -186,16 +191,36 @@ module aks 'bicep-templates/aks.bicep' = {
   ]
   }
 
-  module app_plan 'bicep-templates/app-plan.bicep' = {
+  module app_plan 'bicep-templates/plan.bicep' = {
     name: 'app_plan'
     scope: app_rg 
     params: {
       name: azureServicePlanWebApp
       location: locationWebApp
+      sku:skuWebApp
+      skuCode:skuCodeskuWebApp
+      numberOfWorkers:numberOfWorkersWebApp
     }
   }
   
 
+
+
+
+/*
+ name: 'func_plan'
+  scope: func_rg    // Deployed in the scope of resource group we created above
+  params: {
+    name: azureServicePlanFunction
+    location:locationAzureFunction
+    skuFunction: skuFunction
+    skuCodeFunction: skuCodeFunction
+    numberOfWorkers : numberOfWorkers
+
+
+*/
+
+/*
   module aks_acr 'bicep-templates/aks-acr.bicep' = {
     name: 'aks_acr'
     scope: aks_rg 
@@ -208,3 +233,4 @@ module aks 'bicep-templates/aks.bicep' = {
       aks
     ]
   }
+*/

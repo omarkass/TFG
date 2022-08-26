@@ -1,15 +1,15 @@
 param name string
 param location string
-param skuFunction string
-param skuCodeFunction string
+param sku string
+param skuCode string
 param numberOfWorkers string
 
 resource azureServicePlanFunction 'Microsoft.Web/serverfarms@2018-11-01' = {
   name: name
   location: location
   sku: {
-    tier: skuFunction
-    name: skuCodeFunction
+    tier: sku
+    name: skuCode
   }
   kind: 'linux'
   properties: {
@@ -18,5 +18,7 @@ resource azureServicePlanFunction 'Microsoft.Web/serverfarms@2018-11-01' = {
     workerSizeId: '0'
     numberOfWorkers: numberOfWorkers
     reserved: true
+    zoneRedundant: false
   }
 }
+
