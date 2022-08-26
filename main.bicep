@@ -11,7 +11,7 @@ param locationSqlDatabase string = 'East US'
 param locationAks string = 'Korea Central'
 param numberOfWorkers string = '1'
 param kubernetesVersion string = '1.22.11'
-param aksVmSize string = 'B2s'
+param aksVmSize string = 'standard_b2s'
 
 //function parameters 
 param skuFunction string = 'Dynamic'
