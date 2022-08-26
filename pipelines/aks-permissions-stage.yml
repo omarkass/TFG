@@ -22,20 +22,7 @@ stages:
   #dependsOn: ${{parameters.dependsOn}}
 
   jobs:
-  - job: prova
-    pool:
-      vmImage: 'windows-latest'
-    steps:
-    - task: PowerShell@2
-      inputs:
-        targetType: 'inline'
-        script: |
-          # Write your PowerShell commands here.
-          Write-Host ${{parameters.useAksMonitoring}}
-          Write-Host ${{parameters.aksclusterName}}
-
   - job: set_aks_permissions
-    condition: eq( "${{ parameters.useAksMonitoring }}" , 'true')
     pool:
       vmImage: 'windows-latest'
     steps:
