@@ -9,7 +9,7 @@ resource azureFunctionName 'Microsoft.Web/sites@2018-11-01' = {
   location: location
   tags: {
     'hidden-link: /app-insights-resource-id': resourceId('Microsoft.Insights/components/',applicationInsightName)
-     proj:projTagValue
+    deployedby:projTagValue
   }
   kind: 'functionapp,linux'
   properties: {

@@ -7,7 +7,7 @@ resource azureWebApp 'Microsoft.Web/sites@2018-11-01' = {
   name: name
   location: location
   tags: {
-    proj:projTagValue
+    deployedby:projTagValue
   }
   properties: {
     name: name

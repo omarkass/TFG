@@ -8,7 +8,7 @@ resource azureSqlFirewallRule 'Microsoft.Sql/servers/firewallRules@2014-04-01-pr
   name: '${serverName}/${name}'
   location: location
   tags: {
-    proj:projTagValue
+    deployedby:projTagValue
   }
   scale: null
   properties: {

@@ -9,7 +9,7 @@ resource AzureapplicationInsghts 'microsoft.insights/components@2020-02-02-previ
   location:  location 
   kind: 'web'
   tags: {
-    proj:projTagValue
+    deployedby:projTagValue
   }
   properties: {
     ApplicationId: azureFunctionName

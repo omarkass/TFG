@@ -9,7 +9,7 @@ resource azureSqlDatabase 'Microsoft.Sql/servers@2021-05-01-preview' = {
   location: location
   tags: {
     displayName: 'SQL'
-    proj:projTagValue
+    deployedby:projTagValue
   }
   kind: 'v12.0'
   properties: {

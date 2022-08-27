@@ -45,7 +45,7 @@ var sqlDatabaseName = '${sqlServerName}/${proj}-${env}-sqldb'
 var sqlRgName = '${proj}-${env}-sql-rg'
 var logAnalyticName = '${proj}-${env}-func-log'
 var applicationInsghtsName = '${proj}-${env}-func-appi'
-var projTagValue = 'Proj'
+var projTagValue = 'proj'
 
 
 

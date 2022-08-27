@@ -12,7 +12,7 @@ resource azureServicePlanFunction 'Microsoft.Web/serverfarms@2018-11-01' = {
     name: skuCode
   }
   tags: {
-    proj:projTagValue
+    deployedby:projTagValue
   }
   kind: 'linux'
   properties: {

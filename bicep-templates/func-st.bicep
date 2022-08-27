@@ -18,7 +18,7 @@ resource azureStorageAcountFunction 'Microsoft.Storage/storageAccounts@2019-06-0
   name: name
   location: location
   tags: {
-    proj:projTagValue
+    deployedby:projTagValue
   }
   sku: {
     name: 'Standard_LRS'

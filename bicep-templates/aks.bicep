@@ -8,7 +8,7 @@ resource azureakscluster 'Microsoft.ContainerService/managedClusters@2021-07-01'
   name: name
   location: location
   tags: { 
-    proj:projTagValue
+    deployedby:projTagValue
   }
   sku: {
     name: 'Basic'

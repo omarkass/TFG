@@ -15,7 +15,7 @@ resource azureContainerRegistry 'Microsoft.ContainerRegistry/registries@2021-12-
     tier: 'Basic'
   }
   tags:{
-    proj:projTagValue
+    deployedby:projTagValue
   }
   properties: {
     adminUserEnabled: false
