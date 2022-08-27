@@ -3,13 +3,16 @@ param location string
 param sku string
 param skuCode string
 param numberOfWorkers string
-
+param projTagValue string
 resource azureServicePlanFunction 'Microsoft.Web/serverfarms@2018-11-01' = {
   name: name
   location: location
   sku: {
     tier: sku
     name: skuCode
+  }
+  tags: {
+    proj:projTagValue
   }
   kind: 'linux'
   properties: {

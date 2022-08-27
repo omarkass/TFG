@@ -27,24 +27,25 @@ param skuCodeskuWebApp string = 'F1'
 param numberOfWorkersWebApp string = '1'
 
 param proj string = 'proj'
-param env string = 'devprod'
+param env string = 'dev'
 
 var AzureSqlRuleName = 'AllowAllWindowsAzureIps'
 var aksName = '${proj}-${env}-aks'
-var acrName = '${proj}${env}aksacr'
+var acrName = uniqueString(subscription().subscriptionId,proj,env,'acr','aks')
 var aksRgName = '${proj}-${env}-aks-rg'
 var azureWebAppRgName = '${proj}-${env}-app-rg'
 var azureServicePlanWebApp = '${proj}-${env}-app-plan'
-var azureWebAppName = '${proj}-${env}-app'
+var azureWebAppName = uniqueString(subscription().subscriptionId,proj,env,'app')
 var azureFunctionRgName = '${proj}-${env}-func-rg'
-var azureFunctionName = '${proj}-${env}-func'
+var azureFunctionName =uniqueString(subscription().subscriptionId,proj,env,'func')
 var azureServicePlanFunction = '${proj}-${env}-func-plan'
-var azureStorageAcountFunction = uniqueString(subscription().subscriptionId,proj,env,'func','st')//'${proj}${env}funcst55'
-var sqlServerName = '${proj}-${env}-sql'
+var azureStorageAcountFunction = uniqueString(subscription().subscriptionId,proj,env,'func','st')
+var sqlServerName =  uniqueString(subscription().subscriptionId,proj,env,'sql')
 var sqlDatabaseName = '${sqlServerName}/${proj}-${env}-sqldb'
 var sqlRgName = '${proj}-${env}-sql-rg'
 var logAnalyticName = '${proj}-${env}-func-log'
 var applicationInsghtsName = '${proj}-${env}-func-appi'
+var projTagValue = 'azureProj'
 
 
 
@@ -74,6 +75,7 @@ module func_st './bicep-templates/func-st.bicep' = {
   params: {
     name: azureStorageAcountFunction
     location:locationAzureFunction
+    projTagValue:projTagValue
   }
 }
 
@@ -86,6 +88,7 @@ module func_plan './bicep-templates/plan.bicep' = {
     sku: skuFunction
     skuCode: skuCodeFunction
     numberOfWorkers : numberOfWorkersFunction
+    projTagValue:projTagValue
   }
 }
 
@@ -95,6 +98,7 @@ module func_log 'bicep-templates/func-log.bicep' = {
   params:{
     name: logAnalyticName
     location: locationAzureFunction
+    projTagValue:projTagValue
   }
 }
 
@@ -106,6 +110,7 @@ module func_appi 'bicep-templates/func-appi.bicep' = {
     location: locationAzureFunction
     logAnaliticName: logAnalyticName
     azureFunctionName: azureFunctionName
+    projTagValue:projTagValue
   }
   dependsOn:[
     func_log
@@ -121,6 +126,7 @@ module func 'bicep-templates/func.bicep' = {
     planName: azureServicePlanFunction
     StorageAcountName: azureStorageAcountFunction
     applicationInsightName:applicationInsghtsName
+    projTagValue:projTagValue
   }
   dependsOn:[
     func_plan
@@ -136,6 +142,7 @@ module sqldb 'bicep-templates/sqldb.bicep' = {
     location:locationSqlDatabase
     SQL_Pass: SQL_Pass
     SQL_User: SQL_User
+    projTagValue:projTagValue
   }
   }
 
@@ -147,6 +154,7 @@ module sqldb 'bicep-templates/sqldb.bicep' = {
       name: AzureSqlRuleName
       serverName:sqlServerName
       location:locationSqlDatabase
+      projTagValue:projTagValue
     }
     dependsOn:[
       sqldb
@@ -159,6 +167,7 @@ scope: sql_rg    // Deployed in the scope of resource group we created above
 params: {
   name: sqlDatabaseName
   location:locationSqlDatabase
+  projTagValue:projTagValue
 }
 dependsOn:[
   sqldb
@@ -174,6 +183,7 @@ module aks 'bicep-templates/aks.bicep' = {
     location:locationAks
     version: kubernetesVersion
     VmSize: aksVmSize
+    projTagValue:projTagValue
   }
   }
   */
@@ -185,6 +195,7 @@ module aks 'bicep-templates/aks.bicep' = {
     name: azureWebAppName
     location: locationWebApp
     planeName: azureServicePlanWebApp
+    projTagValue:projTagValue
   }
   dependsOn:[
     app_plan
@@ -200,6 +211,7 @@ module aks 'bicep-templates/aks.bicep' = {
       sku:skuWebApp
       skuCode:skuCodeskuWebApp
       numberOfWorkers:numberOfWorkersWebApp
+      projTagValue:projTagValue
     }
   }
   
@@ -228,6 +240,7 @@ module aks 'bicep-templates/aks.bicep' = {
       name: acrName
       location: locationAks
       aksName: aksName
+      projTagValue:projTagValue
     }
     dependsOn:[
       aks

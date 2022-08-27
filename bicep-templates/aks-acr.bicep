@@ -1,6 +1,7 @@
 param name string 
 param location string 
 param aksName string 
+param projTagValue string
 
 
 var kubeletPrincipalId = reference(resourceId('Microsoft.ContainerService/managedClusters/',aksName), '2020-03-01').identityProfile.kubeletidentity.objectId
@@ -12,6 +13,9 @@ resource azureContainerRegistry 'Microsoft.ContainerRegistry/registries@2021-12-
   sku: {
     name: 'Basic'
     tier: 'Basic'
+  }
+  tags:{
+    proj:projTagValue
   }
   properties: {
     adminUserEnabled: false

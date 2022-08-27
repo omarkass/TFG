@@ -1,11 +1,14 @@
 param name string 
 param location string
 param planeName string 
+param projTagValue string
 
 resource azureWebApp 'Microsoft.Web/sites@2018-11-01' = {
   name: name
   location: location
-  tags: {}
+  tags: {
+    proj:projTagValue
+  }
   properties: {
     name: name
     siteConfig: {

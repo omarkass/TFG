@@ -2,15 +2,19 @@ param name string
 param location string 
 param version string
 param VmSize string
+param projTagValue string
 
 resource azureakscluster 'Microsoft.ContainerService/managedClusters@2021-07-01' = {
   name: name
   location: location
-  tags: {}
+  tags: { 
+    proj:projTagValue
+  }
   sku: {
     name: 'Basic'
     tier: 'Free'
   }
+  
   identity: {
     type: 'SystemAssigned'
   }

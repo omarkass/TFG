@@ -3,11 +3,13 @@ param location string
 param StorageAcountName string
 param planName string
 param applicationInsightName string 
+param projTagValue string
 resource azureFunctionName 'Microsoft.Web/sites@2018-11-01' = {
   name: name
   location: location
   tags: {
     'hidden-link: /app-insights-resource-id': resourceId('Microsoft.Insights/components/',applicationInsightName)
+     proj:projTagValue
   }
   kind: 'functionapp,linux'
   properties: {

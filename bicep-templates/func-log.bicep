@@ -1,8 +1,13 @@
 param name string 
 param location string 
+param projTagValue string
+
 resource azurelogAnalytics 'Microsoft.OperationalInsights/workspaces@2020-08-01' = {
   name: name
   location: location
+  tags: {
+    proj:projTagValue
+  }
   properties: {
     sku: {
       name: 'PerGB2018'
