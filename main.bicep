@@ -154,7 +154,6 @@ module sqldb 'bicep-templates/sqldb.bicep' = {
       name: AzureSqlRuleName
       serverName:sqlServerName
       location:locationSqlDatabase
-      projTagValue:projTagValue
     }
     dependsOn:[
       sqldb
