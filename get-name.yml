@@ -1,0 +1,31 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+trigger: none
+
+variables:
+  # Azure Resource Manager connection created during pipeline creation
+  #azureServiceConnectionId: 'Service_connection'
+  - template:  pipelines\vars\vars.yml  
+pool:
+  vmImage: windows-latest
+stages:
+- template: 'pipelines\get-name-stage.yml'
+- stage: get_resource_name
+  variables:
+  - name: devKubeletPrincipalId 
+    value: $[ stageDependencies.DeployDev.DeployResources.outputs['DeployResources.SetOutputs.kubeletPrincipalId'] ]
+  displayName: Get azure resource name
+  jobs:
+  - job: get_resource_name
+    pool:
+      vmImage: 'windows-latest'
+    steps:
+      - task: PowerShell@2
+        displayName: 'Get azure resource name'
+        name: Getname
+        inputs:
+          targetType: inline
+          script: |
+            write-host $(devKubeletPrincipalId)
