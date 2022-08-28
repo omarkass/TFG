@@ -12,37 +12,40 @@ pool:
   vmImage: windows-latest
 stages:
 
-- stage: STAGE_X
+-stages:
+
+- stage: one
   jobs:
-  - job: STAGE_X_JOB_A
+  - job: A
     steps:
-    - checkout: none
-    - script: |
-        echo "This is job STAGE_X_JOB_A. Lets set the value"
-        export PARAM_X="TEST"
-        echo "##vso[task.setvariable variable=VarKey;isOutput=true]$PARAM_X"
-      name: ValidateVar
-    - script: |
-        echo "Key Value :"
-        echo $(ValidateVar.VarKey)
-      name: Print_Key_value
-  - job: STAGE_X_JOB_B
-    dependsOn: STAGE_X_JOB_A
-    condition: eq(dependencies.STAGE_X_JOB_A.outputs['ValidateVar.VarKey'], 'TEST')
-    steps:
-    - checkout: none
-    - script: |
-        echo "This is job STAGE_X_JOB_B and will run as per the valid condition"
-      displayName: Print Details
-- stage: STAGE_Y
-  dependsOn: STAGE_X
+    - task: Bash@3
+      inputs:
+          filePath: 'script-a.sh'
+      name: setvar
+    - bash: |
+       echo "##vso[task.setvariable variable=skipsubsequent;isOutput=true]true"
+      name: skipstep
+
+- stage: two
   jobs:
-  - job: STAGE_Y_JOB_B
-    condition: eq(stageDependencies.STAGE_X.STAGE_X_JOB_A.outputs['ValidateVar.VarKey'], 'TEST') 
+  - job: B
     variables:
-      varFromStageA: $[ stageDependencies.STAGE_X.STAGE_X_JOB_A.outputs['ValidateVar.VarKey'] ]
+      - name: StageSauce
+        value: $[ stageDependencies.one.A.outputs['setvar.sauce'] ]
+      - name: skipMe
+        value: $[ stageDependencies.one.A.outputs['skipstep.skipsubsequent'] ]
     steps:
-    - checkout: none
-    - script: |
-        echo "This Job will print value from Stage STAGE_X"
-        echo $(varFromStageA)
+    - task: Bash@3
+      inputs:
+        filePath: 'script-b.sh'
+      name: fileversion
+      env:
+        StageSauce: $(StageSauce) # predefined in variables section
+        skipMe: $(skipMe) # predefined in variables section
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          echo 'Hello inline version'
+          echo $(skipMe) 
+          echo $(StageSauce) 
