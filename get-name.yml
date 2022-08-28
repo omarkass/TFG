@@ -27,15 +27,12 @@ stages:
   jobs:
   - job: B
     variables:
-      - name: StageSauce
-        value: $[ stageDependencies.one.A.outputs['setvar.sauce'] ]
       - name: skipMe
         value: $[ stageDependencies.one.A.outputs['skipstep.skipsubsequent'] ]
     steps:
     - task: Bash@3
       name: fileversion
       env:
-        StageSauce: $(StageSauce) # predefined in variables section
         skipMe: $(skipMe) # predefined in variables section
     - task: Bash@3
       inputs:
@@ -43,4 +40,3 @@ stages:
         script: |
           echo 'Hello inline version'
           echo $(skipMe) 
-          echo $(StageSauce) 
