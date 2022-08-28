@@ -18,7 +18,7 @@ variables:
 - name:   webAppName 
   value: 'proj-dev-app'  
 
-- name: useAksMonitoring
+- name: useGrafana
   value: $true
 
 - name: azureSubscription

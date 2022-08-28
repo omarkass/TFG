@@ -29,6 +29,11 @@ param numberOfWorkersWebApp string = '1'
 param proj string = 'proj'
 param env string = 'dev'
 
+param deployAks bool = false
+param deployFunc bool = true
+param deployApp bool = true
+param deploySql bool = true
+
 var AzureSqlRuleName = 'AllowAllWindowsAzureIps'
 var aksName = '${proj}-${env}-aks'
 var acrName = uniqueString(subscription().subscriptionId,proj,env,'acr','aks')
@@ -50,26 +55,26 @@ var projTagValue = 'proj'
 
 
 // Creating resource group
-resource func_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+resource func_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = if(deployFunc){
   name: azureFunctionRgName
   location: locationAzureFunction
 }
-resource sql_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+resource sql_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = if(deploySql) {
   name: sqlRgName
   location: locationSqlDatabase
 }
-resource app_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+resource app_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = if(deployApp) {
   name: azureWebAppRgName
   location: locationAzureFunction
 }
-resource aks_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+resource aks_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = if(deployAks) {
   name: aksRgName
   location: locationAks
 }
 
 
 // Deploying storage account using module
-module func_st './bicep-templates/func-st.bicep' = {
+module func_st './bicep-templates/func-st.bicep' = if(deployFunc) {
   name: 'func_st'
   scope: func_rg    // Deployed in the scope of resource group we created above
   params: {
@@ -79,7 +84,7 @@ module func_st './bicep-templates/func-st.bicep' = {
   }
 }
 
-module func_plan './bicep-templates/plan.bicep' = {
+module func_plan './bicep-templates/plan.bicep' = if(deployFunc)  {
   name: 'func_plan'
   scope: func_rg    // Deployed in the scope of resource group we created above
   params: {
@@ -92,7 +97,7 @@ module func_plan './bicep-templates/plan.bicep' = {
   }
 }
 
-module func_log 'bicep-templates/func-log.bicep' = {
+module func_log 'bicep-templates/func-log.bicep' = if(deployFunc) {
   name: logAnalyticName
   scope: func_rg
   params:{
@@ -102,7 +107,7 @@ module func_log 'bicep-templates/func-log.bicep' = {
   }
 }
 
-module func_appi 'bicep-templates/func-appi.bicep' = {
+module func_appi 'bicep-templates/func-appi.bicep' = if(deployFunc) {
   name : 'func_appi'
   scope: func_rg 
   params:{
@@ -117,7 +122,7 @@ module func_appi 'bicep-templates/func-appi.bicep' = {
   ]
 }
 
-module func 'bicep-templates/func.bicep' = {
+module func 'bicep-templates/func.bicep' = if(deployFunc) {
   name: 'func'
   scope: func_rg    // Deployed in the scope of resource group we created above
   params: {
@@ -134,7 +139,7 @@ module func 'bicep-templates/func.bicep' = {
   ]
 }
 
-module sqldb 'bicep-templates/sqldb.bicep' = {
+module sqldb 'bicep-templates/sqldb.bicep' = if(deploySql) {
   name: 'sqdbl'
   scope: sql_rg    // Deployed in the scope of resource group we created above
   params: {
@@ -147,7 +152,7 @@ module sqldb 'bicep-templates/sqldb.bicep' = {
   }
 
 
-  module sql_rule 'bicep-templates/sql-rule.bicep' = {
+  module sql_rule 'bicep-templates/sql-rule.bicep' = if(deploySql) {
     name: 'sql_rule'
     scope: sql_rg    // Deployed in the scope of resource group we created above
     params: {
@@ -160,7 +165,7 @@ module sqldb 'bicep-templates/sqldb.bicep' = {
     ]
     }
 
-module sql 'bicep-templates/sql.bicep' = {
+module sql 'bicep-templates/sql.bicep' = if(deploySql) {
 name: 'sql'
 scope: sql_rg    // Deployed in the scope of resource group we created above
 params: {
@@ -173,8 +178,8 @@ dependsOn:[
 ]
 }
 
-/*
-module aks 'bicep-templates/aks.bicep' = {
+
+module aks 'bicep-templates/aks.bicep' = if(deployAks) {
   name: 'aks'
   scope: aks_rg    // Deployed in the scope of resource group we created above
   params: {
@@ -185,9 +190,23 @@ module aks 'bicep-templates/aks.bicep' = {
     projTagValue:projTagValue
   }
   }
-  */
+  
+  module aks_acr 'bicep-templates/aks-acr.bicep' = if(deployAks) {
+    name: 'aks_acr'
+    scope: aks_rg 
+    params: {
+      name: acrName
+      location: locationAks
+      aksName: aksName
+      projTagValue:projTagValue
+    }
+    dependsOn:[
+      aks
+    ]
+  }
 
-  module app 'bicep-templates/app.bicep' = {
+
+  module app 'bicep-templates/app.bicep' = if(deployApp){
   name: 'app'
   scope: app_rg    // Deployed in the scope of resource group we created above
   params: {
@@ -201,7 +220,7 @@ module aks 'bicep-templates/aks.bicep' = {
   ]
   }
 
-  module app_plan 'bicep-templates/plan.bicep' = {
+  module app_plan 'bicep-templates/plan.bicep' = if(deployApp){
     name: 'app_plan'
     scope: app_rg 
     params: {
@@ -231,18 +250,4 @@ module aks 'bicep-templates/aks.bicep' = {
 
 */
 
-/*
-  module aks_acr 'bicep-templates/aks-acr.bicep' = {
-    name: 'aks_acr'
-    scope: aks_rg 
-    params: {
-      name: acrName
-      location: locationAks
-      aksName: aksName
-      projTagValue:projTagValue
-    }
-    dependsOn:[
-      aks
-    ]
-  }
-*/
+
