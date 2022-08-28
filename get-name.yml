@@ -11,7 +11,7 @@ variables:
 pool:
   vmImage: windows-latest
 
--stages:
+stages:
 
 - stage: one
   jobs:
