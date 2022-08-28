@@ -32,7 +32,6 @@ stages:
           scriptType: 'ps'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            echo ${{parameters.aksclusterName}}
             if (${{parameters.useAksMonitoring }}) {
             $aksInfo = $(az resource list --name ${{parameters.aksclusterName}}) | ConvertFrom-json
             $nodePoolInfo = $(az aks nodepool list --cluster-name $aksInfo.name --resource-group $aksInfo.resourceGroup) | ConvertFrom-json
