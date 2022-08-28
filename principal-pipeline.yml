@@ -41,7 +41,7 @@ stages:
   parameters:
     azureSubscription: $(azureSubscription)
     aksclusterName: $(aksclusterName)
-    useAksMonitoring: $(useGrafana)
+    useGrafana: $(useGrafana)
     dependsOn: deploy_infrastructure
 
 - template: 'pipelines\aks-stage.yml'
