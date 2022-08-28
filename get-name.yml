@@ -11,21 +11,38 @@ variables:
 pool:
   vmImage: windows-latest
 stages:
-- template: 'pipelines\get-name-stage.yml'
-- stage: print_resource_name
-  variables:
-  - name: devKubeletPrincipalId 
-    value: $[ stageDependencies.DeployDev.DeployResources.outputs['DeployResources.SetOutputs.kubeletPrincipalId'] ]
-  displayName: Get azure resource name
+
+- stage: STAGE_X
   jobs:
-  - job: print_resource_name
-    pool:
-      vmImage: 'windows-latest'
+  - job: STAGE_X_JOB_A
     steps:
-      - task: PowerShell@2
-        displayName: 'Get azure resource name'
-        name: Getname
-        inputs:
-          targetType: inline
-          script: |
-            write-host $(devKubeletPrincipalId)
+    - checkout: none
+    - script: |
+        echo "This is job STAGE_X_JOB_A. Lets set the value"
+        export PARAM_X="TEST"
+        echo "##vso[task.setvariable variable=VarKey;isOutput=true]$PARAM_X"
+      name: ValidateVar
+    - script: |
+        echo "Key Value :"
+        echo $(ValidateVar.VarKey)
+      name: Print_Key_value
+  - job: STAGE_X_JOB_B
+    dependsOn: STAGE_X_JOB_A
+    condition: eq(dependencies.STAGE_X_JOB_A.outputs['ValidateVar.VarKey'], 'TEST')
+    steps:
+    - checkout: none
+    - script: |
+        echo "This is job STAGE_X_JOB_B and will run as per the valid condition"
+      displayName: Print Details
+- stage: STAGE_Y
+  dependsOn: STAGE_X
+  jobs:
+  - job: STAGE_Y_JOB_B
+    condition: eq(stageDependencies.STAGE_X.STAGE_X_JOB_A.outputs['ValidateVar.VarKey'], 'TEST') 
+    variables:
+      varFromStageA: $[ stageDependencies.STAGE_X.STAGE_X_JOB_A.outputs['ValidateVar.VarKey'] ]
+    steps:
+    - checkout: none
+    - script: |
+        echo "This Job will print value from Stage STAGE_X"
+        echo $(varFromStageA)
