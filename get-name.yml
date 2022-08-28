@@ -10,7 +10,6 @@ variables:
   - template:  pipelines\vars\vars.yml  
 pool:
   vmImage: windows-latest
-stages:
 
 -stages:
 
