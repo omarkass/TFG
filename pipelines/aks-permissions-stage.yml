@@ -7,7 +7,7 @@ parameters:
   type: string 
   #default: 'aks'
 
-- name: useAksMonitoring
+- name: useGrafana
   type: string
   default: true  
   
