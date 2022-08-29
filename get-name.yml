@@ -21,7 +21,7 @@ stages:
     - checkout: none
     - script: |
         echo "This is job STAGE_X_JOB_A. Lets set the value"
-        export PARAM_X="TEST"
+        PARAM_X="TEST"
         echo "##vso[task.setvariable variable=VarKey;isOutput=true]$PARAM_X"
       name: ValidateVar
 
