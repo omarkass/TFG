@@ -25,7 +25,14 @@ stages:
         scriptLocation: 'inlineScript'
         inlineScript: |
           echo "This is job STAGE_X_JOB_A. Lets set the value"
-                  export PARAM_X=$(ls)
+          export PARAM_X=$(ls)
+          echo $(PARAM_X)
+          echo "$(PARAM_X)"
+          echo "$PARAM_X"
+          echo $PARAM_X
+          echo ${PARAM_X}
+          echo "${PARAM_X}"
+          echo "PARAM_X"
       name: ValidateVar
 
     
