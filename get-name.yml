@@ -9,7 +9,7 @@ variables:
   #azureServiceConnectionId: 'Service_connection'
   - template:  pipelines\vars\vars.yml  
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
 
 stages:
@@ -35,6 +35,8 @@ stages:
   dependsOn: STAGE_X
   jobs:
   - job: STAGE_Y_JOB_B
+  pool:
+    vmImage: ubuntu-latest
     variables:
       varFromStageA: $[ stageDependencies.STAGE_X.STAGE_X_JOB_A.outputs['ValidateVar.VarKey'] ]
     steps:
