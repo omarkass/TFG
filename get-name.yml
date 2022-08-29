@@ -67,4 +67,4 @@ stages:
         scriptLocation: 'inlineScript'
         inlineScript: |
            $account = $(az account show) | ConvertFrom-Json 
-           az vmss identity assign -g  $varFromStage.resourcegroup  -n $varFromStage.name --role "Monitoring Reader" --scope /subscriptions/$($account.id) 
+           az vmss identity assign -g  ${{varFromStage.resourcegroup}}  -n ${{varFromStage.name}} --role "Monitoring Reader" --scope /subscriptions/$($account.id) 
