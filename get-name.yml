@@ -13,6 +13,10 @@ parameters:
   - name: resoucType
     type: string
     default: "microsoft.web/sites"
+    
+  - name: tagValue
+    type: string
+    default: "proj"
 
 variables:
   # Azure Resource Manager connection created during pipeline creation
@@ -34,7 +38,7 @@ stages:
             scriptType: 'ps'
             scriptLocation: 'inlineScript'
             inlineScript: |
-              $resources = $(az resource list --tag deployedby=proj ) | ConvertFrom-json
+              $resources = $(az resource list --tag deployedby="${{parameters.tagValue}}" ) | ConvertFrom-json
               foreach( $resource in $resources  ) { 
                if( $resource.type -eq "${{parameters.resoucType}}" -and $resource.resourceGroup -eq "${{parameters.resourceGroup}}" ){
                mkdir -p $(Pipeline.Workspace)/variables
