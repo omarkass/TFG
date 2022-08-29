@@ -38,12 +38,18 @@ stages:
             scriptType: 'ps'
             scriptLocation: 'inlineScript'
             inlineScript: |
+              $find = 0
               $resources = $(az resource list --tag deployedby="${{parameters.tagValue}}" ) | ConvertFrom-json
               foreach( $resource in $resources  ) { 
                if( $resource.type -eq "${{parameters.resoucType}}" -and $resource.resourceGroup -eq "${{parameters.resourceGroup}}" ){
                mkdir -p $(Pipeline.Workspace)/variables
                echo $resource.name > $(Pipeline.Workspace)/variables/FOO
+               $find = 1
                }
+              if (find -eq 0){
+                     print("##vso[task.logissue type=error;]no se ha podido enoctrar el recurso")
+                     print("##vso[task.complete result=Failed;]no se ha podido enoctrar el recurso")
+              }
                }
           # To pass the variable FOO, write it to a file
           # While the file name doesn't matter, naming it like the variable and putting it inside the $(Pipeline.Workspace)/variables folder could be a good pattern
