@@ -46,4 +46,9 @@ stages:
     - checkout: none
     - script: |
         echo "This Job will print value from Stage STAGE_X"
-        echo "${varFromStageA}"
+        echo "$(varFromStageA)"
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          echo "${varFromStageA}"
