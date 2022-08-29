@@ -4,6 +4,16 @@
 # https://aka.ms/yaml
 trigger: none
 
+parameters:
+  - name: resourceGroup
+    type: string
+    default: "proj-dev-func-rg"
+    
+
+  - name: resoucType
+    type: string
+    default: "microsoft.web/sites"
+
 variables:
   # Azure Resource Manager connection created during pipeline creation
   #azureServiceConnectionId: 'Service_connection'
@@ -26,7 +36,7 @@ stages:
             inlineScript: |
               $resources = $(az resource list --tag deployedby=proj ) | ConvertFrom-json
               foreach( $resource in $resources  ) { 
-               if( $resource.type -eq "microsoft.web/sites" -and $resource.resourceGroup -eq "proj-dev-func-rg"){
+               if( $resource.type -eq ${{parameters.resoucType}} -and $resource.resourceGroup -eq ${{parameters.resourceGroup}} ){
                mkdir -p $(Pipeline.Workspace)/variables
                echo $resource.name > $(Pipeline.Workspace)/variables/FOO
                }
