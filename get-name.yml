@@ -49,7 +49,7 @@ stages:
 - stage: STAGE_x
   pool:
     vmImage: ubuntu-latest
-  dependsOn: STAGE_X
+  dependsOn: STAGE_A
   jobs:
   - job: STAGE_Y_JOB_B
     variables:
