@@ -24,7 +24,7 @@ stages:
         echo "##vso[task.setvariable variable=VarKey;isOutput=true]$PARAM_X"
       name: ValidateVar
     - script: |
-        echo "Key Value :"
+        echo "Key Value :"omar"
         echo $(ValidateVar.VarKey)
       name: Print_Key_value
   - job: STAGE_X_JOB_B
