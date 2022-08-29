@@ -22,7 +22,7 @@ stages:
           # To pass the variable FOO, write it to a file
           # While the file name doesn't matter, naming it like the variable and putting it inside the $(Pipeline.Workspace)/variables folder could be a good pattern
           - bash: |
-              FOO="some value"
+              FOO="$(ls)"
               mkdir -p $(Pipeline.Workspace)/variables
               echo "$FOO" > $(Pipeline.Workspace)/variables/FOO
 
