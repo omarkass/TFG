@@ -48,7 +48,7 @@ stages:
 
 - stage: STAGE_A
   pool:
-    vmImage: ubuntu-latest
+    vmImage: windows-latest
   dependsOn: STAGE_X
   jobs:
   - job: STAGE_Y_JOB_B
