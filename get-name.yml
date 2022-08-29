@@ -57,10 +57,12 @@ stages:
 
           # Read the variable from the file, then expose it in the job
           - bash: |
-              vi $(Pipeline.Workspace)/variables/FOO
-              :setlocal ff=unix
-              :wq!
-              FOO=$(cat $(Pipeline.Workspace)/variables/FOO)
+              #vi $(Pipeline.Workspace)/variables/FOO
+              #:setlocal ff=unix
+              #:wq!
+              sudo apt-get install dos2unix -y
+              dos2unix $(Pipeline.Workspace)/variables/FOO $(Pipeline.Workspace)/variables/FOOL-LIN
+              FOO=$(cat $(Pipeline.Workspace)/variables/FOO-LIN)
               echo "##vso[task.setvariable variable=FOO]$FOO"
 
           # Just like in the first example, we can expand the variable within Azure Pipelines itself
