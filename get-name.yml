@@ -47,8 +47,8 @@ stages:
                $find = 1
                }
               if (find -eq 0){
-                     print("##vso[task.logissue type=error;]no se ha podido enoctrar el recurso")
-                     print("##vso[task.complete result=Failed;]no se ha podido enoctrar el recurso")
+                     echo"##vso[task.logissue type=error;]no se ha podido enoctrar el recurso"
+                     echo "##vso[task.complete result=Failed;]no se ha podido enoctrar el recurso"
               }
                }
           # To pass the variable FOO, write it to a file
