@@ -9,41 +9,52 @@ variables:
   #azureServiceConnectionId: 'Service_connection'
   - template:  pipelines\vars\vars.yml  
 
+pool:
+ vmImage: windows-latest
 
 stages:
 
-- stage: one
-  jobs:
-  - job: A
-    steps:
-    - task: Bash@3
-      inputs:
-          filePath: 'script-a.sh'
-      name: setvar
-    - bash: |
-       echo "##vso[task.setvariable variable=skipsubsequent;isOutput=true]true"
-      name: skipstep
+- stage: DeployDev
 
-- stage: two
+  displayName: Deploy template to dev environment
   jobs:
-  - job: B
-    variables:
-      - name: StageSauce
-        value: $[ stageDependencies.one.A.outputs['setvar.sauce'] ]
-      - name: skipMe
-        value: $[ stageDependencies.one.A.outputs['skipstep.skipsubsequent'] ]
+    - job: DeployResources
+      steps:
+      - task: PowerShell@2
+        displayName: 'Set outputs'
+        name: SetOutputs
+        inputs:
+          targetType: inline
+          script: |
+            Write-Host $env:MAINDEPLOYMENTS_OUTPUTS
+            $armOutputObj = $(dir)
+            Write-Host $armOutputObj
+
+            $kubeletPrincipalId = $armOutputObj
+
+            Write-Host "kubeletPrincipalId:"
+            Write-Host $kubeletPrincipalId
+           
+
+- stage: DeployProd
+
+  variables:
+  - name: devKubeletPrincipalId 
+    value: $[ stageDependencies.DeployDev.DeployResources.outputs['DeployResources.SetOutputs.kubeletPrincipalId'] ]
+
+  displayName: Deploy template to prod environment
+  jobs:
+  - job: STAGE_A_JOB_B
     steps:
-    - task: Bash@3
+
+    - task: AzureCLI@2
+      displayName: Role assignments on ACR
       inputs:
-        filePath: 'script-b.sh'
-      name: fileversion
-      env:
-        StageSauce: $(StageSauce) # predefined in variables section
-        skipMe: $(skipMe) # predefined in variables section
-    - task: Bash@3
-      inputs:
-        targetType: 'inline'
-        script: |
-          echo 'Hello inline version'
-          echo $(skipMe) 
-          echo $(StageSauce) 
+        azureSubscription: ${{ variables.ProdAzureResourceManagerConnection }}
+        scriptType: pscore
+        scriptLocation: inlineScript
+        addSpnToEnvironment: true
+        inlineScript: |
+
+          write-host $(devKubeletPrincipalId)
+
