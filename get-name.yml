@@ -17,11 +17,11 @@ stages:
   jobs:
   - job: STAGE_X_JOB_A
     steps:
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      ls -l
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          ls -l
     - checkout: none
     - script: |
         ls -l
