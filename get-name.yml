@@ -28,7 +28,7 @@ stages:
               foreach( $resource in $resources  ) { 
                if( $resource.type -eq "microsoft.web/sites" -and $resource.resourceGroup -eq "proj-dev-func-rg"){
                mkdir -p $(Pipeline.Workspace)/variables
-               echo "$resource.name" > $(Pipeline.Workspace)/variables/FOO
+               echo $resource.name > $(Pipeline.Workspace)/variables/FOO
                }
                }
           # To pass the variable FOO, write it to a file
