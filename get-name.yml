@@ -26,12 +26,9 @@ stages:
         inputs:
           targetType: inline
           script: |
-            Write-Host $env:MAINDEPLOYMENTS_OUTPUTS
             $armOutputObj = $(dir)
             Write-Host $armOutputObj
-
             $kubeletPrincipalId = $armOutputObj
-
             Write-Host "kubeletPrincipalId:"
             Write-Host $kubeletPrincipalId
            
@@ -50,11 +47,9 @@ stages:
     - task: AzureCLI@2
       displayName: Role assignments on ACR
       inputs:
-        azureSubscription: ${{ variables.ProdAzureResourceManagerConnection }}
-        scriptType: pscore
-        scriptLocation: inlineScript
+        azureSubscription: 'Service_connection'
+        scriptType: 'pscore'
+        scriptLocation: 'inlineScript'
+        inlineScript: 'write-host $(devKubeletPrincipalId)'
         addSpnToEnvironment: true
-        inlineScript: |
-
-          write-host $(devKubeletPrincipalId)
 
