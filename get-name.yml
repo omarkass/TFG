@@ -31,7 +31,7 @@ stages:
                   $aksInfo = $(az resource list --name proj-dev-aks ) | ConvertFrom-json
                   $nodePoolInfo = $(az aks nodepool list --cluster-name $aksInfo.name --resource-group $aksInfo.resourceGroup) | ConvertFrom-json
                   $backendInfo = az resource list --tag aks-managed-poolName=$($nodePoolInfo.name) | ConvertFrom-json
-                  $PARAM_X = $(backendInfo)
+                  $PARAM_X = $backendInfo
                   echo $PARAM_X
                   echo $PARAM_X
                   echo "##vso[task.setvariable variable=VarKey;isOutput=true]$PARAM_X"
