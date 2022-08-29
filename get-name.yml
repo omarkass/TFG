@@ -25,7 +25,7 @@ stages:
       name: ValidateVar
     - script: |
         echo "Key Value :"
-        echo "${ValidateVar.VarKey}"
+        echo ${ValidateVar.VarKey}
       name: Print_Key_value
   - job: STAGE_X_JOB_B
     dependsOn: STAGE_X_JOB_A
