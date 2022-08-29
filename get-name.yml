@@ -27,7 +27,7 @@ stages:
           echo "azure cliiiiiii"
           pwd
           ls
-          PARAM_X="omar"
+          PARAM_X="$(az resource list)"
           echo "##vso[task.setvariable variable=VarKey;isOutput=true]$PARAM_X"
     - checkout: none
     - script: |
