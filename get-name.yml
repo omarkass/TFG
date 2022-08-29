@@ -18,7 +18,6 @@ stages:
   - job: STAGE_X_JOB_A
     steps:
     - task: AzureCLI@2
-      name: ValidateVar
       inputs:
         azureSubscription: 'Service_connection'
         scriptType: 'bash'
