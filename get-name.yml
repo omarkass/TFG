@@ -24,11 +24,10 @@ stages:
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
-          echo "azure cli"
+          echo "azure cliiiiiii"
           pwd
           ls
           export  PARAM_X=$(az resource list)
-          echo $PARAM_X
           echo "##vso[task.setvariable variable=VarKey;isOutput=true]$PARAM_X"
     - checkout: none
    # - script: |
