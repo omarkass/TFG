@@ -21,12 +21,12 @@ stages:
     - task: AzureCLI@2
       inputs:
         azureSubscription: 'Service_connection'
-        scriptType: 'ps'
+        scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
           echo "This is job STAGE_X_JOB_A. Lets set the value"
-          $PARAM_X="omar"
-          Write-Host "##vso[task.setvariable variable=VarKey;isOutput=true]$PARAM_X"
+          PARAM_X="omar"
+          echo "##vso[task.setvariable variable=VarKey;isOutput=true]$PARAM_X"
       name: ValidateVar
 
     
