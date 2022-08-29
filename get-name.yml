@@ -17,11 +17,18 @@ stages:
   jobs:
   - job: STAGE_X_JOB_A
     steps:
-    - task: Bash@3
+    - task: AzureCLI@2
       inputs:
-        targetType: 'inline'
-        script: |
-          ls -l
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'Service_connection'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          echo "azure cli"
+          pwd
+          ls
+          az resource list
     - checkout: none
     - script: |
         ls -l
