@@ -10,61 +10,40 @@ variables:
   - template:  pipelines\vars\vars.yml  
 
 
-
 stages:
 
-- stage: STAGE_X
-  pool:
-    vmImage: windows-latest
+- stage: one
   jobs:
-  - job: STAGE_X_JOB_A
+  - job: A
     steps:
-    - checkout: none
-    - task: AzureCLI@2
-      name: ValidateVar
+    - task: Bash@3
       inputs:
-        azureSubscription: 'Service_connection'
-        scriptType: 'ps'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-                  echo "This is job STAGE_X_JOB_A. Lets set the value"
-                  $aksInfo = $(az resource list --name proj-dev-aks ) | ConvertFrom-json
-                  $nodePoolInfo = $(az aks nodepool list --cluster-name $aksInfo.name --resource-group $aksInfo.resourceGroup) | ConvertFrom-json
-                  $backendInfo = az resource list --tag aks-managed-poolName=$($nodePoolInfo.name) | ConvertFrom-json
-                  $PARAM_X = $backendInfo
-                  echo $PARAM_X
-                  echo $PARAM_X
-                  echo "##vso[task.setvariable variable=VarKey;isOutput=true]$PARAM_X"
-                      
-  
-- stage: STAGE_Y
-  pool:
-    vmImage: ubuntu-latest
-  dependsOn: STAGE_X
-  jobs:
-  - job: STAGE_Y_JOB_B
-    variables:
-      varFromStageA: $[ stageDependencies.STAGE_X.STAGE_X_JOB_A.outputs['ValidateVar.VarKey'] ]
-    steps:
-    - checkout: none
-    - script: |
-        echo "This Job will print value from Stage STAGE_X"
-        echo $(varFromStageA)
+          filePath: 'script-a.sh'
+      name: setvar
+    - bash: |
+       echo "##vso[task.setvariable variable=skipsubsequent;isOutput=true]true"
+      name: skipstep
 
-- stage: STAGE_A
-  pool:
-    vmImage: windows-latest
-  dependsOn: STAGE_X
+- stage: two
   jobs:
-  - job: STAGE_A_JOB_B
+  - job: B
     variables:
-      varFromStage: $[ stageDependencies.STAGE_X.STAGE_X_JOB_A.outputs['ValidateVar.VarKey'] ]
+      - name: StageSauce
+        value: $[ stageDependencies.one.A.outputs['setvar.sauce'] ]
+      - name: skipMe
+        value: $[ stageDependencies.one.A.outputs['skipstep.skipsubsequent'] ]
     steps:
-    - task: AzureCLI@2
+    - task: Bash@3
       inputs:
-        azureSubscription: 'Service_connection'
-        scriptType: 'ps'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-           $account = $(az account show) | ConvertFrom-Json 
-           az vmss identity assign -g  $(variables.varFromStage.resourcegroup)  -n ${{ variables.varFromStage.name }} --role "Monitoring Reader" --scope /subscriptions/$($account.id) 
+        filePath: 'script-b.sh'
+      name: fileversion
+      env:
+        StageSauce: $(StageSauce) # predefined in variables section
+        skipMe: $(skipMe) # predefined in variables section
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          echo 'Hello inline version'
+          echo $(skipMe) 
+          echo $(StageSauce) 
