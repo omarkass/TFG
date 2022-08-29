@@ -27,17 +27,9 @@ stages:
           echo "azure cliiiiiii"
           pwd
           ls
-          export  PARAM_X=$(az resource list)
+          PARAM_X=$(az resource list)
           echo "##vso[task.setvariable variable=VarKey;isOutput=true]$PARAM_X"
     - checkout: none
-   # - script: |
-   #     ls -l
-   #     echo "This is job STAGE_X_JOB_A. Lets set the value"
-   #     export PARAM_X=$(ls -l)
-   #     echo "##vso[task.setvariable variable=VarKey;isOutput=true]$PARAM_X"
-   #     echo $(PARAM_X)
-   #     echo $PARAM_X
-   #   name: ValidateVar
     - script: |
         echo "Key Value :"
         echo "$(ValidateVar.VarKey)"
