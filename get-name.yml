@@ -19,8 +19,9 @@ stages:
     steps:
     - checkout: none
     - script: |
+        ls -l
         echo "This is job STAGE_X_JOB_A. Lets set the value"
-        export PARAM_X="$(ls -l)"
+        export PARAM_X=$(ls -l)
         echo "##vso[task.setvariable variable=VarKey;isOutput=true]$PARAM_X"
         echo $(PARAM_X)
         echo $PARAM_X
