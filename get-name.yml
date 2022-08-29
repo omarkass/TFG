@@ -9,7 +9,7 @@ variables:
   #azureServiceConnectionId: 'Service_connection'
   - template:  pipelines\vars\vars.yml  
 pool:
-  vmImage: windows-latest
+  vmImage: ubuntu-latest
 
 stages:
 
