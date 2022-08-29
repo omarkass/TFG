@@ -28,7 +28,7 @@ stages:
         scriptLocation: 'inlineScript'
         inlineScript: |
           echo "This is job STAGE_X_JOB_A. Lets set the value"
-                  PARAM_X="TEST"
+                  $PARAM_X="TEST"
                   echo "##vso[task.setvariable variable=VarKey;isOutput=true]$PARAM_X"
                       
   
