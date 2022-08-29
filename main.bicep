@@ -29,10 +29,10 @@ param numberOfWorkersWebApp string = '1'
 param proj string = 'proj'
 param env string = 'dev'
 
-param deployAks bool = true
-param deployFunc bool = false
-param deployApp bool = false
-param deploySql bool = false
+param deployAks bool = false
+param deployFunc bool = true
+param deployApp bool = true
+param deploySql bool = true
 
 var AzureSqlRuleName = 'AllowAllWindowsAzureIps'
 var aksName = '${proj}-${env}-aks'
