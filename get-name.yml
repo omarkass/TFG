@@ -29,7 +29,7 @@ stages:
       name: Print_Key_value
   - job: STAGE_X_JOB_B
     dependsOn: STAGE_X_JOB_A
-    condition: eq(dependencies.STAGE_X_JOB_A.outputs['ValidateVar.VarKey'], 'TEST')
+    #condition: eq(dependencies.STAGE_X_JOB_A.outputs['ValidateVar.VarKey'], 'TEST')
     steps:
     - checkout: none
     - script: |
@@ -39,7 +39,7 @@ stages:
   dependsOn: STAGE_X
   jobs:
   - job: STAGE_Y_JOB_B
-    condition: eq(stageDependencies.STAGE_X.STAGE_X_JOB_A.outputs['ValidateVar.VarKey'], 'TEST') 
+    #condition: eq(stageDependencies.STAGE_X.STAGE_X_JOB_A.outputs['ValidateVar.VarKey'], 'TEST') 
     variables:
       varFromStageA: $[ stageDependencies.STAGE_X.STAGE_X_JOB_A.outputs['ValidateVar.VarKey'] ]
     steps:
