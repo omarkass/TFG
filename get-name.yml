@@ -51,4 +51,5 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
+          echo "function here what is going on"
           echo "${varFromStageA}"
