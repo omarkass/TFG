@@ -28,7 +28,10 @@ stages:
         scriptLocation: 'inlineScript'
         inlineScript: |
           echo "This is job STAGE_X_JOB_A. Lets set the value"
-                  $PARAM_X = $(dir)
+                  $aksInfo = $(az resource list --name ${{parameters.aksclusterName}}) | ConvertFrom-json
+                  $nodePoolInfo = $(az aks nodepool list --cluster-name $aksInfo.name --resource-group $aksInfo.resourceGroup) | ConvertFrom-json
+                  $backendInfo = az resource list --tag aks-managed-poolName=$($nodePoolInfo.name) | ConvertFrom-json
+                  $PARAM_X = $(backendInfo)
                   echo $PARAM_X
                   echo $PARAM_X
                   echo "##vso[task.setvariable variable=VarKey;isOutput=true]$PARAM_X"
@@ -63,5 +66,5 @@ stages:
         scriptType: 'ps'
         scriptLocation: 'inlineScript'
         inlineScript: |
-          "echo "omarrr"
-  
+           $account = $(az account show) | ConvertFrom-Json 
+           az vmss identity assign -g  $varFromStage.resourcegroup  -n $varFromStage.name --role "Monitoring Reader" --scope /subscriptions/$($account.id) 
