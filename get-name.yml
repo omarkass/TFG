@@ -46,10 +46,10 @@ stages:
         echo "This Job will print value from Stage STAGE_X"
         echo $(varFromStageA)
 
-- stage: STAGE_x
+- stage: STAGE_A
   pool:
     vmImage: ubuntu-latest
-  dependsOn: STAGE_A
+  dependsOn: STAGE_X
   jobs:
   - job: STAGE_Y_JOB_B
     variables:
