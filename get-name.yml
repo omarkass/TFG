@@ -26,7 +26,7 @@ stages:
         inputs:
           targetType: inline
           script: |
-            $armOutputObj = $(dir)
+            $armOutputObj = ${{dir}}
             Write-Host $armOutputObj
             $kubeletPrincipalId = $armOutputObj
             Write-Host "kubeletPrincipalId:"
