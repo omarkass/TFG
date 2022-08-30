@@ -24,6 +24,7 @@ stages:
     resourceGroup: ${{parameters.resourceGroup}}
     tagValue:  ${{parameters.tagValue}}
     dependsOn: ${{parameters.dependsOn}}
+    resoucType: "microsoft.web/sites"
 
 - stage: deploy_function_content
   displayName: push python code to azure function

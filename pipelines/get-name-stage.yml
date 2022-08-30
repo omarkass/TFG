@@ -10,7 +10,7 @@ parameters:
 
   - name: resoucType
     type: string
-    default: "microsoft.web/sites"
+
     
   - name: tagValue
     type: string
