@@ -53,7 +53,7 @@ stages:
   displayName: push webapp code to azure webapp
   dependsOn : ${{parameters.dependsOn}}
   pool:
-  vmImage: 'ubuntu-latest'
+    vmImage: 'ubuntu-latest'
   jobs :
   - job: deploy_webapp_content
     variables:
