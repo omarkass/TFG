@@ -45,7 +45,7 @@ stages:
                if($resource.type -eq "${{parameters.resoucType}}" -and $resource.resourceGroup -eq "${{parameters.resourceGroup}}")
                {
                mkdir -p $(Pipeline.Workspace)/variables
-               echo $resource.name > $(Pipeline.Workspace)/variables/FOO
+               echo $resource.name > $(Pipeline.Workspace)/variables/resourceName
                echo $resource.name
                }
                }
