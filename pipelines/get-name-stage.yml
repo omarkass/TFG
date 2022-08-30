@@ -46,10 +46,10 @@ stages:
               foreach( $resource in $resources  ) { 
                if($resource.type -eq "${{parameters.resoucType}}" -and $resource.resourceGroup -eq "${{parameters.resourceGroup}}")
                {
-               mkdir -p $(Pipeline.Workspace)/variables
-               echo $resource.name > $(Pipeline.Workspace)/variables/resourceName
+               mkdir -p $(Pipeline.Workspace)/${{parameters.stageName}}
+               echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/resourceName
                echo $resource.name
                }
                }
-        - publish: $(Pipeline.Workspace)/variables
-          artifact: variables
+        - publish: $(Pipeline.Workspace)/${{parameters.stageName}}
+          artifact: ${{parameters.stageName}}
