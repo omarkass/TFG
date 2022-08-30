@@ -39,7 +39,6 @@ stages:
               echo "${{ parameters.tagValue }}"
               $find = 0
               $resources = $(az resource list --tag deployedby="${{parameters.tagValue}}" ) | ConvertFrom-json
-              echo $resources[0].resourceGroup
               foreach( $resource in $resources  ) { 
                if( $resource.type -eq "${{parameters.resoucType}}" -and $resource.resourceGroup -eq "${{parameters.resourceGroup}}" ){
                mkdir -p $(Pipeline.Workspace)/variables
