@@ -26,11 +26,11 @@ parameters:
 
 stages:
 
-  - stage: get-resource-name
+  - stage: get_resource_name
     dependsOn : ${{parameters.dependsOn}}
     jobs:
 
-      - job: get-resource-name
+      - job: get_resource_name
         pool:
           vmImage: 'windows-latest'
         steps:

@@ -27,7 +27,7 @@ stages:
 
 - stage: deploy_function_content
   displayName: push python code to azure function
-  dependsOn: get-resource-name
+  dependsOn: get_resource_name
   jobs: 
   - job: deploy_function_content
     variables:
