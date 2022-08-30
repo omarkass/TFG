@@ -21,7 +21,7 @@ stages:
   parameters:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(appResourceGroupName)
-    resoucType: "Microsoft.Web/sites"
+    resoucType: 'Microsoft.Web/sites'
     tagValue: $(tagValue)
 
 - stage: secondstage
