@@ -36,12 +36,15 @@ variables:
 - name: aksResourceGroupName
   value: 'proj-dev-aks-rg'
 
-
 - name: funcResourceGroupName
   value: 'proj-dev-func-rg'
 
 - name: appResourceGroupName
-  value: proj-dev-app-rg'
+  value: 'proj-dev-app-rg'
+
+
+- name: tagValue
+  value: 'proj'
 
 - name: sqlServerFqdn
   value: 'proj-dev-sql.database.windows.net'  

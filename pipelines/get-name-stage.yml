@@ -20,10 +20,6 @@ parameters:
   - name: azureSubscription
     type: string
 
-variables:
-  # Azure Resource Manager connection created during pipeline creation
-  #azureServiceConnectionId: 'Service_connection'
-  - template:  pipelines\vars\vars.yml  
 
 stages:
 
@@ -36,7 +32,7 @@ stages:
         steps:
         - task: AzureCLI@2
           inputs:
-            azureSubscription: 'Service_connection'
+            azureSubscription: ${{ parameters.azureSubscription }}
             scriptType: 'ps'
             scriptLocation: 'inlineScript'
             inlineScript: |
