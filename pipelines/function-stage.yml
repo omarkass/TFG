@@ -45,6 +45,10 @@ stages:
           echo "##vso[task.setvariable variable=functionAppName]$functionAppName"
 
       - bash: |
+          echo $functionAppName
+
+
+      - bash: |
           if [ -f extensions.csproj ]
           then
               dotnet build extensions.csproj --runtime ubuntu.16.04-x64 --output ./bin
