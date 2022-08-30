@@ -36,7 +36,6 @@ stages:
             scriptType: 'ps'
             scriptLocation: 'inlineScript'
             inlineScript: |
-              echo "${{ parameters.tagValue }}"
               $find = "0"
               $resources = $(az resource list --tag deployedby="${{parameters.tagValue}}" ) | ConvertFrom-json
               echo "$resources[1].resourceGroup
