@@ -24,34 +24,33 @@ stages:
     resoucType: "Microsoft.Web/sites"
     tagValue: $(tagValue)
 
-  - stage: secondstage
-    jobs:
+- stage: secondstage
+  jobs:
+    - job: secondjob
+      pool:
+        vmImage: 'Ubuntu-latest'
+      steps:
 
-      - job: secondjob
-        pool:
-         vmImage: 'Ubuntu-latest'
-        steps:
+        # Download the artifacts
+        - download: current
+          artifact: variables
 
-          # Download the artifacts
-          - download: current
-            artifact: variables
+        # Read the variable from the file, then expose it in the job
+        - bash: |
+            #vi $(Pipeline.Workspace)/variables/FOO
+            #:setlocal ff=unix
+            #:wq!
+            sudo apt-get install dos2unix -y
+            dos2unix $(Pipeline.Workspace)/variables/FOO $(Pipeline.Workspace)/variables/FOO
+            FOO=$(cat $(Pipeline.Workspace)/variables/FOO)
+            echo "##vso[task.setvariable variable=FOO]$FOO"
 
-          # Read the variable from the file, then expose it in the job
-          - bash: |
-              #vi $(Pipeline.Workspace)/variables/FOO
-              #:setlocal ff=unix
-              #:wq!
-              sudo apt-get install dos2unix -y
-              dos2unix $(Pipeline.Workspace)/variables/FOO $(Pipeline.Workspace)/variables/FOO
-              FOO=$(cat $(Pipeline.Workspace)/variables/FOO)
-              echo "##vso[task.setvariable variable=FOO]$FOO"
+        # Just like in the first example, we can expand the variable within Azure Pipelines itself
+        - bash: |
+            echo "$(FOO)"
 
-          # Just like in the first example, we can expand the variable within Azure Pipelines itself
-          - bash: |
-              echo "$(FOO)"
-
-          # Or we can expand it within bash, reading it as environmental variable
-          - bash: |
+        # Or we can expand it within bash, reading it as environmental variable
+        - bash: |
 
 
 - stage: deploy_webapp_content
