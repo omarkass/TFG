@@ -34,8 +34,9 @@ stages:
 - template: 'pipelines\function-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
-    functionAppName: $(functionAppName)
+    resourceGroup: $(funcResourceGroupName)
     pythonVersion: $(pythonVersion)
+    tagValue: $(tagValue)
     dependsOn: deploy_infrastructure
 
 - template: 'pipelines\aks-permissions-stage.yml'

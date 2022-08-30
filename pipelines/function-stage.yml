@@ -2,10 +2,13 @@ parameters:
 - name: azureSubscription
   type: string
 
-- name: functionAppName
+- name: resourceGroup
   type: string
   
 - name: pythonVersion
+  type: string
+
+- name: tagValue
   type: string
 
 - name: dependsOn
@@ -13,6 +16,15 @@ parameters:
   default: ''  
 
 stages:
+
+
+- template: './get-name-stage.yml'
+  parameters:
+    azureSubscription: ${{parameters.azureSubscription}}
+    resourceGroup: ${{parameters.resourceGroup}}
+    tagValue:  ${{parameters.tagValue}}
+    dependsOn: ${{parameters.dependsOn}}
+
 - stage: deploy_function_content
   displayName: push python code to azure function
   dependsOn: ${{parameters.dependsOn}}
@@ -22,6 +34,16 @@ stages:
       vmImageName: 'ubuntu-latest'
       workingDirectory: './content/function-content'
     steps:
+
+      - download: current
+      artifact: variables
+
+      - bash: |
+          sudo apt-get install dos2unix -y
+          dos2unix $(Pipeline.Workspace)/variables/FOO $(Pipeline.Workspace)/variables/FOO
+          functionAppName=$(cat $(Pipeline.Workspace)/variables/FOO)
+          echo "##vso[task.setvariable variable=functionAppName]$functionAppName"
+
       - bash: |
           if [ -f extensions.csproj ]
           then
@@ -46,10 +68,10 @@ stages:
           rootFolderOrFile: '$(workingDirectory)'
           includeRootFolder: false
           archiveType: zip
-          archiveFile: $(Build.ArtifactStagingDirectory)/${{parameters.functionAppName}}-$(Build.BuildId).zip
+          archiveFile: $(Build.ArtifactStagingDirectory)/$(functionAppName)-$(Build.BuildId).zip
           replaceExistingArchive: true
 
-      - publish: $(Build.ArtifactStagingDirectory)/${{parameters.functionAppName}}-$(Build.BuildId).zip
+      - publish: $(Build.ArtifactStagingDirectory)/$(functionAppName)-$(Build.BuildId).zip
         artifact: drop-function
 
 
@@ -58,5 +80,5 @@ stages:
         inputs:
           azureSubscription: '$(azureSubscription)'
           appType: functionAppLinux
-          appName: ${{parameters.functionAppName}}
-          package: $(Build.ArtifactStagingDirectory)/${{parameters.functionAppName}}-$(Build.BuildId).zip
+          appName: $(functionAppName)
+          package: $(Build.ArtifactStagingDirectory)/$(functionAppName)-$(Build.BuildId).zip

@@ -12,6 +12,7 @@ stages:
 - template: 'pipelines\function-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
-    functionAppName: $(functionAppName)
+    resourceGroup: $(funcResourceGroupName)
     pythonVersion: $(pythonVersion)
-    #dependsOn: deploy_infrastructure
+    tagValue: $(tagValue)
+    type: $(funcType)

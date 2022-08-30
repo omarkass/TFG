@@ -24,28 +24,6 @@ stages:
     tagValue:  ${{parameters.tagValue}}
     dependsOn: ${{parameters.dependsOn}}
 
-# - stage: secondstage
-#   jobs:
-#     - job: secondjob
-#       pool:
-#         vmImage: 'ubuntu-latest'
-#       steps:
-
-#         # Download the artifacts
-#         - download: current
-#           artifact: variables
-
-#         # Read the variable from the file, then expose it in the job
-#         - bash: |
-#             sudo apt-get install dos2unix -y
-#             dos2unix $(Pipeline.Workspace)/variables/FOO $(Pipeline.Workspace)/variables/FOO
-#             webAppName=$(cat $(Pipeline.Workspace)/variables/FOO)
-#             echo "##vso[task.setvariable variable=webAppName]$webAppName"
-
-#         # Just like in the first example, we can expand the variable within Azure Pipelines itself
-#         - bash: |
-#             echo "$(webAppName)"
-
 - stage: deploy_webapp_content
   displayName: push webapp code to azure webapp
   dependsOn : firststage
@@ -66,8 +44,7 @@ stages:
             webAppName=$(cat $(Pipeline.Workspace)/variables/FOO)
             echo "##vso[task.setvariable variable=webAppName]$webAppName"
     # Just like in the first example, we can expand the variable within Azure Pipelines itself
-        - bash: |
-            echo "$(webAppName)"
+
 
         - task: UsePythonVersion@0
           displayName: 'Use Python ${{parameters.pythonVersion}}'
