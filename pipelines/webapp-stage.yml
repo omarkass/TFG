@@ -15,16 +15,12 @@ parameters:
   type: string
   default: ''  
 
-- name: type
-  type: string
-  
 stages:
 
 - template: './get-name-stage.yml'
   parameters:
     azureSubscription: ${{parameters.azureSubscription}}
     resourceGroup: ${{parameters.resourceGroup}}
-    resoucType:  ${{parameters.type}}
     tagValue:  ${{parameters.tagValue}}
     dependsOn: ${{parameters.dependsOn}}
 
