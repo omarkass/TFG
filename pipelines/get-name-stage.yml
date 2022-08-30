@@ -38,7 +38,6 @@ stages:
             inlineScript: |
               $find = "0"
               $resources = $(az resource list --tag deployedby="${{parameters.tagValue}}" ) | ConvertFrom-json
-              echo "$resources[1].resourceGroup
               foreach( $resource in $resources  ) { 
                if($resource.type -eq $find)
                {
