@@ -15,9 +15,9 @@ parameters:
   type: string
   default: ''
 
-  - name: stageName
-    type: string
-    default: 'get_func_name' 
+- name: stageName
+  type: string
+  default: 'get_func_name' 
 
 stages:
 
