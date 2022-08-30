@@ -1,1 +1,0 @@
-echo "##vso[task.setvariable variable=sauce;isOutput=true]crushed tomatoe
