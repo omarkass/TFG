@@ -20,7 +20,7 @@ stages:
 - template: './get-name-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
-    resourceGroup: $(resourceGroup)
+    resourceGroup: $(appResourceGroupName)
     resoucType: "Microsoft.Web/sites"
     tagValue: $(tagValue)
 
