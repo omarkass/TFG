@@ -59,6 +59,10 @@ stages:
       variables:
         projectRoot: '$(System.DefaultWorkingDirectory)'
       steps:
+      
+        - download: current
+          artifact: variables
+
         - bash: |
             sudo apt-get install dos2unix -y
             dos2unix $(Pipeline.Workspace)/variables/FOO $(Pipeline.Workspace)/variables/FOO
@@ -67,6 +71,7 @@ stages:
     # Just like in the first example, we can expand the variable within Azure Pipelines itself
         - bash: |
             echo "$(webAppName)"
+
         - task: UsePythonVersion@0
           displayName: 'Use Python ${{parameters.pythonVersion}}'
           inputs:
