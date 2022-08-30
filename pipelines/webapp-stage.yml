@@ -22,10 +22,10 @@ stages:
 
 - template: './get-name-stage.yml'
   parameters:
-    azureSubscription: ${{ parameters.azureSubscription }}
-    resourceGroup: ${{ parameters.resourceGroup }}
-    resoucType: ${{ parameters.type }}
-    tagValue: ${{ parameters.tagValue }}
+    azureSubscription: $(azureSubscription)
+    resourceGroup: $(resourceGroup)
+    resoucType: $(type)
+    tagValue: $(tagValue)
 
 - stage: secondstage
   jobs:
