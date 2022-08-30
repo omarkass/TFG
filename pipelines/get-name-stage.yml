@@ -23,10 +23,12 @@ parameters:
   - name: azureSubscription
     type: string
 
+  - name: stageName
+    type: string
 
 stages:
 
-  - stage: get_resource_name
+  - stage: ${{parameters.stageName}}
     dependsOn : ${{parameters.dependsOn}}
     jobs:
 

@@ -24,10 +24,11 @@ stages:
     tagValue:  ${{parameters.tagValue}}
     dependsOn: ${{parameters.dependsOn}}
     resoucType: "microsoft.web/sites"
+    stageName: "get_app_name"
 
 - stage: deploy_webapp_content
   displayName: push webapp code to azure webapp
-  dependsOn : get_resource_name
+  dependsOn : get_app_name
   pool:
     vmImage: 'ubuntu-latest'
   jobs :

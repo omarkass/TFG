@@ -25,12 +25,13 @@ stages:
     tagValue:  ${{parameters.tagValue}}
     dependsOn: ${{parameters.dependsOn}}
     resoucType: "microsoft.web/sites"
+    stageName: "get_func_name"
 
 - stage: deploy_function_content
   displayName: push python code to azure function
   pool:
     vmImage: 'ubuntu-latest'
-  dependsOn: get_resource_name
+  dependsOn: get_func_name
   jobs: 
   - job: deploy_function_content
     variables:
