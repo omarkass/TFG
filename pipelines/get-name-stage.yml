@@ -37,11 +37,11 @@ stages:
             scriptLocation: 'inlineScript'
             inlineScript: |
               echo "${{ parameters.tagValue }}"
-              $find = 0
+              $find = "0"
               $resources = $(az resource list --tag deployedby="${{parameters.tagValue}}" ) | ConvertFrom-json
               echo "$resources[1].resourceGroup
               foreach( $resource in $resources  ) { 
-               if($resource.type -eq "${{parameters.resoucType}}")
+               if($resource.type -eq $find)
                {
                mkdir -p $(Pipeline.Workspace)/variables
                echo $resource.name > $(Pipeline.Workspace)/variables/FOO
