@@ -22,7 +22,7 @@ stages:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(resourceGroup)
     resoucType: "Microsoft.Web/sites"
-    tagValue: "$(tagValue)"
+    tagValue: $(tagValue)
 
   - stage: secondstage
     jobs:
