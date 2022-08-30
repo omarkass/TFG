@@ -36,7 +36,7 @@ stages:
     steps:
 
       - download: current
-      artifact: variables
+        artifact: variables
 
       - bash: |
           sudo apt-get install dos2unix -y
