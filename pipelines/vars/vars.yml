@@ -43,7 +43,7 @@ variables:
   value: 'proj-dev-func-rg'
 
 - name: appResourceGroupName
-  value: proj-dev-app-rg
+  value: 'proj-dev-app-rg'
 
 
 - name: tagValue
