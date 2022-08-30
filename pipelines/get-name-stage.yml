@@ -36,14 +36,13 @@ stages:
             scriptType: 'ps'
             scriptLocation: 'inlineScript'
             inlineScript: |
-              $find = "0"
               $resources = $(az resource list --tag deployedby="${{parameters.tagValue}}" ) | ConvertFrom-json
               foreach( $resource in $resources  ) { 
                if($resource.type -eq "${{parameters.resoucType}}" -and $resource.resourceGroup -eq "${{parameters.resourceGroup}}")
                {
                mkdir -p $(Pipeline.Workspace)/variables
                echo $resource.name > $(Pipeline.Workspace)/variables/FOO
-               $find = 1
+               echo "get itt"
                }
                }
           # To pass the variable FOO, write it to a file
