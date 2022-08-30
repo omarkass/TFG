@@ -16,7 +16,9 @@ parameters:
     type: string
     default: "proj"
 
-  
+  - name: dependsOn
+    type: string
+    default: ''  
   - name: azureSubscription
     type: string
 
@@ -24,6 +26,7 @@ parameters:
 stages:
 
   - stage: firststage
+    dependsOn : ${{parameters.dependsOn}}
     jobs:
 
       - job: firstjob
@@ -45,13 +48,5 @@ stages:
                echo $resource.name
                }
                }
-          # To pass the variable FOO, write it to a file
-          # While the file name doesn't matter, naming it like the variable and putting it inside the $(Pipeline.Workspace)/variables folder could be a good pattern
-      #  - bash: |
-      #      FOO="$(ls)"
-      #      mkdir -p $(Pipeline.Workspace)/variables
-      #      echo "$FOO" > $(Pipeline.Workspace)/variables/FOO
-
-        # Publish the folder as pipeline artifact
         - publish: $(Pipeline.Workspace)/variables
           artifact: variables
