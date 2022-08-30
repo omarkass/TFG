@@ -27,7 +27,6 @@ stages:
 
 - stage: deploy_function_content
   displayName: push python code to azure function
-  dependsOn: ${{parameters.dependsOn}}
   jobs: 
   - job: deploy_function_content
     variables:
