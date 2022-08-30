@@ -25,7 +25,7 @@ stages:
     azureSubscription: ${{ parameters.azureSubscription }}
     resourceGroup: ${{ parameters.resourceGroup }}
     resoucType: "Microsoft.Web/sites"
-    tagValue: ${{parameters.tagValue}}
+    tagValue: ${{ parameters.tagValue }}
 
 - stage: secondstage
   jobs:
