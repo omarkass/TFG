@@ -44,7 +44,7 @@ stages:
     steps:
 
       - download: current
-        artifact: variables
+        artifact: ${{ parameters.stageName }}
 
       - bash: |
           sudo apt-get install dos2unix -y
