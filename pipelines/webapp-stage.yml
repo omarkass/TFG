@@ -80,10 +80,10 @@ stages:
           rootFolderOrFile: '$(projectRoot)/content/webapp-content'
           includeRootFolder: false
           archiveType: zip
-          archiveFile: $(Build.ArtifactStagingDirectory)/${{parameters.webAppName}}-$(Build.BuildId).zip
+          archiveFile: $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip
           replaceExistingArchive: true
 
-      - upload: $(Build.ArtifactStagingDirectory)/${{parameters.webAppName}}-$(Build.BuildId).zip
+      - upload: $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip
         displayName: 'Upload package'
         artifact: drop-webapp
       
@@ -91,5 +91,5 @@ stages:
         displayName: 'Deploy Azure Web App : webapppython43'
         inputs:
           azureSubscription: ${{parameters.azureSubscription}}
-          appName: ${{parameters.webAppName}}
-          package: $(Build.ArtifactStagingDirectory)/${{parameters.webAppName}}-$(Build.BuildId).zip
+          appName: $(webAppName)
+          package: $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip
