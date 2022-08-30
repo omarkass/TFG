@@ -51,7 +51,9 @@ stages:
 
 - stage: deploy_webapp_content
   displayName: push webapp code to azure webapp
-  dependsOn : ${{parameters.dependsOn}}
+  dependsOn :
+  - ${{parameters.dependsOn}}
+  - firststage
   pool:
     vmImage: 'ubuntu-latest'
   jobs :
