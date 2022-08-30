@@ -45,7 +45,7 @@ stages:
           echo "##vso[task.setvariable variable=functionAppName]$functionAppName"
 
       - bash: |
-          echo $functionAppName
+          echo $(functionAppName)
 
 
       - bash: |
