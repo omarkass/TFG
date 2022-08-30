@@ -22,10 +22,10 @@ stages:
 
 - template: './get-name-stage.yml'
   parameters:
-    azureSubscription: $(azureSubscription)
-    resourceGroup: $(resourceGroup)
-    resoucType: $(type)
-    tagValue: $(tagValue)
+    azureSubscription: ${{parameter.azureSubscription}}
+    resourceGroup: ${{parameter.resourceGroup}}
+    resoucType:  ${{parameter.type}}
+    tagValue:  ${{parameter.tagValue}}
 
 - stage: secondstage
   jobs:
@@ -56,43 +56,43 @@ stages:
         - bash: |
 
 
-- stage: deploy_webapp_content
-  displayName: push webapp code to azure webapp
-  dependsOn : ${{parameters.dependsOn}}
-  jobs :
-  - job: deploy_webapp_content
-    variables:
-      projectRoot: '$(System.DefaultWorkingDirectory)'
-    steps:
-      - task: UsePythonVersion@0
-        displayName: 'Use Python ${{parameters.pythonVersion}}'
-        inputs:
-          versionSpec: '${{parameters.pythonVersion}}'
-      - script: |
-          python -m venv antenv
-          source antenv/bin/activate
-          python -m pip install --upgrade pip
-          pip install setup
-          pip install -r requirements.txt
-        workingDirectory: $(projectRoot)/content/webapp-content
-        displayName: "Install requirements"
+# - stage: deploy_webapp_content
+#   displayName: push webapp code to azure webapp
+#   dependsOn : ${{parameters.dependsOn}}
+#   jobs :
+#   - job: deploy_webapp_content
+#     variables:
+#       projectRoot: '$(System.DefaultWorkingDirectory)'
+#     steps:
+#       - task: UsePythonVersion@0
+#         displayName: 'Use Python ${{parameters.pythonVersion}}'
+#         inputs:
+#           versionSpec: '${{parameters.pythonVersion}}'
+#       - script: |
+#           python -m venv antenv
+#           source antenv/bin/activate
+#           python -m pip install --upgrade pip
+#           pip install setup
+#           pip install -r requirements.txt
+#         workingDirectory: $(projectRoot)/content/webapp-content
+#         displayName: "Install requirements"
 
-      - task: ArchiveFiles@2
-        displayName: 'Archive files'
-        inputs:
-          rootFolderOrFile: '$(projectRoot)/content/webapp-content'
-          includeRootFolder: false
-          archiveType: zip
-          archiveFile: $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip
-          replaceExistingArchive: true
+#       - task: ArchiveFiles@2
+#         displayName: 'Archive files'
+#         inputs:
+#           rootFolderOrFile: '$(projectRoot)/content/webapp-content'
+#           includeRootFolder: false
+#           archiveType: zip
+#           archiveFile: $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip
+#           replaceExistingArchive: true
 
-      - upload: $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip
-        displayName: 'Upload package'
-        artifact: drop-webapp
+#       - upload: $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip
+#         displayName: 'Upload package'
+#         artifact: drop-webapp
       
-      - task: AzureWebApp@1
-        displayName: 'Deploy Azure Web App : webapppython43'
-        inputs:
-          azureSubscription: ${{parameters.azureSubscription}}
-          appName: $(webAppName)
-          package: $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip
+#       - task: AzureWebApp@1
+#         displayName: 'Deploy Azure Web App : webapppython43'
+#         inputs:
+#           azureSubscription: ${{parameters.azureSubscription}}
+#           appName: $(webAppName)
+#           package: $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip
