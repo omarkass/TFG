@@ -30,6 +30,9 @@ variables:
 - name: sqlResourceGroupName
   value: 'proj-dev-sql-rg'
 
+- name: funcType
+  value: 'Microsoft.Web/sites'
+
 - name: repositoryName  
   value: proj
 

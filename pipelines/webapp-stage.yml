@@ -14,15 +14,18 @@ parameters:
 - name: dependsOn
   type: string
   default: ''  
+
+- name: type
+  type: string
   
 stages:
 
 - template: './get-name-stage.yml'
   parameters:
-    azureSubscription: $(azureSubscription)
-    resourceGroup: $(appResourceGroupName)
+    azureSubscription: ${{ parameters.azureSubscription }}
+    resourceGroup: ${{ parameters.resourceGroup }}
     resoucType: "Microsoft.Web/sites"
-    tagValue: $(tagValue)
+    tagValue: ${{parameters.tagValue}}
 
 - stage: secondstage
   jobs:
