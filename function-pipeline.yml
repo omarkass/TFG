@@ -15,4 +15,3 @@ stages:
     resourceGroup: $(funcResourceGroupName)
     pythonVersion: $(pythonVersion)
     tagValue: $(tagValue)
-    type: $(funcType)
