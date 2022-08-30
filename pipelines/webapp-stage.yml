@@ -31,7 +31,7 @@ stages:
   jobs:
     - job: secondjob
       pool:
-        vmImage: 'windows-latest'
+        vmImage: 'ubuntu-latest'
       steps:
 
         # Download the artifacts
