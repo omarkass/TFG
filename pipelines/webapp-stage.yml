@@ -40,9 +40,6 @@ stages:
 
         # Read the variable from the file, then expose it in the job
         - bash: |
-            #vi $(Pipeline.Workspace)/variables/FOO
-            #:setlocal ff=unix
-            #:wq!
             sudo apt-get install dos2unix -y
             dos2unix $(Pipeline.Workspace)/variables/FOO $(Pipeline.Workspace)/variables/FOO
             FOO=$(cat $(Pipeline.Workspace)/variables/FOO)
