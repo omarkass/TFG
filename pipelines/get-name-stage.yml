@@ -51,8 +51,10 @@ stages:
                if ($resource.type -eq "Microsoft.ContainerRegistry/registries"){
                 $info = $(az acr show --name $resource.name --resource-group $resource.resourceGroup) | convertFrom-json
                 echo $info.loginServer > $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl
-                echo $info.loginServer 
-                echo $resource.name
+               }
+               elseif ($resource.type -eq "Microsoft.Sql/servers/databases"){
+                $info = $(az sql server show --name $resource.name --resource-group $resource.resourceGroup)
+                echo $info.fullyQualifiedDomainName > $(Pipeline.Workspace)/${{parameters.stageName}}/serverFqdn
                }
                }
                }

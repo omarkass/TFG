@@ -19,3 +19,4 @@ stages:
     serverName: $(repositoracrRepositoryNameyName)
     serverFqdn: $(repositoracrRepositoryNameyName)
     password: $(repositoracrRepositoryNameyName)
+    tagValue: $(tagValue)
