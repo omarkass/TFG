@@ -68,6 +68,7 @@ stages:
       - bash: |
           sudo apt-get install dos2unix -y
           dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/acr-url $(Pipeline.Workspace)/${{parameters.stageName}}/acr-url
+          dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/resourceName $(Pipeline.Workspace)/${{parameters.stageName}}/resourceName
           acrUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl)
           echo "##vso[task.setvariable variable=acrUrl]$acrUrl"
       - bash: |
