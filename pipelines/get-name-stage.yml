@@ -5,7 +5,6 @@
 parameters:
   - name: resourceGroup
     type: string
-    default: "proj-dev-func-rg"
     
 
   - name: resoucType
@@ -43,8 +42,6 @@ stages:
             scriptLocation: 'inlineScript'
             inlineScript: |
               $resources = $(az resource list --tag deployedby="${{parameters.tagValue}}" ) | ConvertFrom-json
-              echo ${{parameters.resourceGroup}}
-              echo $resource.resourceGroup
               foreach( $resource in $resources  ) { 
                if($resource.type -eq "${{parameters.resoucType}}" -and $resource.resourceGroup -eq "${{parameters.resourceGroup}}")
                {
@@ -56,8 +53,6 @@ stages:
                }
                elseif ($resource.type -eq "microsoft.sql/servers"){
                 $info = $(az sql server show --name $resource.name --resource-group $resource.resourceGroup) | convertFrom-json
-                echo $info.fullyQualifiedDomainName
-                echo "servers"
                 echo $info.fullyQualifiedDomainName > $(Pipeline.Workspace)/${{parameters.stageName}}/serverFqdn
                }
                }

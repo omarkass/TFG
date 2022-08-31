@@ -72,8 +72,6 @@ stages:
           acrUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl)
           echo "##vso[task.setvariable variable=acrUrl]$acrUrl"
           
-      - bash: |
-          echo $(acrUrl)
 
       - task: DockerInstaller@0
         inputs:
