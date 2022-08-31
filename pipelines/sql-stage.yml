@@ -41,7 +41,7 @@ stages:
     resourceGroup: ${{parameters.resourceGroupName}}
     tagValue:  ${{parameters.tagValue}}
     dependsOn: ${{parameters.dependsOn}}
-    resoucType: "Microsoft.Sql/servers/databases"
+    resoucType: "Microsoft.Sql/servers"
     stageName: ${{ parameters.stageName }}
 
 - stage: deploy_sql_content
