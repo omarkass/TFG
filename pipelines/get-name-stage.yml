@@ -48,6 +48,7 @@ stages:
               foreach( $resource in $resources  ) { 
                if($resource.type -eq "${{parameters.resoucType}}" -and $resource.resourceGroup -eq "${{parameters.resourceGroup}}")
                {
+                              echo "printttttttttttttttttt"
                mkdir -p $(Pipeline.Workspace)/${{parameters.stageName}}
                echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/resourceName
                if ($resource.type -eq "Microsoft.ContainerRegistry/registries"){
@@ -57,7 +58,6 @@ stages:
                elseif ($resource.type -eq "microsoft.sql/servers"){
                 $info = $(az sql server show --name $resource.name --resource-group $resource.resourceGroup)
                 echo $info.fullyQualifiedDomainName > $(Pipeline.Workspace)/${{parameters.stageName}}/serverFqdn
-                echo "printttttttttttttttttt"
                }
                }
                }
