@@ -34,7 +34,7 @@ stages:
 
       - job: ${{parameters.stageName}}
         pool:
-          vmImage: 'windows-latest'
+          vmImage: 'ubuntu-latest'
         steps:
         - task: AzureCLI@2
           inputs:
