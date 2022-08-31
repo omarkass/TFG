@@ -34,7 +34,7 @@ stages:
 
       - job: ${{parameters.stageName}}
         pool:
-          vmImage: 'ubuntu-latest'
+          vmImage: 'windows-latest'
         steps:
         - task: AzureCLI@2
           inputs:
@@ -55,5 +55,13 @@ stages:
                }
                }
                }
+              acrUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/acr-url)
+              echo "##vso[task.setvariable variable=acrUrl]$acrUrl"
+
+
+
+        - powershell: |
+          echo $(acrUrl)
+          
         - publish: $(Pipeline.Workspace)/${{parameters.stageName}}
           artifact: ${{parameters.stageName}}
