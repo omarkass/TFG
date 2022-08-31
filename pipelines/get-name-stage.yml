@@ -54,11 +54,7 @@ stages:
                 echo $resource.loginServer 
                }
                }
+               cat $(Pipeline.Workspace)/${{parameters.stageName}}/acr-url
                }
-              acrUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/acr-url)
-              echo "##vso[task.setvariable variable=acrUrl]$acrUrl"
-
-        - bash: |
-            echo $(acrUrl)
         - publish: $(Pipeline.Workspace)/${{parameters.stageName}}
           artifact: ${{parameters.stageName}}
