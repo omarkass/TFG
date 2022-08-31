@@ -55,7 +55,6 @@ stages:
                 echo $resource.name
                }
                }
-               cat $(Pipeline.Workspace)/${{parameters.stageName}}/acr-url
                }
         - publish: $(Pipeline.Workspace)/${{parameters.stageName}}
           artifact: ${{parameters.stageName}}
