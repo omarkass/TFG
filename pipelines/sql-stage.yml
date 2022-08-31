@@ -55,7 +55,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          ls $(Pipeline.Workspace)\a
+          ls $(Pipeline.Workspace)\\a
           ls $(Pipeline.Workspace)\\${{parameters.stageName}}
           $serverFqdn = $(Get-Content $(Pipeline.Workspace)/${{parameters.stageName}}/serverFqdn -Raw)
           $serverName = $(Get-Content $(Pipeline.Workspace)/${{parameters.stageName}}/resourceName -Raw)
