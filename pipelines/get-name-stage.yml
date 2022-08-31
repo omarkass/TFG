@@ -52,6 +52,7 @@ stages:
                 $info = $(az acr show --name $resource.name --resource-group $resource.resourceGroup) | convertFrom-json
                 echo $resource.loginServer > $(Pipeline.Workspace)/${{parameters.stageName}}/acr-url
                 echo $resource.loginServer 
+                echo $resource.name
                }
                }
                cat $(Pipeline.Workspace)/${{parameters.stageName}}/acr-url
