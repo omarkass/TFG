@@ -60,8 +60,8 @@ stages:
 
 
 
-        - powershell: |
+        - bash: |
           echo $(acrUrl)
-          
+
         - publish: $(Pipeline.Workspace)/${{parameters.stageName}}
           artifact: ${{parameters.stageName}}
