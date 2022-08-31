@@ -52,7 +52,7 @@ stages:
                 $info = $(az acr show --name $resource.name --resource-group $resource.resourceGroup) | convertFrom-json
                 echo $info.loginServer > $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl
                }
-               elseif ($resource.type -eq "Microsoft.Sql/servers/databases"){
+               elseif ($resource.type -eq "Microsoft.Sql/servers"){
                 $info = $(az sql server show --name $resource.name --resource-group $resource.resourceGroup)
                 echo $info.fullyQualifiedDomainName > $(Pipeline.Workspace)/${{parameters.stageName}}/serverFqdn
                }
