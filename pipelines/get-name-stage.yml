@@ -56,6 +56,8 @@ stages:
                }
                elseif ($resource.type -eq "microsoft.sql/servers"){
                 $info = $(az sql server show --name $resource.name --resource-group $resource.resourceGroup)
+                echo $info.fullyQualifiedDomainName
+                echo "servers"
                 echo $info.fullyQualifiedDomainName > $(Pipeline.Workspace)/${{parameters.stageName}}/serverFqdn
                }
                }
