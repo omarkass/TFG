@@ -70,8 +70,8 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          echo $(serverName)
-          echo $(serverFqdn)    
+          echo "$(serverName)"
+          echo "$(serverFqdn)"    
 
     #open the firewall of the sql server 
     - task: AzurePowerShell@5
