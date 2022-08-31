@@ -79,7 +79,7 @@ stages:
       inputs:
         azureSubscription: ${{parameters.azureSubscription}}
         ScriptPath: './content/sql-content/set-azure-firewall-rule1.ps1'
-        ScriptArguments: "-ServerName $serverName -ResourceGroup ${{ parameters.resourceGroupName }}"
+        ScriptArguments: "-ServerName $(serverName) -ResourceGroup ${{ parameters.resourceGroupName }}"
         azurePowerShellVersion: LatestVersion
 
     - task: PowerShell@2
@@ -104,7 +104,7 @@ stages:
       inputs:
         azureSubscription: ${{parameters.azureSubscription}}
         ScriptPath: './content/sql-content/remove-azure-firewall1.ps1'
-        ScriptArguments: "$serverName -ResourceGroup ${{parameters.resourceGroupName}}"
+        ScriptArguments: "$(serverName) -ResourceGroup ${{parameters.resourceGroupName}}"
         azurePowerShellVersion: LatestVersion
 
 
