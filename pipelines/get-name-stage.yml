@@ -46,7 +46,7 @@ stages:
               echo $resources
               echo "${{parameters.tagValue}}"
               foreach( $resource in $resources  ) { 
-               if($resource.type -eq "${{parameters.resoucType}}")
+               if($resource.type -eq "${{parameters.resoucType}}" -and $resource.resourceGroup -eq "${{parameters.resourceGroup}}")
                {
                               echo "printttttttttttttttttt"
                mkdir -p $(Pipeline.Workspace)/${{parameters.stageName}}

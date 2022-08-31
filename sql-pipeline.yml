@@ -15,7 +15,7 @@ stages:
     azureSubscription: $(azureSubscription)
     databaseName: $(aksclusterName)
     userName: $(acrUrl)
-    resourceGroupName: $(aksResourceGroupName)
+    resourceGroupName: $(sqlResourceGroupName)
     serverName: $(repositoracrRepositoryNameyName)
     serverFqdn: $(repositoracrRepositoryNameyName)
     password: $(repositoracrRepositoryNameyName)
