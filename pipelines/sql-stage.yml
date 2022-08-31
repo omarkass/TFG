@@ -46,7 +46,7 @@ stages:
 
 - stage: deploy_sql_content
   displayName: create and push sql database
-  dependsOn: ${{parameters.dependsOn}}
+  dependsOn: ${{ parameters.stageName }}
   jobs :
   - job: deploy_sql_content
     steps:
