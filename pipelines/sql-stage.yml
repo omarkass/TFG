@@ -55,9 +55,10 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          ls $(Pipeline.Workspace)
-          $serverFqdn = $(Get-Content -Path $(Pipeline.Workspace)/${{parameters.stageName}}/serverFqdn -Raw)
-          $serverName = $(Get-Content  -Path $(Pipeline.Workspace)/${{parameters.stageName}}/resourceName -Raw)
+          ls $(Pipeline.Workspace)\\a
+          ls $(Pipeline.Workspace)\\${{parameters.stageName}}
+          $serverFqdn = $(Get-Content  $(Pipeline.Workspace)//${{parameters.stageName}}//serverFqdn -Raw)
+          $serverName = $(Get-Content  -Path$(Pipeline.Workspace)/${{parameters.stageName}}/resourceName -Raw)
           echo "##vso[task.setvariable variable=serverName]$serverName"
           echo "##vso[task.setvariable variable=serverFqdn]$serverFqdn"
 
