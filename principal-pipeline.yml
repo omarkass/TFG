@@ -59,11 +59,10 @@ stages:
 - template: 'pipelines\sql-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
-    serverName: $(sqlServerName)
+    tagValue: $(tagValue)
     DatabaseName: $(databaseName)
     Username: $(sqlUserName)
     Password: $(sqlPassword)
-    serverFqdn: $(sqlServerFqdn)
     resourceGroupName: $(sqlResourceGroupName)
     dependsOn: deploy_infrastructure
   

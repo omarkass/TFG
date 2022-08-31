@@ -13,14 +13,9 @@ parameters:
 - name: azureSubscription
   type: string
 
-- name: serverName
-  type: string
 
 - name: resourceGroupName
   type: string  
-
-- name: serverFqdn
-  type: string
 
 - name: tagValue
   type: string

@@ -16,7 +16,5 @@ stages:
     databaseName: $(aksclusterName)
     userName: $(acrUrl)
     resourceGroupName: $(sqlResourceGroupName)
-    serverName: $(repositoracrRepositoryNameyName)
-    serverFqdn: $(repositoracrRepositoryNameyName)
     password: $(repositoracrRepositoryNameyName)
     tagValue: $(tagValue)
