@@ -7,8 +7,8 @@ parameters:
   type: string 
   #default: 'aks'
   
-- name: acrUrl
-  type: string
+#- name: acrUrl
+#  type: string
   #default: 'projdevacr.azurecr.io' 
   
 
@@ -29,7 +29,30 @@ parameters:
   type: string
   default: ''  
 
+
+- name: tagValue
+  type: string
+  default: 'proj'
+
+
+
+- name: stageName
+  type: string
+  default: 'get_acr_info'   
+  
+
 stages:
+
+- template: './get-name-stage.yml'
+  parameters:
+    azureSubscription: ${{parameters.azureSubscription}}
+    resourceGroup: ${{parameters.resourceGroupName}}
+    tagValue:  ${{parameters.tagValue}}
+    dependsOn: ${{parameters.dependsOn}}
+    resoucType: "Microsoft.ContainerRegistry/registries"
+    stageName: ${{ parameters.stageName }}
+
+
 - stage: deploy_k8s_content
   displayName: create and push kubernetes content
   dependsOn: ${{parameters.dependsOn}}
@@ -38,6 +61,17 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+
+      - download: current
+          artifact: ${{ parameters.stageName }}
+
+      - bash: |
+          sudo apt-get install dos2unix -y
+          dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/resourceName $(Pipeline.Workspace)/${{parameters.stageName}}/resourceName
+          acrUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl)
+          echo "##vso[task.setvariable variable=acrUrl]$acrUrl"
+
+
       - task: DockerInstaller@0
         inputs:
           dockerVersion: '17.09.0-ce'

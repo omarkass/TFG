@@ -48,7 +48,10 @@ stages:
                {
                mkdir -p $(Pipeline.Workspace)/${{parameters.stageName}}
                echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/resourceName
-               echo $resource.name
+               if ($resource.type -eq "Microsoft.ContainerRegistry/registries"){
+                info = $(az acr show --name $resource.name --resource-group $resource.resourceGroup) | convertFrom-json
+                 echo $resource.loginServer > $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl
+               }
                }
                }
         - publish: $(Pipeline.Workspace)/${{parameters.stageName}}
