@@ -69,10 +69,10 @@ variables:
   value: 'Get_App_Name' 
 
 - name: AksStageInfoName
-  default: 'Get_Acr_Info'  
+  value: 'Get_Acr_Info'  
 
 - name: FuncStageInfoName
-  default: 'Get_Func_Name' 
+  value: 'Get_Func_Name' 
 
 - name: SqlStageInfoName
-  default: 'Get_Sql_Info' 
+  value: 'Get_Sql_Info' 
