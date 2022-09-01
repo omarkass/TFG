@@ -86,6 +86,7 @@ stages:
     tagValue:  $(tagValue)
     resoucType: $(sqlResourceType)
     StageName: "Get_Sql_Info"
+    dependsOn: Deploy_Infrastructure
 
 
 - template: 'pipelines\sql-stage.yml'
