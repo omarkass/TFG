@@ -1,14 +1,8 @@
 parameters:
 - name: azureSubscription
   type: string
-
-- name: resourceGroup
-  type: string
   
 - name: pythonVersion
-  type: string
-
-- name: tagValue
   type: string
 
 - name: dependsOn
@@ -16,20 +10,18 @@ parameters:
   default: ''
 
 - name: stageName
-  type: string
-  default: 'Get_Func_Name' 
+  type: string 
 
 stages:
 
-
-- template: './get-name-stage.yml'
-  parameters:
-    azureSubscription: ${{parameters.azureSubscription}}
-    resourceGroup: ${{parameters.resourceGroup}}
-    tagValue:  ${{parameters.tagValue}}
-    dependsOn: ${{parameters.dependsOn}}
-    resoucType: "microsoft.web/sites"
-    stageName: ${{ parameters.stageName }}
+#- template: './get-name-stage.yml'
+#  parameters:
+#    azureSubscription: ${{parameters.azureSubscription}}
+#    resourceGroup: ${{parameters.resourceGroup}}
+#    tagValue:  ${{parameters.tagValue}}
+#    dependsOn: ${{parameters.dependsOn}}
+#    resoucType: "microsoft.web/sites"
+#    stageName: ${{ parameters.stageName }}
 
 - stage: Deploy_Function_Content
   displayName: push python code to azure function

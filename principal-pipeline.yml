@@ -22,14 +22,13 @@ stages:
   parameters:
     azureSubscription: $(azureSubscription)
 
-- template: './get-name-stage.yml'
+- template: 'pipelines\get-name-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(appResourceGroupName)
     tagValue:  $(tagValue)
-    dependsOn: Deploy_Infrastructure
-    resoucType: "microsoft.web/sites"
-    stageName: $(AppstageInfoName)
+    resoucType: $(siteResourceType)
+    StageName: "Get_App_Name"
 
 - template: 'pipelines\webapp-stage.yml'
   parameters:

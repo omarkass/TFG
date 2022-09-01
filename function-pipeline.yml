@@ -8,10 +8,22 @@ pool:
 #load vars from the vars.yml file
 variables:
 - template: pipelines\vars\vars.yml  
+- name: stageInfoName
+  value: "Get_Fun_Name"
 stages:
+
+- template: 'pipelines\get-name-stage.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    resourceGroup: $(funcResourceGroupName)
+    tagValue:  $(tagValue)
+    resoucType: $(siteResourceType)
+    StageName: $(stageInfoName)
+
 - template: 'pipelines\function-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(funcResourceGroupName)
     pythonVersion: $(pythonVersion)
-    tagValue: $(tagValue)
+    StageName: $(stageInfoName)
+
