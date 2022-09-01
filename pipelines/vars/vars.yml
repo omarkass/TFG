@@ -64,3 +64,15 @@ variables:
 
 - name: prometheusExporterImageName
   value: azure-exporter
+
+- name: AppstageInfoName
+  value: 'Get_App_Name' 
+
+- name: AksStageInfoName
+  default: 'Get_Acr_Info'  
+
+- name: FuncStageInfoName
+  default: 'Get_Func_Name' 
+
+- name: SqlStageInfoName
+  default: 'Get_Sql_Info' 

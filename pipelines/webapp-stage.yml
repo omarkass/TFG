@@ -8,27 +8,21 @@ parameters:
 - name: pythonVersion
   type: string
 
-- name: tagValue
-  type: string
 
 - name: dependsOn
   type: string
   default: ''  
 
-- name: stageName
-  type: string
-  default: 'Get_App_Name' 
-
 stages:
 
-- template: './get-name-stage.yml'
-  parameters:
-    azureSubscription: ${{parameters.azureSubscription}}
-    resourceGroup: ${{parameters.resourceGroup}}
-    tagValue:  ${{parameters.tagValue}}
-    dependsOn: ${{parameters.dependsOn}}
-    resoucType: "microsoft.web/sites"
-    stageName: ${{ parameters.stageName }}
+#- template: './get-name-stage.yml'
+#  parameters:
+#    azureSubscription: ${{parameters.azureSubscription}}
+#    resourceGroup: ${{parameters.resourceGroup}}
+#    tagValue:  ${{parameters.tagValue}}
+#    dependsOn: ${{parameters.dependsOn}}
+#    resoucType: "microsoft.web/sites"
+#    stageName: ${{ parameters.stageName }}
 
 - stage: Deploy_Webapp_Content
   displayName: push webapp code to azure webapp

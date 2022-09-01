@@ -9,9 +9,18 @@ pool:
 variables:
 - template: pipelines\vars\vars.yml  
 stages:
+
+- template: './get-name-stage.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    resourceGroup: $(appResourceGroupName)
+    tagValue:  $(tagValue)
+    dependsOn: Deploy_Infrastructure
+    resoucType: "microsoft.web/sites"
+    stageName: $(AppstageInfoName)
+
 - template: 'pipelines\webapp-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(appResourceGroupName)
     pythonVersion: $(pythonVersion)
-    tagValue: $(tagValue)
