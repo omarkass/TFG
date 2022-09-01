@@ -17,12 +17,12 @@ parameters:
 
 
 stages:
-- stage: set_aks_permissions
+- stage: Set_Aks_Permissions
   displayName: set aks cluster permissions to retrieve monitoring data
   dependsOn: ${{parameters.dependsOn}}
 
   jobs:
-  - job: set_aks_permissions
+  - job: Set_Aks_Permissions
     pool:
       vmImage: 'windows-latest'
     steps:

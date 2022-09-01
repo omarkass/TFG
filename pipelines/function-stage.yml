@@ -17,7 +17,7 @@ parameters:
 
 - name: stageName
   type: string
-  default: 'get_func_name' 
+  default: 'Get_Func_Name' 
 
 stages:
 
@@ -31,13 +31,13 @@ stages:
     resoucType: "microsoft.web/sites"
     stageName: ${{ parameters.stageName }}
 
-- stage: deploy_function_content
+- stage: Deploy_Function_Content
   displayName: push python code to azure function
   pool:
     vmImage: 'ubuntu-latest'
-  dependsOn: get_func_name
+  dependsOn: ${{ parameters.stageName }}
   jobs: 
-  - job: deploy_function_content
+  - job: Deploy_Function_Content
     variables:
       vmImageName: 'ubuntu-latest'
       workingDirectory: './content/function-content'

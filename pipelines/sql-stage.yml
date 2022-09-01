@@ -22,7 +22,7 @@ parameters:
 
 - name: stageName
   type: string  
-  default: 'get_sql_info'
+  default: 'Get_Sql_Info'
 
 - name: dependsOn
   type: string
@@ -39,11 +39,11 @@ stages:
     resoucType: "Microsoft.Sql/servers"
     stageName: ${{ parameters.stageName }}
 
-- stage: deploy_sql_content
+- stage: Deploy_Sql_Content
   displayName: create and push sql database
   dependsOn: ${{ parameters.stageName }}
   jobs :
-  - job: deploy_sql_content
+  - job: Deploy_Sql_Content
     steps:
 
     - download: current

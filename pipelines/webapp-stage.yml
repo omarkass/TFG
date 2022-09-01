@@ -17,7 +17,7 @@ parameters:
 
 - name: stageName
   type: string
-  default: 'get_app_name' 
+  default: 'Get_App_Name' 
 
 stages:
 
@@ -30,13 +30,13 @@ stages:
     resoucType: "microsoft.web/sites"
     stageName: ${{ parameters.stageName }}
 
-- stage: deploy_webapp_content
+- stage: Deploy_Webapp_Content
   displayName: push webapp code to azure webapp
   dependsOn : get_app_name
   pool:
     vmImage: 'ubuntu-latest'
   jobs :
-    - job: deploy_webapp_content
+    - job: Deploy_Webapp_Content
       variables:
         projectRoot: '$(System.DefaultWorkingDirectory)'
       steps:

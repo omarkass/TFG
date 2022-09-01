@@ -3,10 +3,10 @@ parameters:
   type: string
 
 stages:
-- stage: deploy_infrastructure
+- stage: Deploy_Infrastructure
   displayName: deploy Azure infrastructure
   jobs :
-  - job: deploy_infrastructure
+  - job: Deploy_Infrastructure
     variables:
         LOCATION: 'northeurope'
     steps:

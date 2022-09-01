@@ -64,6 +64,3 @@ variables:
 
 - name: prometheusExporterImageName
   value: azure-exporter
-
-- name: baseStage
-  value: deploy_infrastructure  

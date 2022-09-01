@@ -38,7 +38,7 @@ parameters:
 
 - name: stageName
   type: string
-  default: 'get_acr_info'   
+  default: 'Get_Acr_Info'   
   
 
 stages:
@@ -53,11 +53,11 @@ stages:
     stageName: ${{ parameters.stageName }}
 
 
-- stage: deploy_k8s_content
+- stage: Deploy_K8s_Content
   displayName: create and push kubernetes content
   dependsOn: ${{ parameters.stageName }}
   jobs:
-  - job: deploy_k8s_content
+  - job: Deploy_K8s_Content
     pool:
       vmImage: 'ubuntu-latest'
     steps:

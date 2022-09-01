@@ -29,7 +29,7 @@ stages:
     resourceGroup: $(appResourceGroupName)
     pythonVersion: $(pythonVersion)
     tagValue: $(tagValue)
-    dependsOn: deploy_infrastructure
+    dependsOn: Deploy_Infrastructure
     
 - template: 'pipelines\function-stage.yml'
   parameters:
@@ -37,14 +37,14 @@ stages:
     resourceGroup: $(funcResourceGroupName)
     pythonVersion: $(pythonVersion)
     tagValue: $(tagValue)
-    dependsOn: deploy_infrastructure
+    dependsOn: Deploy_Infrastructure
 
 - template: 'pipelines\aks-permissions-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     aksclusterName: $(aksclusterName)
     useGrafana: $(useGrafana)
-    dependsOn: deploy_infrastructure
+    dependsOn: Deploy_Infrastructure
 
 - template: 'pipelines\aks-stage.yml'
   parameters:
@@ -54,7 +54,7 @@ stages:
     resourceGroupName: $(aksResourceGroupName)
     appImageName: $(appImageName)
     prometheusExporterImageName: $(prometheusExporterImageName)
-    dependsOn: set_aks_permissions
+    dependsOn: Set_Aks_Permissions
   
 - template: 'pipelines\sql-stage.yml'
   parameters:
@@ -64,5 +64,5 @@ stages:
     Username: $(sqlUserName)
     Password: $(sqlPassword)
     resourceGroupName: $(sqlResourceGroupName)
-    dependsOn: deploy_infrastructure
+    dependsOn: Deploy_Infrastructure
   
