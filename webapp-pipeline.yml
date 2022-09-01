@@ -15,7 +15,7 @@ stages:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(appResourceGroupName)
     tagValue:  $(tagValue)
-    resoucType: "microsoft.web/sites"
+    resoucType: $(siteResourceType)
     StageName: "Get_App_Name"
 
 - template: 'pipelines\webapp-stage.yml'

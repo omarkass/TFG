@@ -76,3 +76,13 @@ variables:
 
 - name: SqlStageInfoName
   value: 'Get_Sql_Info' 
+
+- name: siteResourceType
+  value: "microsoft.web/sites"
+
+- name: sqlResourceType
+  value: "Microsoft.Sql/servers"
+
+- name: acrResourceType
+  value: "Microsoft.ContainerRegistry/registries"
+
