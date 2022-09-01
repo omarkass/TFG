@@ -29,21 +29,30 @@ stages:
     tagValue:  $(tagValue)
     resoucType: $(siteResourceType)
     StageName: "Get_App_Name"
+    dependsOn: Deploy_Infrastructure
 
 - template: 'pipelines\webapp-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
-    resourceGroup: $(appResourceGroupName)
     pythonVersion: $(pythonVersion)
-    dependsOn: $(AppstageInfoName)
+    stageName: "Get_App_Name"
     
-- template: 'pipelines\function-stage.yml'
+    
+- template: 'pipelines\get-name-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(funcResourceGroupName)
-    pythonVersion: $(pythonVersion)
-    tagValue: $(tagValue)
+    tagValue:  $(tagValue)
+    resoucType: $(siteResourceType)
+    StageName: "Get_Fun_Name"
     dependsOn: Deploy_Infrastructure
+
+- template: 'pipelines\function-stage.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    pythonVersion: $(pythonVersion)
+    StageName: "Get_Fun_Name"
+
 
 - template: 'pipelines\aks-permissions-stage.yml'
   parameters:
