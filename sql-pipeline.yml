@@ -29,4 +29,4 @@ stages:
     userName: $(acrUrl)
     resourceGroupName: $(sqlResourceGroupName)
     password: $(repositoracrRepositoryNameyName)
-    tagValue: $(tagValue)
+    StageName: "Get_App_Name"
