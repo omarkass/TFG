@@ -10,7 +10,7 @@ variables:
 - template: pipelines\vars\vars.yml  
 stages:
 
-- template: 'pipelines\/get-name-stage.yml'
+- template: 'pipelines\get-name-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(appResourceGroupName)
