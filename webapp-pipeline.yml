@@ -17,11 +17,11 @@ stages:
     tagValue:  $(tagValue)
     dependsOn: Deploy_Infrastructure
     resoucType: "microsoft.web/sites"
-    StageName: $(AppstageInfoName)
+    StageName: $(appStageInfo)
 
 - template: 'pipelines\webapp-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(appResourceGroupName)
     pythonVersion: $(pythonVersion)
-    stageName: $(AppstageInfoName)
+    stageName: $(appStageInfo)

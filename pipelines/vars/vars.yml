@@ -65,7 +65,7 @@ variables:
 - name: prometheusExporterImageName
   value: azure-exporter
 
-- name: AppstageInfoName
+- name: appStageInfo
   value: 'Get_App_Name' 
 
 - name: AksStageInfoName
