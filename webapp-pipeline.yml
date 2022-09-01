@@ -15,7 +15,6 @@ stages:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(appResourceGroupName)
     tagValue:  $(tagValue)
-    dependsOn: Deploy_Infrastructure
     resoucType: "microsoft.web/sites"
     StageName: "Get_App_Name"
 
