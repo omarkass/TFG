@@ -23,7 +23,6 @@ stages:
 - template: 'pipelines\function-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
-    resourceGroup: $(funcResourceGroupName)
     pythonVersion: $(pythonVersion)
     StageName: $(stageInfoName)
 
