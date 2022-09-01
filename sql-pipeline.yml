@@ -10,6 +10,18 @@ variables:
 - template: pipelines\vars\vars.yml  
 stages:
 #calling the sql-stage to import the database to azure
+
+
+- template: 'pipelines\get-name-stage.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    resourceGroup: $(appResourceGroupName)
+    tagValue:  $(tagValue)
+    resoucType: $(siteResourceType)
+    StageName: "Get_App_Name"
+    dependsOn: Deploy_Infrastructure
+
+
 - template: 'pipelines\sql-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)

@@ -17,12 +17,9 @@ parameters:
 - name: resourceGroupName
   type: string  
 
-- name: tagValue
-  type: string
 
 - name: stageName
   type: string  
-  default: 'Get_Sql_Info'
 
 - name: dependsOn
   type: string
