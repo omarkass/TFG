@@ -24,8 +24,8 @@ stages:
 - template: 'pipelines\sql-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
-    databaseName: $(aksclusterName)
-    userName: $(acrUrl)
+    DatabaseName: $(databaseName)
+    Username: $(sqlUserName)
+    Password: $(sqlPassword)
     resourceGroupName: $(sqlResourceGroupName)
-    password: $(repositoracrRepositoryNameyName)
     StageName: "Get_Sql_Info"
