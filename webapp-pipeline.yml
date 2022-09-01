@@ -17,7 +17,7 @@ stages:
     tagValue:  $(tagValue)
     dependsOn: Deploy_Infrastructure
     resoucType: "microsoft.web/sites"
-    stageName: $(AppstageInfoName)
+    StageName: $(AppstageInfoName)
 
 - template: 'pipelines\webapp-stage.yml'
   parameters:
