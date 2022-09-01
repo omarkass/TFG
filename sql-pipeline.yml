@@ -19,7 +19,6 @@ stages:
     tagValue:  $(tagValue)
     resoucType: $(siteResourceType)
     StageName: "Get_App_Name"
-    dependsOn: Deploy_Infrastructure
 
 
 - template: 'pipelines\sql-stage.yml'
