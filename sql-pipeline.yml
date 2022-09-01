@@ -15,10 +15,10 @@ stages:
 - template: 'pipelines\get-name-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
-    resourceGroup: $(appResourceGroupName)
+    resourceGroup: $(sqlResourceGroupName)
     tagValue:  $(tagValue)
-    resoucType: $(siteResourceType)
-    StageName: "Get_App_Name"
+    resoucType: $(sqlResourceType)
+    StageName: "Get_Sql_info"
 
 
 - template: 'pipelines\sql-stage.yml'
@@ -28,4 +28,4 @@ stages:
     userName: $(acrUrl)
     resourceGroupName: $(sqlResourceGroupName)
     password: $(repositoracrRepositoryNameyName)
-    StageName: "Get_App_Name"
+    StageName: "Get_Sql_info"

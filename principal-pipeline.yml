@@ -71,13 +71,20 @@ stages:
     prometheusExporterImageName: $(prometheusExporterImageName)
     dependsOn: Set_Aks_Permissions
   
+- template: 'pipelines\get-name-stage.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    resourceGroup: $(appResourceGroupName)
+    tagValue:  $(tagValue)
+    resoucType: $(siteResourceType)
+    StageName: "Get_App_Name"
+    dependsOn: Deploy_Infrastructure
+
 - template: 'pipelines\sql-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
-    tagValue: $(tagValue)
-    DatabaseName: $(databaseName)
-    Username: $(sqlUserName)
-    Password: $(sqlPassword)
+    databaseName: $(aksclusterName)
+    userName: $(acrUrl)
     resourceGroupName: $(sqlResourceGroupName)
-    dependsOn: Deploy_Infrastructure
-  
+    password: $(repositoracrRepositoryNameyName)
+    StageName: "Get_App_Name"
