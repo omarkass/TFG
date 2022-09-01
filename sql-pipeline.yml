@@ -18,7 +18,7 @@ stages:
     resourceGroup: $(sqlResourceGroupName)
     tagValue:  $(tagValue)
     resoucType: $(sqlResourceType)
-    StageName: "Get_Sql_info"
+    StageName: "Get_Sql_Info"
 
 
 - template: 'pipelines\sql-stage.yml'
@@ -28,4 +28,4 @@ stages:
     userName: $(acrUrl)
     resourceGroupName: $(sqlResourceGroupName)
     password: $(repositoracrRepositoryNameyName)
-    StageName: "Get_Sql_info"
+    StageName: "Get_Sql_Info"

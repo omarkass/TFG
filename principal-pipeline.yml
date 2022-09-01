@@ -61,24 +61,32 @@ stages:
     useGrafana: $(useGrafana)
     dependsOn: Deploy_Infrastructure
 
+- template: 'pipelines\get-name-stage.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    resourceGroup: $(aksResourceGroupName)
+    tagValue:  $(tagValue)
+    resoucType: $(acrResourceType)
+    StageName: "Get_Acr_Info"
+    dependsOn: Deploy_Infrastructure
+
 - template: 'pipelines\aks-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     aksclusterName: $(aksclusterName)
-    tagValue: $(tagValue)
     resourceGroupName: $(aksResourceGroupName)
     appImageName: $(appImageName)
     prometheusExporterImageName: $(prometheusExporterImageName)
-    dependsOn: Set_Aks_Permissions
+    StageName: "Get_Acr_Info"
   
 - template: 'pipelines\get-name-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
-    resourceGroup: $(appResourceGroupName)
+    resourceGroup: $(sqlResourceGroupName)
     tagValue:  $(tagValue)
-    resoucType: $(siteResourceType)
-    StageName: "Get_App_Name"
-    dependsOn: Deploy_Infrastructure
+    resoucType: $(sqlResourceType)
+    StageName: "Get_Sql_Info"
+
 
 - template: 'pipelines\sql-stage.yml'
   parameters:
@@ -87,4 +95,4 @@ stages:
     userName: $(acrUrl)
     resourceGroupName: $(sqlResourceGroupName)
     password: $(repositoracrRepositoryNameyName)
-    StageName: "Get_App_Name"
+    StageName: "Get_Sql_Info"

@@ -10,11 +10,22 @@ variables:
 - template:   pipelines\vars\vars.yml  
 stages:
 #calling the sql-stage to import the database to azure
+
+
+- template: 'pipelines\get-name-stage.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    resourceGroup: $(aksResourceGroupName)
+    tagValue:  $(tagValue)
+    resoucType: $(acrResourceType)
+    StageName: "Get_Acr_info"
+
+
 - template: 'pipelines\aks-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     aksclusterName: $(aksclusterName)
-    tagValue: $(tagValue)
     resourceGroupName: $(aksResourceGroupName)
     appImageName: $(appImageName)
     prometheusExporterImageName: $(prometheusExporterImageName)
+    StageName: "Get_Acr_info"
