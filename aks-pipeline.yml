@@ -29,3 +29,4 @@ stages:
     appImageName: $(appImageName)
     prometheusExporterImageName: $(prometheusExporterImageName)
     StageName: "Get_Acr_info"
+    dependsOn: "Get_Acr_info"
