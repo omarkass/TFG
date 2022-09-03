@@ -33,7 +33,6 @@ parameters:
   type: string 
 
 - name: dependsOn
-  type: list
   default: []
   
 
