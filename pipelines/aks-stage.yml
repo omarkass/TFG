@@ -31,6 +31,10 @@ parameters:
 
 - name: stageName
   type: string 
+
+- name: dependsOn
+  type: projectList
+  default: []
   
 
 stages:
@@ -55,7 +59,7 @@ stages:
     steps:
 
       - download: current
-        artifact: ${{ parameters.stageName }}
+        artifact: ${{ parameters.dependsOn }}
 
       - bash: |
           sudo apt-get install dos2unix -y
