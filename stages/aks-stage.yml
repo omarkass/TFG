@@ -38,8 +38,8 @@ stages:
 - stage: Deploy_K8s_Content
   displayName: create and push kubernetes content
   dependsOn: 
-    - ${{ parameters.dependsOn }}
     - ${{ parameters.stageName }}
+    - ${{ parameters.dependsOn }}
   jobs:
   - job: Deploy_K8s_Content
     pool:
