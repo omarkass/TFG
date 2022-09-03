@@ -25,16 +25,13 @@ parameters:
   type: string
   #default: proj
 
-#- name: dependsOn
-#  type: string
-#  default: ''  
+- name: dependsOn
+  type: string
+  default: ''  
 
 - name: stageName
   type: string 
 
-- name: dependsOn
-  default: []
-  
 
 stages:
 
@@ -50,7 +47,9 @@ stages:
 
 - stage: Deploy_K8s_Content
   displayName: create and push kubernetes content
-  dependsOn: ${{ parameters.stageName }}
+  dependsOn: 
+    - ${{ parameters.dependsOn }}
+    - ${{ parameters.stageName }}
   jobs:
   - job: Deploy_K8s_Content
     pool:
@@ -58,7 +57,7 @@ stages:
     steps:
 
       - download: current
-        artifact: ${{ parameters.dependsOn }}
+        artifact: ${{ parameters.stageName }}
 
       - bash: |
           sudo apt-get install dos2unix -y
