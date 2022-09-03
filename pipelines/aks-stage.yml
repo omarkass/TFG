@@ -33,7 +33,7 @@ parameters:
   type: string 
 
 - name: dependsOn
-  type: projectList
+  type: list
   default: []
   
 
