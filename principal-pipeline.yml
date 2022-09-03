@@ -13,16 +13,16 @@ trigger:
 variables:
   # Azure Resource Manager connection created during pipeline creation
   #azureServiceConnectionId: 'Service_connection'
-  - template:  pipelines\vars\vars.yml  
+  - template:  stages\vars\vars.yml  
 pool:
   #vmImage: ubuntu-latest
   vmImage: windows-latest
 stages:
-- template: 'pipelines\infraestructure-stage.yml'
+- template: 'stages\infraestructure-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
 
-- template: 'pipelines\get-name-stage.yml'
+- template: 'stages\get-info-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(appResourceGroupName)
@@ -31,14 +31,14 @@ stages:
     StageName: "Get_App_Name"
     dependsOn: Deploy_Infrastructure
 
-- template: 'pipelines\webapp-stage.yml'
+- template: 'stages\webapp-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     pythonVersion: $(pythonVersion)
     stageName: "Get_App_Name"
     
     
-- template: 'pipelines\get-name-stage.yml'
+- template: 'stages\get-info-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(funcResourceGroupName)
@@ -47,21 +47,21 @@ stages:
     StageName: "Get_Fun_Name"
     dependsOn: Deploy_Infrastructure
 
-- template: 'pipelines\function-stage.yml'
+- template: 'stages\function-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     pythonVersion: $(pythonVersion)
     StageName: "Get_Fun_Name"
 
 
-- template: 'pipelines\aks-permissions-stage.yml'
+- template: 'stages\aks-permissions-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     aksclusterName: $(aksclusterName)
     useGrafana: $(useGrafana)
     dependsOn: Deploy_Infrastructure
 
-- template: 'pipelines\get-name-stage.yml'
+- template: 'stages\get-info-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(aksResourceGroupName)
@@ -70,7 +70,7 @@ stages:
     StageName: "Get_Acr_Info"
     dependsOn: Deploy_Infrastructure
 
-- template: 'pipelines\aks-stage.yml'
+- template: 'stages\aks-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     aksclusterName: $(aksclusterName)
@@ -80,7 +80,7 @@ stages:
     StageName: "Get_Acr_Info"
     dependsOn: 'Set_Aks_Permissions'
   
-- template: 'pipelines\get-name-stage.yml'
+- template: 'stages\get-info-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(sqlResourceGroupName)
@@ -90,7 +90,7 @@ stages:
     dependsOn: Deploy_Infrastructure
 
 
-- template: 'pipelines\sql-stage.yml'
+- template: 'stages\sql-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     DatabaseName: $(databaseName)

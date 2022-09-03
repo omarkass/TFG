@@ -27,7 +27,7 @@ parameters:
 
 stages:
 
-#- template: './get-name-stage.yml'
+#- template: './get-info-stage.yml'
 #  parameters:
 #    azureSubscription: ${{parameters.azureSubscription}}
 #    resourceGroup: ${{parameters.resourceGroupName}}

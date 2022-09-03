@@ -7,12 +7,12 @@ pool:
   vmImage: windows-latest
 #load vars from the vars.yml file
 variables:
-- template: pipelines\vars\vars.yml  
+- template: stages\vars\vars.yml  
 stages:
 #calling the sql-stage to import the database to azure
 
 
-- template: 'pipelines\get-name-stage.yml'
+- template: 'stages\get-info-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(sqlResourceGroupName)
@@ -21,7 +21,7 @@ stages:
     StageName: "Get_Sql_Info"
 
 
-- template: 'pipelines\sql-stage.yml'
+- template: 'stages\sql-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     DatabaseName: $(databaseName)

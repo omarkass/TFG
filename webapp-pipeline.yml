@@ -7,10 +7,10 @@ pool:
   vmImage: windows-latest
 #load vars from the vars.yml file
 variables:
-- template: pipelines\vars\vars.yml  
+- template: stages\vars\vars.yml  
 stages:
 
-- template: 'pipelines\get-name-stage.yml'
+- template: 'stages\get-info-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(appResourceGroupName)
@@ -18,7 +18,7 @@ stages:
     resoucType: $(siteResourceType)
     StageName: "Get_App_Name"
 
-- template: 'pipelines\webapp-stage.yml'
+- template: 'stages\webapp-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     pythonVersion: $(pythonVersion)

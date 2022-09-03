@@ -35,16 +35,6 @@ parameters:
 
 stages:
 
-# - template: './get-name-stage.yml'
-#   parameters:
-#     azureSubscription: ${{parameters.azureSubscription}}
-#     resourceGroup: ${{parameters.resourceGroupName}}
-#     tagValue:  ${{parameters.tagValue}}
-#     dependsOn: ${{parameters.dependsOn}}
-#     resoucType: "Microsoft.ContainerRegistry/registries"
-#     stageName: ${{ parameters.stageName }}
-
-
 - stage: Deploy_K8s_Content
   displayName: create and push kubernetes content
   dependsOn: 
