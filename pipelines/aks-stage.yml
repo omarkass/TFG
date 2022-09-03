@@ -25,9 +25,9 @@ parameters:
   type: string
   #default: proj
 
-- name: dependsOn
-  type: string
-  default: ''  
+#- name: dependsOn
+#  type: string
+#  default: ''  
 
 - name: stageName
   type: string 
