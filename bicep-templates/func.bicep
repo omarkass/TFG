@@ -4,6 +4,7 @@ param StorageAcountName string
 param planName string
 param applicationInsightName string 
 param projTagValue string
+param monitorFunc bool
 resource azureFunctionName 'Microsoft.Web/sites@2018-11-01' = {
   name: name
   location: location
@@ -34,11 +35,11 @@ resource azureFunctionName 'Microsoft.Web/sites@2018-11-01' = {
         }
         {
           name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
-          value: reference('microsoft.insights/components/${applicationInsightName}', '2015-05-01').InstrumentationKey
+          value: ((monitorFunc) ? reference('microsoft.insights/components/${applicationInsightName}', '2015-05-01').InstrumentationKey : null) //reference('microsoft.insights/components/${applicationInsightName}', '2015-05-01').InstrumentationKey
         }
         {
           name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
-          value: reference('microsoft.insights/components/${applicationInsightName}', '2015-05-01').ConnectionString
+          value: ((monitorFunc) ? reference('microsoft.insights/components/${applicationInsightName}', '2015-05-01').ConnectionString : null) //reference('microsoft.insights/components/${applicationInsightName}', '2015-05-01').ConnectionString
         }
         {
           name: 'AzureWebJobsSecretStorageType'
