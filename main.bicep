@@ -26,8 +26,7 @@ param skuWebApp string = 'Free'
 param skuCodeskuWebApp string = 'F1'
 param numberOfWorkersWebApp string = '1'
 
-param proj string = 'proj'
-param env string = 'dev'
+
 
 param deployAks bool = true
 param deployFunc bool = true
@@ -35,21 +34,21 @@ param deployApp bool = true
 param deploySql bool = true
 
 var AzureSqlRuleName = 'AllowAllWindowsAzureIps'
-var aksName = '${proj}-${env}-aks'
-var acrName = uniqueString(subscription().subscriptionId,proj,env,'acr','aks')
-var aksRgName = '${proj}-${env}-aks-rg'
-var azureWebAppRgName = '${proj}-${env}-app-rg'
-var azureServicePlanWebApp = '${proj}-${env}-app-plan'
-var azureWebAppName = uniqueString(subscription().subscriptionId,proj,env,'app')
-var azureFunctionRgName = '${proj}-${env}-func-rg'
-var azureFunctionName =uniqueString(subscription().subscriptionId,proj,env,'func')
-var azureServicePlanFunction = '${proj}-${env}-func-plan'
-var azureStorageAcountFunction = uniqueString(subscription().subscriptionId,proj,env,'func','st')
-var sqlServerName =  uniqueString(subscription().subscriptionId,proj,env,'sql')
-var sqlDatabaseName = '${sqlServerName}/${proj}-${env}-sqldb'
-var sqlRgName = '${proj}-${env}-sql-rg'
-var logAnalyticName = '${proj}-${env}-func-log'
-var applicationInsghtsName = '${proj}-${env}-func-appi'
+var aksName = 'aks'
+var acrName = uniqueString(subscription().subscriptionId,'acr','aks')
+var aksRgName = 'aks-rg'
+var azureWebAppRgName = 'app-rg'
+var azureServicePlanWebApp = 'app-plan'
+var azureWebAppName = uniqueString(subscription().subscriptionId,'app')
+var azureFunctionRgName = 'func-rg'
+var azureFunctionName =uniqueString(subscription().subscriptionId,'func')
+var azureServicePlanFunction = 'func-plan'
+var azureStorageAcountFunction = uniqueString(subscription().subscriptionId,'func','st')
+var sqlServerName =  uniqueString(subscription().subscriptionId,'sql')
+var sqlDatabaseName = '${sqlServerName}/sqldb'
+var sqlRgName = 'sql-rg'
+var logAnalyticName = 'func-log'
+var applicationInsghtsName = 'func-appi'
 var projTagValue = 'proj'
 
 
