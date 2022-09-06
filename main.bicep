@@ -28,7 +28,7 @@ param numberOfWorkersWebApp string = '1'
 
 
 
-param deployAks bool = true
+param deployAks bool = false
 param deployFunc bool = true
 param deployApp bool = true
 param deploySql bool = true
