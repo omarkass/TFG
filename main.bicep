@@ -28,9 +28,9 @@ param numberOfWorkersWebApp string = '1'
 
 param locationLogAnalytics string = 'East US'
 
-param deployAks bool = false
+param deployAks bool = true
 param deployFunc bool = true
-param deployApp bool = false
+param deployApp bool = true
 param deploySql bool = true
 
 
