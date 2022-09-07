@@ -3,6 +3,7 @@ param location string
 param logAnaliticName string
 param azureFunctionName string
 param projTagValue string
+param logAnaliticResourceGroup string
 
 resource AzureapplicationInsghts 'microsoft.insights/components@2020-02-02-preview' = {
   name: name
@@ -17,7 +18,7 @@ resource AzureapplicationInsghts 'microsoft.insights/components@2020-02-02-previ
     Flow_Type: 'Redfield'
     Request_Source: 'IbizaWebAppExtensionCreate'
     RetentionInDays: 30
-    WorkspaceResourceId: resourceId('microsoft.operationalinsights/workspaces',logAnaliticName)
+    WorkspaceResourceId: resourceId(logAnaliticResourceGroup,'microsoft.operationalinsights/workspaces',logAnaliticName)
     IngestionMode: 'LogAnalytics'
     publicNetworkAccessForIngestion: 'Enabled'
     publicNetworkAccessForQuery: 'Enabled'

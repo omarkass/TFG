@@ -26,12 +26,12 @@ param skuWebApp string = 'Free'
 param skuCodeskuWebApp string = 'F1'
 param numberOfWorkersWebApp string = '1'
 
+param locationLogAnalytics string = 'East US'
 
-
-param deployAks bool = true
-param deployFunc bool = false
+param deployAks bool = false
+param deployFunc bool = true
 param deployApp bool = false
-param deploySql bool = false
+param deploySql bool = true
 
 
 
@@ -44,19 +44,27 @@ var azureWebAppRgName = 'app-rg'
 var azureServicePlanWebApp = 'app-plan'
 var azureWebAppName = uniqueString(subscription().subscriptionId,'app')
 var azureFunctionRgName = 'func-rg'
+var azurekLogAnalyticsRgName = 'log-rg'
 var azureFunctionName =uniqueString(subscription().subscriptionId,'func')
 var azureServicePlanFunction = 'func-plan'
 var azureStorageAcountFunction = uniqueString(subscription().subscriptionId,'func','st')
 var sqlServerName =  uniqueString(subscription().subscriptionId,'sql')
 var sqlDatabaseName = '${sqlServerName}/sqldb'
 var sqlRgName = 'sql-rg'
-var logAnalyticName = 'func-log'
+var logAnalyticName = 'logAnaytics'
+//var logAnalyticAksName = 'aks-log'
 var applicationInsghtsName = 'func-appi'
 var projTagValue = 'proj'
 
 
 
 // Creating resource group
+
+resource log_rg 'Microsoft.Resources/resourceGroups@2021-01-01'={
+  name: azurekLogAnalyticsRgName
+  location: locationLogAnalytics
+}
+
 resource func_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = if(deployFunc){
   name: azureFunctionRgName
   location: locationAzureFunction
@@ -99,12 +107,25 @@ module func_plan './bicep-templates/plan.bicep' = if(deployFunc)  {
   }
 }
 
+/*
 module func_log 'bicep-templates/func-log.bicep' = if(deployFunc) {
-  name: logAnalyticName
+  name: logAnalyticFuncName
   scope: func_rg
   params:{
-    name: logAnalyticName
+    name: logAnalyticFuncName
     location: locationAzureFunction
+    projTagValue:projTagValue
+  }
+}
+*/
+
+
+module log 'bicep-templates/func-log.bicep' =  {
+  name: logAnalyticName
+  scope: log_rg
+  params:{
+    name: logAnalyticName
+    location: locationLogAnalytics
     projTagValue:projTagValue
   }
 }
@@ -115,12 +136,13 @@ module func_appi 'bicep-templates/func-appi.bicep' = if(deployFunc) {
   params:{
     name: applicationInsghtsName
     location: locationAzureFunction
-    logAnaliticName: logAnalyticName
     azureFunctionName: azureFunctionName
     projTagValue:projTagValue
+    logAnaliticName: logAnalyticName
+    logAnaliticResourceGroup: azurekLogAnalyticsRgName
   }
   dependsOn:[
-    func_log
+    log
   ]
 }
 
@@ -150,6 +172,7 @@ module sqldb 'bicep-templates/sqldb.bicep' = if(deploySql) {
     SQL_Pass: SQL_Pass
     SQL_User: SQL_User
     projTagValue:projTagValue
+
   }
   }
 
@@ -174,12 +197,23 @@ params: {
   name: sqlDatabaseName
   location:locationSqlDatabase
   projTagValue:projTagValue
+    logAnaliticName: logAnalyticName
+  logAnaliticResourceGroup: azurekLogAnalyticsRgName
 }
 dependsOn:[
   sqldb
 ]
 }
 
+//module aks_log 'bicep-templates/func-log.bicep' = if(deployAks) {
+//  name: logAnalyticAksName
+//  scope: aks_rg
+//  params:{
+//    name: logAnalyticAksName
+//    location: locationAks
+//    projTagValue:projTagValue
+//  }
+//}
 
 module aks 'bicep-templates/aks.bicep' = if(deployAks) {
   name: 'aks'
@@ -190,7 +224,12 @@ module aks 'bicep-templates/aks.bicep' = if(deployAks) {
     version: kubernetesVersion
     VmSize: aksVmSize
     projTagValue:projTagValue
+    logAnalyticsName:logAnalyticName
+    logAnaliticResourceGroup: azurekLogAnalyticsRgName
   }
+  dependsOn:[
+    log
+  ]
   }
   
   module aks_acr 'bicep-templates/aks-acr.bicep' = if(deployAks) {

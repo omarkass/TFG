@@ -3,6 +3,8 @@ param location string
 param version string
 param VmSize string
 param projTagValue string
+param logAnalyticsName string
+param logAnaliticResourceGroup string
 
 resource azureakscluster 'Microsoft.ContainerService/managedClusters@2021-07-01' = {
   name: name
@@ -55,8 +57,14 @@ resource azureakscluster 'Microsoft.ContainerService/managedClusters@2021-07-01'
       }
       azureKeyvaultSecretsProvider: {
         enabled: false
+        config: null
+      }
+      omsAgent: {
+        enabled: true
+        config: {
+          logAnalyticsWorkspaceResourceID: resourceId(logAnaliticResourceGroup,'Microsoft.OperationalInsights/workspaces', logAnalyticsName)
+        }
       }
     }
   }
-  dependsOn: []
 }

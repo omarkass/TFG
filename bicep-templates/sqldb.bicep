@@ -4,6 +4,8 @@ param SQL_User string
 param SQL_Pass string 
 param projTagValue string
 
+
+
 resource azureSqlDatabase 'Microsoft.Sql/servers@2021-05-01-preview' = {
   name: name
   location: location
