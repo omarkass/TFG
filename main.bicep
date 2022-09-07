@@ -28,15 +28,12 @@ param numberOfWorkersWebApp string = '1'
 
 
 
-param deployAks bool = false
-param deployFunc bool = true
-param deployApp bool = true
-param deploySql bool = true
+param deployAks bool = true
+param deployFunc bool = false
+param deployApp bool = false
+param deploySql bool = false
 
-param monitorAks bool = true
-param monitorFunc bool = false
-param monitorApp bool = true
-param monitorSql bool = true
+
 
 
 var AzureSqlRuleName = 'AllowAllWindowsAzureIps'
@@ -102,7 +99,7 @@ module func_plan './bicep-templates/plan.bicep' = if(deployFunc)  {
   }
 }
 
-module func_log 'bicep-templates/func-log.bicep' = if(deployFunc && monitorFunc) {
+module func_log 'bicep-templates/func-log.bicep' = if(deployFunc) {
   name: logAnalyticName
   scope: func_rg
   params:{
@@ -112,7 +109,7 @@ module func_log 'bicep-templates/func-log.bicep' = if(deployFunc && monitorFunc)
   }
 }
 
-module func_appi 'bicep-templates/func-appi.bicep' = if(deployFunc && monitorFunc) {
+module func_appi 'bicep-templates/func-appi.bicep' = if(deployFunc) {
   name : 'func_appi'
   scope: func_rg 
   params:{
@@ -137,7 +134,6 @@ module func 'bicep-templates/func.bicep' = if(deployFunc) {
     StorageAcountName: azureStorageAcountFunction
     applicationInsightName:applicationInsghtsName
     projTagValue:projTagValue
-    monitorFunc:monitorFunc
   }
   dependsOn:[
     func_plan
