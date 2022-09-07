@@ -99,8 +99,3 @@ stages:
             else
               helm install -n ingress-ngnix ingress ./content/aks-content/ingress-ngnix
             fi
-            if [[ "$output" == *"elasticsearch"* ]]; then 
-              helm upgrade -n monitoring elasticsearch ./content/aks-content/elasticsearch
-            else
-              helm install -n monitoring elasticsearch ./content/aks-content/elasticsearch
-            fi       
