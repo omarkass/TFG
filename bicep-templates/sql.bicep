@@ -30,6 +30,9 @@ resource DiagnosticSetting 'microsoft.insights/diagnosticSettings@2021-05-01-pre
       }
     
     ]
-    metrics: []
+    metrics: [{
+      category: 'AllMetrics'
+      enabled: true
+  }]
   }
 }

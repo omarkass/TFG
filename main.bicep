@@ -255,6 +255,8 @@ module aks 'bicep-templates/aks.bicep' = if(deployAks) {
     location: locationWebApp
     planeName: azureServicePlanWebApp
     projTagValue:projTagValue
+    logAnaliticName: logAnalyticName
+    logAnaliticResourceGroup: azurekLogAnalyticsRgName
   }
   dependsOn:[
     app_plan
