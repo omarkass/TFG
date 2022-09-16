@@ -101,7 +101,7 @@ stages:
             fi
             
             if [[ "$output" == *"app"* ]]; then 
-              helm upgrade --set configMap.sqlUrlValue=buxivyn46mang.database.windows.net --set container.imageUrl='$(acrUrl)'"/${{parameters. appImageName}}:latest"  app ./content/aks-content/app-proba
+              helm upgrade --set configMap.sqlUrlValue=buxivyn46mang.database.windows.net --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest"  app ./content/aks-content/app-proba
             else
-              helm install --set configMap.sqlUrlValue=buxivyn46mang.database.windows.net --set container.imageUrl='$(acrUrl)'"/${{parameters. appImageName}}:latest" app ./content/aks-content/app-proba
+              helm install --set configMap.sqlUrlValue=buxivyn46mang.database.windows.net --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest" app ./content/aks-content/app-proba
             fi
