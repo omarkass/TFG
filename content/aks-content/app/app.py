@@ -24,7 +24,7 @@ def expo():
         row = cursor.fetchone()
         result = 0
         if cursor.rowcount == 0:
-         result = num ** num
+         result = num ** 2
          query = """INSERT INTO exponentiation VALUES (?, ?)"""
          cursor.execute(query,(num,result))
          cnxn.commit()
