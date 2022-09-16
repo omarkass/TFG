@@ -11,7 +11,7 @@ container:
 
 dp:
   name: deployment-proj
-  replicaCount: 3
+  replicaCount: 1
 
 
 
