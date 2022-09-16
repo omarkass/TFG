@@ -12,12 +12,12 @@ def expo():
         server = 'tcp:proj-dev-sql.database.windows.net'
         database = 'proj-dev-sqldb'
         username = 'omar1'
-        url = 'tcp:'+os.environ['sql_url']
+        server = 'tcp:'+os.environ['sql_url']
         print ("hellow", file=sys.stderr)
-        print( url, file=sys.stderr)
+        print( server, file=sys.stderr)
         password = 'Kassar@14689'
         num = request.args.get('num', default = 1, type = int)
-        cnxn = pypyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+url+';DATABASE='+database+';UID='+username+';PWD='+ password)
+        cnxn = pypyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
         cursor = cnxn.cursor()
         query = "select result from exponentiation where num=" + str(num)
         cursor.execute(query)

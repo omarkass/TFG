@@ -83,8 +83,8 @@ stages:
             docker push '$(acrUrl)'"/${{parameters.prometheusExporterImageName}}:latest"
 
             kubectl delete --all deployment --namespace=default
-            kubectl apply -f ./content/aks-content/dp.yml
-            kubectl apply -f ./content/aks-content/svc.yml
+            #kubectl apply -f ./content/aks-content/dp.yml
+            #kubectl apply -f ./content/aks-content/svc.yml
             kubectl get svc 
             kubectl create ns monitoring 
             kubectl create ns ingress-ngnix
