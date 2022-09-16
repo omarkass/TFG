@@ -163,8 +163,8 @@ module func 'bicep-templates/func.bicep' = if(deployFunc) {
   ]
 }
 
-module sqldb 'bicep-templates/sqldb.bicep' = if(deploySql) {
-  name: 'sqdbl'
+module sql 'bicep-templates/sql.bicep' = if(deploySql) {
+  name: 'sql'
   scope: sql_rg    // Deployed in the scope of resource group we created above
   params: {
     name: sqlServerName
@@ -186,12 +186,12 @@ module sqldb 'bicep-templates/sqldb.bicep' = if(deploySql) {
       location:locationSqlDatabase
     }
     dependsOn:[
-      sqldb
+      sql
     ]
     }
 
-module sql 'bicep-templates/sql.bicep' = if(deploySql) {
-name: 'sql'
+module sqldb 'bicep-templates/sqldb.bicep' = if(deploySql) {
+name: 'sqldb'
 scope: sql_rg    // Deployed in the scope of resource group we created above
 params: {
   name: sqlDatabaseName
@@ -201,7 +201,7 @@ params: {
   logAnaliticResourceGroup: azurekLogAnalyticsRgName
 }
 dependsOn:[
-  sqldb
+  sql
 ]
 }
 
