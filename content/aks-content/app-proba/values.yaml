@@ -48,7 +48,7 @@ configMap:
 
 svc:
   name: proj-service
-  type: LoadBalancer
+  type: NodePort
 
 ingress:
   enabled: false

@@ -99,3 +99,9 @@ stages:
             else
               helm install -n ingress-ngnix ingress ./content/aks-content/ingress-ngnix
             fi
+            
+            if [[ "$output" == *"app"* ]]; then 
+              helm upgrade --set configMap.sqlUrlValue=buxivyn46mang.database.windows.net --set container.imageUrl=r67qx6zxzeg6m.azurecr.io/proj:latest  app ./content/aks-content/app-proba
+            else
+              helm install --set configMap.sqlUrlValue=buxivyn46mang.database.windows.net --set container.imageUrl=r67qx6zxzeg6m.azurecr.io/proj:latest app ./content/aks-content/app-proba
+            fi
