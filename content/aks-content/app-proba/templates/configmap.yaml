@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configMap.name }} 
+data:
+  # property-like keys; each key maps to a simple value
+  {{ .Values.configMap.sqlUrlName }} :  {{ .Values.configMap.sqlUrlValue }}

@@ -11,6 +11,8 @@ def expo():
         server = 'tcp:proj-dev-sql.database.windows.net'
         database = 'proj-dev-sqldb'
         username = 'omar1'
+        print(os.environ['sql_url'])
+        print ("hellow")
         password = 'Kassar@14689'
         num = request.args.get('num', default = 1, type = int)
         cnxn = pypyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)

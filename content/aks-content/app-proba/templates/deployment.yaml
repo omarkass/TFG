@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.dp.name }}
+  labels:
+    app: {{ .Values.tagValue }}
+spec:
+  replicas: {{ .Values.dp.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.tagValue }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.tagValue }}
+    spec:
+      containers:
+      - name: {{ .Values.container.name }}
+        image: {{ .Values.container.imageUrl }}
+        ports:
+        - containerPort: {{ .Values.container.port }}
+        env:
+        - name: {{ .Values.configMap.sqlUrlName }}                 
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configMap.name }} 
+              key: {{ .Values.configMap.sqlUrlName }}  
+

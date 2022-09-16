@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.svc.name }}
+spec:
+  selector:
+    app: {{ .Values.tagValue }}
+  ports:
+    - port: {{ .Values.container.port }}
+      targetPort: {{ .Values.container.targetPort }}
+  type: LoadBalancer

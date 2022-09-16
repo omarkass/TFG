@@ -1,3 +1,8 @@
 to give azure piplines acces , u have to create new service connection of type azure resource manager ,service principal (automatic),
 select subscription, giving it the name of Service_connection and save, and after this change the role assignment for
 the user created with this porcess , to give it owner permission
+
+
+
+
+helm install  --set configMap.sqlUrlValue=wow  --set container.imageUrl=r67qx6zxzeg6m.azurecr.io/proj:latest  app ./app-proba

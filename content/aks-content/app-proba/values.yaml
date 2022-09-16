@@ -1,0 +1,63 @@
+# Default values for app-proba.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+tagValue: proj
+
+
+container:
+  name: proj 
+  port: 30000
+
+dp:
+  name: deployment-proj
+  replicaCount: 3
+
+
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+configMap: 
+  name: components-url
+  sqlUrlName: sql_url
+
+
+svc:
+  name: proj-service
+  type: LoadBalancer
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
