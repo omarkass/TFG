@@ -62,6 +62,9 @@ variables:
 - name: appImageName
   value: proj
 
+- name: azureExporterImageName
+  value: azure-exporter
+
 - name: prometheusExporterImageName
   value: azure-exporter
 
