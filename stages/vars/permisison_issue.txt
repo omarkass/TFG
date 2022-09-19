@@ -5,4 +5,4 @@ the user created with this porcess , to give it owner permission
 
 
 
-helm install --set configMap.sqlUrlValue=buxivyn46mang.database.windows.net --set container.imageUrl=r67qx6zxzeg6m.azurecr.io/proj:latest  app ./app-proba
+helm install --set configMap.sqlUrlValue=buxivyn46mang.database.windows.net --set container.imageUrl=r67qx6zxzeg6m.azurecr.io/proj:latest  app ./app

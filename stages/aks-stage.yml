@@ -82,26 +82,23 @@ stages:
             docker image ls
             docker push '$(acrUrl)'"/${{parameters.prometheusExporterImageName}}:latest"
 
-            kubectl delete --all deployment --namespace=default
-            #kubectl apply -f ./content/aks-content/dp.yml
-            #kubectl apply -f ./content/aks-content/svc.yml
-            kubectl get svc 
+
             kubectl create ns monitoring 
             kubectl create ns ingress-ngnix
             output=$(helm list -A)         
             if [[ "$output" == *"grafana"* ]]; then    
-              helm upgrade -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest  grafana ./content/aks-content/kube-prometheus-stack
+              helm upgrade -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest  grafana ./content/aks-content/helm-project/kube-prometheus-stack
              else
-              helm install -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest grafana ./content/aks-content/kube-prometheus-stack
+              helm install -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest grafana ./content/aks-content/helm-project/kube-prometheus-stack
             fi 
             if [[ "$output" == *"ingress-ngnix"* ]]; then 
-              helm upgrade -n ingress-ngnix ingress ./content/aks-content/ingress-ngnix
+              helm upgrade -n ingress-ngnix ingress ./content/aks-content/helm-project/ingress-ngnix
             else
-              helm install -n ingress-ngnix ingress ./content/aks-content/ingress-ngnix
+              helm install -n ingress-ngnix ingress ./content/aks-content/helm-project/ingress-ngnix
             fi
             
             if [[ "$output" == *"app"* ]]; then 
-              helm upgrade --set configMap.sqlUrlValue=buxivyn46mang.database.windows.net --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest"  app ./content/aks-content/app-proba
+              helm upgrade --set configMap.sqlUrlValue=buxivyn46mang.database.windows.net --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest"  app ./content/aks-content/helm-project/app
             else
-              helm install --set configMap.sqlUrlValue=buxivyn46mang.database.windows.net --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest" app ./content/aks-content/app-proba
+              helm install --set configMap.sqlUrlValue=buxivyn46mang.database.windows.net --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest" app ./content/aks-content/helm-project/app
             fi
