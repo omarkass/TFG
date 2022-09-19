@@ -90,9 +90,9 @@ stages:
             kubectl create ns ingress-ngnix
             output=$(helm list -A)         
             if [[ "$output" == *"grafana"* ]]; then    
-              helm upgrade -n monitoring --set azure-exporter.po.imageUrl='$(acrUrl)'"/${{parameters.azureExporterImageName}}:latest"  grafana ./content/aks-content/kube-prometheus-stack
+              helm upgrade -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest  grafana ./content/aks-content/kube-prometheus-stack
              else
-              helm install -n monitoring --set azure-exporter.po.imageUrl='$(acrUrl)'"/${{parameters.azureExporterImageName}}:latest" grafana ./content/aks-content/kube-prometheus-stack
+              helm install -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest grafana ./content/aks-content/kube-prometheus-stack
             fi 
             if [[ "$output" == *"ingress-ngnix"* ]]; then 
               helm upgrade -n ingress-ngnix ingress ./content/aks-content/ingress-ngnix
