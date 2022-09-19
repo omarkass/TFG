@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.po.name }}
-        image: "{{ .Values.po.image.repository }}/{{ .Values.po.image.name}}:{{ .Values.po.image.tag }}"
+        image: {{ .Values.po.imageUrl }}
         ports:
         - name: {{ .Values.ports.name }}
           containerPort:  {{ .Values.ports.targetPort }}
