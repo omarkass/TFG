@@ -45,6 +45,12 @@ stages:
           echo "##vso[task.setvariable variable=functionAppName]$functionAppName"
           echo "$functionAppName"
 
+
+      - bash: |
+          echo "$(functionAppName)"
+          echo "$functionAppName"
+
+
       - bash: |
           if [ -f extensions.csproj ]
           then
