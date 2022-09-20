@@ -81,11 +81,11 @@ stages:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-          echo '$(appUrl)'
-          echo '$(funcUrl)'
-          echo '$(funcKey)'
-          echo '$(fullyQualifiedDomainName)'
-          echo '$(acrUrl)'
+            echo '$(appUrl)'
+            echo '$(funcUrl)'
+            echo '$(funcKey)'
+            echo '$(fullyQualifiedDomainName)'
+            echo '$(acrUrl)'
             az aks get-credentials --name ${{parameters.aksclusterName}} --resource-group ${{parameters.resourceGroupName}}
             az acr login --name $(acrUrl)
             docker build ./content/aks-content/docker-images/app -t ${{parameters. appImageName}}
