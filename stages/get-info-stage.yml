@@ -44,11 +44,11 @@ stages:
               $funcName = "HttpTrigger1"
               $resources = $(az resource list --tag deployedby="proj" ) | ConvertFrom-json
               $resourcesType = @('Microsoft.Web/sites','Microsoft.ContainerRegistry/registries','microsoft.sql/servers')
+              mkdir -p $(Pipeline.Workspace)/${{parameters.stageName}}
               foreach( $resource in $resources ) 
               { 
               if($resourcesType -contains $resource.type )
               {
-              mkdir -p $(Pipeline.Workspace)/${{parameters.stageName}}
               if ($resource.type -eq "Microsoft.ContainerRegistry/registries"){
                 $acrInfo = $(az acr show --name $resource.name --resource-group $resource.resourceGroup) | convertFrom-json
                 echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/acrName
