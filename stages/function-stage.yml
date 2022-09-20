@@ -85,5 +85,5 @@ stages:
         inputs:
           azureSubscription: '$(azureSubscription)'
           appType: functionAppLinux
-          appName: $(functionAppName)
+          appName: "$(functionAppName)"
           package: $(Build.ArtifactStagingDirectory)/$(functionAppName)-$(Build.BuildId).zip
