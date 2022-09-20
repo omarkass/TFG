@@ -83,6 +83,6 @@ stages:
               }
               }
               }
-              ls $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
+              ls $(Pipeline.Workspace)/${{parameters.stageName}}
         - publish: $(Pipeline.Workspace)/${{parameters.stageName}}
           artifact: ${{parameters.stageName}}
