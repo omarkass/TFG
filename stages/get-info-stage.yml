@@ -52,7 +52,7 @@ stages:
               if ($resource.type -eq "Microsoft.ContainerRegistry/registries"){
                 $acrInfo = $(az acr show --name $resource.name --resource-group $resource.resourceGroup) | convertFrom-json
                 echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/acrName
-                echo $acrInfo.loginServer > $(Pipeline.Workspace)/${{parameters.stageName}}/loginServer
+                echo $acrInfo.loginServer > $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl
                 cat $(Pipeline.Workspace)/${{parameters.stageName}}/acrName
                 cat $(Pipeline.Workspace)/${{parameters.stageName}}/loginServer
               }
