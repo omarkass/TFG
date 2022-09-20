@@ -5,8 +5,8 @@ import math
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-        server = 'tcp:proj-dev-sql.database.windows.net'
-        database = 'proj-dev-sqldb'
+        server = 'tcp:buxivyn46mang.database.windows.net'
+        database = 'sqldb'
         username = 'omar1'
         password = 'Kassar@14689'
         num = int(req.params.get("num"))
