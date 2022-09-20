@@ -54,7 +54,7 @@ stages:
                 echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/acrName
                 echo $acrInfo.loginServer > $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl
                 cat $(Pipeline.Workspace)/${{parameters.stageName}}/acrName
-                cat $(Pipeline.Workspace)/${{parameters.stageName}}/loginServer
+                cat $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl
               }
               elseif ($resource.type -eq "microsoft.sql/servers"){
                 $sqlInfo = $(az sql server show --name $resource.name --resource-group $resource.resourceGroup) | convertFrom-json
