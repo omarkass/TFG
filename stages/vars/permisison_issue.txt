@@ -3,6 +3,6 @@ select subscription, giving it the name of Service_connection and save, and afte
 the user created with this porcess , to give it owner permission
 
 
-
+https://bteag7gdieoi6.azurewebsites.net/api/HttpTrigger1?num=3&code=OJpATCVCiykldtJ9QwTw598hvWeVFmYuoohaXCUvwuH1AzFuv-Loug==
 
 helm install --set configMap.sqlUrlValue=buxivyn46mang.database.windows.net --set container.imageUrl=r67qx6zxzeg6m.azurecr.io/proj:latest  app ./app

@@ -44,6 +44,11 @@ service:
 configMap: 
   name: components-url
   sqlUrlName: sql_url
+  funcUrlName: func_url
+  funcCodeName: func_code
+  appUrlName: app_url
+  acrUrlName: acr_url
+  
 
 
 svc:

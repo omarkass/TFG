@@ -9,7 +9,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def expo():
-        server = 'tcp:proj-dev-sql.database.windows.net'
         database = 'sqldb'
         username = 'omar1'
         server = 'tcp:'+os.environ['sql_url']

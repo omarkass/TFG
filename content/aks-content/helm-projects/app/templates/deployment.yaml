@@ -24,5 +24,23 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: {{ .Values.configMap.name }} 
-              key: {{ .Values.configMap.sqlUrlName }}  
+              key: {{ .Values.configMap.sqlUrlName }} 
+
+        - name: {{ .Values.configMap.funcUrlName }}                 
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configMap.name }} 
+              key: {{ .Values.configMap.funcUrlName }}  
+
+        - name: {{ .Values.configMap.appUrlName }}                 
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configMap.name }} 
+              key: {{ .Values.configMap.appUrlName }} 
+
+        - name: {{ .Values.configMap.funcCodeName }}                 
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configMap.name }} 
+              key: {{ .Values.configMap.funcCodeName }}                     
 
