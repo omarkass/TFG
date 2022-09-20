@@ -41,21 +41,48 @@ stages:
             scriptType: 'ps'
             scriptLocation: 'inlineScript'
             inlineScript: |
-              $resources = $(az resource list --tag deployedby="${{parameters.tagValue}}" ) | ConvertFrom-json
-              foreach( $resource in $resources  ) { 
-               if($resource.type -eq "${{parameters.resoucType}}" -and $resource.resourceGroup -eq "${{parameters.resourceGroup}}")
-               {
-               mkdir -p $(Pipeline.Workspace)/${{parameters.stageName}}
-               echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/resourceName
-               if ($resource.type -eq "Microsoft.ContainerRegistry/registries"){
-                $info = $(az acr show --name $resource.name --resource-group $resource.resourceGroup) | convertFrom-json
-                echo $info.loginServer > $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl
-               }
-               elseif ($resource.type -eq "microsoft.sql/servers"){
-                $info = $(az sql server show --name $resource.name --resource-group $resource.resourceGroup) | convertFrom-json
-                echo $info.fullyQualifiedDomainName > $(Pipeline.Workspace)/${{parameters.stageName}}/serverFqdn
-               }
-               }
-               }
+              $funcName = "HttpTrigger1"
+              $resources = $(az resource list --tag deployedby="proj" ) | ConvertFrom-json
+              $resourcesType = @('Microsoft.Web/sites','Microsoft.ContainerRegistry/registries','microsoft.sql/servers')
+              mkdir -p $(Pipeline.Workspace)/${{parameters.stageName}}
+              foreach( $resource in $resources ) 
+              { 
+              if($resourcesType -contains $resource.type )
+              {
+              if ($resource.type -eq "Microsoft.ContainerRegistry/registries"){
+                $acrInfo = $(az acr show --name $resource.name --resource-group $resource.resourceGroup) | convertFrom-json
+                echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/acrName
+                echo $acrInfo.loginServer > $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl
+                cat $(Pipeline.Workspace)/${{parameters.stageName}}/acrName
+                cat $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl
+              }
+              elseif ($resource.type -eq "microsoft.sql/servers"){
+                $sqlInfo = $(az sql server show --name $resource.name --resource-group $resource.resourceGroup) | convertFrom-json
+                echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/sqlServerName
+                echo $sqlInfo.fullyQualifiedDomainName > $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName
+                cat $(Pipeline.Workspace)/${{parameters.stageName}}/sqlServerName
+                cat  $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName
+              }
+                elseif ($resource.type -eq "Microsoft.Web/sites" -and  $resource.kind -eq "functionapp,linux"){
+                $funcInfo = az functionapp function show -g $resource.resourceGroup -n $resource.name --function-name $funcName | ConvertFrom-json
+                $funcKey = az functionapp function keys list -g $resource.resourceGroup -n $resource.name --function-name $funcName | Convertfrom-json
+                echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/funcName
+                echo $funcInfo.href > $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
+                echo $funcKey.default > $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey
+
+                cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcName
+                cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
+                cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey
+              }
+                elseif ($resource.type -eq "Microsoft.Web/sites" -and  $resource.kind -eq "app,linux"){
+                $appInfo = $(az webapp show --name $resource.name  --resource-group $resource.resourceGroup) | convertFrom-json
+                echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/appName
+                echo $appInfo.defaultHostName > $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
+                cat $(Pipeline.Workspace)/${{parameters.stageName}}/appName
+                cat $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
+              }
+              }
+              }
+              ls $(Pipeline.Workspace)/${{parameters.stageName}}
         - publish: $(Pipeline.Workspace)/${{parameters.stageName}}
           artifact: ${{parameters.stageName}}
