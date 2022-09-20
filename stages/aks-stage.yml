@@ -113,7 +113,9 @@ stages:
               helm install -n ingress-ngnix ingress ./content/aks-content/helm-projects/ingress-ngnix
             fi
             if [[ "$output" == *"app"* ]]; then 
-              helm upgrade --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)' --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest"  app ./content/aks-content/helm-projects/app
+              #helm upgrade --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)' --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest"  app ./content/aks-content/helm-projects/app
+              helm upgrade --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest"  app ./content/aks-content/helm-projects/app
             else
-              helm install --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)' --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest"  app ./content/aks-content/helm-projects/app
+              #helm install --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)' --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest"  app ./content/aks-content/helm-projects/app
+              helm install --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest"  app ./content/aks-content/helm-projects/app
             fi
