@@ -52,20 +52,9 @@ stages:
       - bash: |
           sudo apt-get install dos2unix -y
           dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl
-          dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
-          dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey
-          dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
-          dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName
+          dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/resourceName $(Pipeline.Workspace)/${{parameters.stageName}}/resourceName
           acrUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl)
-          fullyQualifiedDomainName=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName)
-          funcUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl)
-          funcKey=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey)
-          appUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl)
           echo "##vso[task.setvariable variable=acrUrl]$acrUrl"
-          echo "##vso[task.setvariable variable=fullyQualifiedDomainName]$fullyQualifiedDomainName"
-          echo "##vso[task.setvariable variable=funcKey]$funcKey"
-          echo "##vso[task.setvariable variable=funcUrl]$funcUrl"
-          echo "##vso[task.setvariable variable=appUrl]$appUrl"
           
 
       - task: DockerInstaller@0
@@ -81,11 +70,6 @@ stages:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            echo '$(appUrl)'
-            echo '$(funcUrl)'
-            echo '$(funcKey)'
-            echo '$(fullyQualifiedDomainName)'
-            echo '$(acrUrl)'
             az aks get-credentials --name ${{parameters.aksclusterName}} --resource-group ${{parameters.resourceGroupName}}
             az acr login --name $(acrUrl)
             docker build ./content/aks-content/docker-images/app -t ${{parameters. appImageName}}
@@ -97,25 +81,22 @@ stages:
             docker tag "${{parameters.prometheusExporterImageName}}:latest" '$(acrUrl)'"/${{parameters.prometheusExporterImageName}}:latest"
             docker image ls
             docker push '$(acrUrl)'"/${{parameters.prometheusExporterImageName}}:latest"
-
-
             kubectl create ns monitoring 
             kubectl create ns ingress-ngnix
             output=$(helm list -A)         
             if [[ "$output" == *"grafana"* ]]; then    
-              helm upgrade -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest  grafana ./content/aks-content/helm-projects/kube-prometheus-stack
+              helm upgrade -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest  grafana ./content/aks-content/kube-prometheus-stack
              else
-              helm install -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest grafana ./content/aks-content/helm-projects/kube-prometheus-stack
+              helm install -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest grafana ./content/aks-content/kube-prometheus-stack
             fi 
             if [[ "$output" == *"ingress-ngnix"* ]]; then 
-              helm upgrade -n ingress-ngnix ingress ./content/aks-content/helm-projects/ingress-ngnix
+              helm upgrade -n ingress-ngnix ingress ./content/aks-content/ingress-ngnix
             else
-              helm install -n ingress-ngnix ingress ./content/aks-content/helm-projects/ingress-ngnix
+              helm install -n ingress-ngnix ingress ./content/aks-content/ingress-ngnix
             fi
+            
             if [[ "$output" == *"app"* ]]; then 
-              #helm upgrade --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)' --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest"  app ./content/aks-content/helm-projects/app
-              helm upgrade --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest"  app ./content/aks-content/helm-projects/app
+              helm upgrade --set configMap.sqlUrlValue=buxivyn46mang.database.windows.net --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest"  app ./content/aks-content/app
             else
-              #helm install --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)' --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest"  app ./content/aks-content/helm-projects/app
-              helm install --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest"  app ./content/aks-content/helm-projects/app
+              helm install --set configMap.sqlUrlValue=buxivyn46mang.database.windows.net --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:latest" app ./content/aks-content/app
             fi
