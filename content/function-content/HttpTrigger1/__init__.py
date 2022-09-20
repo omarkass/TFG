@@ -2,10 +2,10 @@ import logging
 import azure.functions as func
 import pypyodbc 
 import math
-
+import os
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-        server = 'tcp:buxivyn46mang.database.windows.net'
+        server =  'tcp:'+os.environ['sql_url']
         database = 'sqldb'
         username = 'omar1'
         password = 'Kassar@14689'
