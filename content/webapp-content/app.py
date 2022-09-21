@@ -17,15 +17,13 @@ app = Flask(__name__)
 
 @app.route('/exponential')
 def exponential():
-    func_url =  os.environ['func_url']
+    func_url =  "https://" + os.environ['func_url']
     func_code =  os.environ['func_code']
     return render_template('exponential.html', funcUrl=func_url, funcCode=func_code )
 
 
 @app.route('/squad')
 def squad():
-    func_url =  os.environ['func_url']
-    func_code =  os.environ['func_code']
     return render_template('squad.html', funcUrl=func_url, funcCode=func_code  )
 
 
