@@ -74,7 +74,7 @@ stages:
                 $funcInfo = az functionapp function show -g $resource.resourceGroup -n $resource.name --function-name $funcName | ConvertFrom-json
                 $funcKey = az functionapp function keys list -g $resource.resourceGroup -n $resource.name --function-name $funcName | Convertfrom-json
                 echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/funcName
-                echo $funcInfo.href > $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
+                echo $funcInfo.invokeUrlTemplate > $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
                 echo $funcKey.default > $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey
 
               }
