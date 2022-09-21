@@ -93,6 +93,7 @@ stages:
               dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
               dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey
               dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName
+              dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/appName $(Pipeline.Workspace)/${{parameters.stageName}}/appName
               fullyQualifiedDomainName=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName)
               funcUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl)
               funcKey=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey)
