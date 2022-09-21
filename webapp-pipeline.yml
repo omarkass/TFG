@@ -23,3 +23,4 @@ stages:
     azureSubscription: $(azureSubscription)
     pythonVersion: $(pythonVersion)
     stageName: "Get_App_Name"
+    resourceGroup: $(appResourceGroupName)

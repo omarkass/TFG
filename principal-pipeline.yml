@@ -36,6 +36,7 @@ stages:
     azureSubscription: $(azureSubscription)
     pythonVersion: $(pythonVersion)
     stageName: "Get_App_Name"
+    resourceGroup: $(appResourceGroupName)
     
     
 - template: 'stages\get-info-stage.yml'
