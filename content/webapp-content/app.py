@@ -9,7 +9,7 @@ def home():
     return "Hello, this is a sample Python Web App running on Flask Framework new version"
 '''
 
-from flask import Flask , request ,render_template
+from flask import Flask , requests ,render_template
 from functions import primeNum ,sumNum
 import os
 app = Flask(__name__)
@@ -25,6 +25,16 @@ def exponential():
 @app.route('/squad')
 def squad():
     return render_template('squad.html', funcUrl=func_url, funcCode=func_code  )
+
+
+@app.route('/aks')
+def sending_to_aks():
+    num = requests.form.get('num')
+    data= {'num',num}
+    res = requests.get('http://20.249.26.151/', headers={'host':'app.lcoal'}, json=data)
+    return res.text
+
+    #return render_template('squad.html', funcUrl=func_url, funcCode=func_code  )
 
 
 @app.route('/')
