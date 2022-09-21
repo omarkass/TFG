@@ -53,15 +53,11 @@ stages:
                 $acrInfo = $(az acr show --name $resource.name --resource-group $resource.resourceGroup) | convertFrom-json
                 echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/acrName
                 echo $acrInfo.loginServer > $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl
-                cat $(Pipeline.Workspace)/${{parameters.stageName}}/acrName
-                cat $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl
               }
               elseif ($resource.type -eq "microsoft.sql/servers"){
                 $sqlInfo = $(az sql server show --name $resource.name --resource-group $resource.resourceGroup) | convertFrom-json
                 echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/sqlServerName
                 echo $sqlInfo.fullyQualifiedDomainName > $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName
-                cat $(Pipeline.Workspace)/${{parameters.stageName}}/sqlServerName
-                cat  $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName
               }
                 elseif ($resource.type -eq "Microsoft.Web/sites" -and  $resource.kind -eq "functionapp,linux"){
                 $funcInfo = az functionapp function show -g $resource.resourceGroup -n $resource.name --function-name $funcName | ConvertFrom-json
@@ -70,19 +66,31 @@ stages:
                 echo $funcInfo.href > $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
                 echo $funcKey.default > $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey
 
-                cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcName
-                cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
-                cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey
               }
                 elseif ($resource.type -eq "Microsoft.Web/sites" -and  $resource.kind -eq "app,linux"){
                 $appInfo = $(az webapp show --name $resource.name  --resource-group $resource.resourceGroup) | convertFrom-json
                 echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/appName
                 echo $appInfo.defaultHostName > $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
-                cat $(Pipeline.Workspace)/${{parameters.stageName}}/appName
-                cat $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
               }
               }
               }
-              ls $(Pipeline.Workspace)/${{parameters.stageName}}
+
+              if (-Not Test-Path -Path $(Pipeline.Workspace)/${{parameters.stageName}}/acrName -PathType Leaf){
+                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/acrName
+                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl
+              }
+              if (-Not Test-Path -Path $(Pipeline.Workspace)/${{parameters.stageName}}/sqlServerName -PathType Leaf){
+                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/sqlServerName
+                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName
+              }              
+              if (-Not Test-Path -Path $(Pipeline.Workspace)/${{parameters.stageName}}/funcName -PathType Leaf){
+                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/funcName
+                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
+                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey
+              }
+              if (-Not Test-Path -Path $(Pipeline.Workspace)/${{parameters.stageName}}/appName -PathType Leaf){
+                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/appName
+                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
+              }                      
         - publish: $(Pipeline.Workspace)/${{parameters.stageName}}
           artifact: ${{parameters.stageName}}
