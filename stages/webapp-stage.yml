@@ -104,9 +104,9 @@ stages:
               echo "##vso[task.setvariable variable=webAppName]$webAppName"
 
         - task: AzureCLI@2
-                inputs:
-                  azureSubscription: ${{ parameters.azureSubscription }} 
-                  scriptType: 'bash'
-                  scriptLocation: 'inlineScript'
-                  inlineScript: |
-                    az webapp config appsettings set -g ${{ parameters.resourceGroup }} -n $(webAppName) --settings "sql_url=$(fullyQualifiedDomainName)" "func_code=$(funcKey)" "func_url=$(funcUrl)" 
+          inputs:
+            azureSubscription: ${{ parameters.azureSubscription }} 
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
+            inlineScript: |
+              az webapp config appsettings set -g ${{ parameters.resourceGroup }} -n $(webAppName) --settings "sql_url=$(fullyQualifiedDomainName)" "func_code=$(funcKey)" "func_url=$(funcUrl)" 
