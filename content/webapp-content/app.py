@@ -24,7 +24,7 @@ def exponential():
 
 @app.route('/squad')
 def squad():
-    return render_template('squad.html', funcUrl=func_url, funcCode=func_code  )
+    return render_template('squad.html' )
 
 
 @app.route('/aks')
