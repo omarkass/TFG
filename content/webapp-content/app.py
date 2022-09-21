@@ -8,8 +8,9 @@ def home():
     exec(open("./primernumb.py").read())
     return "Hello, this is a sample Python Web App running on Flask Framework new version"
 '''
-
+from requests_toolbelt.utils import dump
 from flask import Flask , request ,render_template
+import requests
 from functions import primeNum ,sumNum
 import os
 app = Flask(__name__)
@@ -26,15 +27,26 @@ def exponential():
 def squad():
     return render_template('squad.html')
 
+'''
+@app.route('/aks')
+def sending_to_aks():
+    #aks_url =  os.environ['aks_url']
+    #aks_ip =  os.environ['aks_ip']
+    num = request.args.get('num')
+    print (num)
+    res = requests.get('http://20.200.227.179', headers={'host':'app.local'},params={'num': num})
+    return res.text
+'''
+
+
 
 @app.route('/aks')
 def sending_to_aks():
-    num = request.form.get('num')
-    data= {'num',num}
-    res = request.get('http://20.249.26.151/', headers={'host':'app.lcoal'}, json=data)
+    aks_url =  os.environ['aks_url']
+    aks_ip =  os.environ['aks_ip']
+    num = request.args.get('num')
+    res = requests.get(aks_ip , headers={'host':aks_url},params={'num': num})
     return res.text
-
-    #return render_template('squad.html', funcUrl=func_url, funcCode=func_code  )
 
 
 @app.route('/')
