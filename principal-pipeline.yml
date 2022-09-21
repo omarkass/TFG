@@ -53,7 +53,7 @@ stages:
     azureSubscription: $(azureSubscription)
     pythonVersion: $(pythonVersion)
     StageName: "Get_Fun_Name"
-
+    resourceGroup: $(funcResourceGroupName)
 
 - template: 'stages\aks-permissions-stage.yml'
   parameters:

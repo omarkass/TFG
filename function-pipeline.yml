@@ -24,4 +24,5 @@ stages:
     azureSubscription: $(azureSubscription)
     pythonVersion: $(pythonVersion)
     StageName: "Get_Fun_Name"
+    resourceGroup: $(funcResourceGroupName)
 
