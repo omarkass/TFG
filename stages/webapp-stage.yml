@@ -69,3 +69,25 @@ stages:
             azureSubscription: ${{parameters.azureSubscription}}
             appName: $(webAppName)
             package: $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip
+
+
+
+- stage: ADD_ENV_VAR_TO_WEBAPP
+  displayName: push webapp code to azure webapp
+  dependsOn : get_app_name
+  pool:
+    vmImage: 'ubuntu-latest'
+  jobs :
+    - job: Deploy_Webapp_Content
+      variables:
+        projectRoot: '$(System.DefaultWorkingDirectory)'
+      steps:
+
+        - download: current
+          artifact: ${{ parameters.stageName }}
+
+        - bash: |
+            sudo apt-get install dos2unix -y
+            dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/appName $(Pipeline.Workspace)/${{parameters.stageName}}/appName
+            webAppName=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/appName)
+            echo "##vso[task.setvariable variable=webAppName]$webAppName"

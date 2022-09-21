@@ -44,7 +44,18 @@ stages:
               $funcName = "HttpTrigger1"
               $resources = $(az resource list --tag deployedby="proj" ) | ConvertFrom-json
               $resourcesType = @('Microsoft.Web/sites','Microsoft.ContainerRegistry/registries','microsoft.sql/servers')
-              mkdir -p $(Pipeline.Workspace)/${{parameters.stageName}}
+              mkdir -p $(Pipeline.Workspace)/${{parameters.stageName}}       
+              echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/acrName
+              echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl
+              echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/sqlServerName
+              echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName      
+              echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/funcName
+              echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
+              echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey
+              echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/appName
+              echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
+              
+
               foreach( $resource in $resources ) 
               { 
               if($resourcesType -contains $resource.type )
@@ -73,24 +84,6 @@ stages:
                 echo $appInfo.defaultHostName > $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
               }
               }
-              }
-
-              if (-Not Test-Path -Path $(Pipeline.Workspace)/${{parameters.stageName}}/acrName -PathType Leaf){
-                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/acrName
-                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl
-              }
-              if (-Not Test-Path -Path $(Pipeline.Workspace)/${{parameters.stageName}}/sqlServerName -PathType Leaf){
-                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/sqlServerName
-                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName
-              }              
-              if (-Not Test-Path -Path $(Pipeline.Workspace)/${{parameters.stageName}}/funcName -PathType Leaf){
-                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/funcName
-                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
-                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey
-              }
-              if (-Not Test-Path -Path $(Pipeline.Workspace)/${{parameters.stageName}}/appName -PathType Leaf){
-                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/appName
-                echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
-              }                      
+              }                     
         - publish: $(Pipeline.Workspace)/${{parameters.stageName}}
           artifact: ${{parameters.stageName}}
