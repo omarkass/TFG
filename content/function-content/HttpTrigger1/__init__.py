@@ -5,7 +5,7 @@ import math
 import os
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-        server =  'tcp:'+os.environ['sql_url']
+        server =  'tcp:'+ os.environ['sql_url']
         database = 'sqldb'
         username = 'omar1'
         password = 'Kassar@14689'

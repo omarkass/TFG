@@ -43,7 +43,6 @@ stages:
             scriptLocation: 'inlineScript'
             inlineScript: |
               $funcName = "HttpTrigger1"
-              $aksUrl = "app.local"
               $resources = $(az resource list --tag deployedby="proj" ) | ConvertFrom-json
               $resourcesType = @('Microsoft.Web/sites','Microsoft.ContainerRegistry/registries','microsoft.sql/servers', 'Microsoft.ContainerService/managedClusters')
               mkdir -p $(Pipeline.Workspace)/${{parameters.stageName}}       
