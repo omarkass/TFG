@@ -25,6 +25,7 @@ parameters:
   - name: stageName
     type: string
 
+
 stages:
 
   - stage: ${{parameters.stageName}}
@@ -42,8 +43,9 @@ stages:
             scriptLocation: 'inlineScript'
             inlineScript: |
               $funcName = "HttpTrigger1"
+              $aksUrl = "app.local"
               $resources = $(az resource list --tag deployedby="proj" ) | ConvertFrom-json
-              $resourcesType = @('Microsoft.Web/sites','Microsoft.ContainerRegistry/registries','microsoft.sql/servers')
+              $resourcesType = @('Microsoft.Web/sites','Microsoft.ContainerRegistry/registries','microsoft.sql/servers', 'Microsoft.ContainerService/managedClusters')
               mkdir -p $(Pipeline.Workspace)/${{parameters.stageName}}       
               echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/acrName
               echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl
@@ -54,6 +56,7 @@ stages:
               echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey
               echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/appName
               echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
+              echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/aksIp
               
 
               foreach( $resource in $resources ) 
@@ -83,7 +86,14 @@ stages:
                 echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/appName
                 echo $appInfo.defaultHostName > $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
               }
+                elseif ($resource.type -eq "Microsoft.ContainerService/managedClusters"){
+                $aksInfo = $(az sql server show --name $resource.name --resource-group $resource.resourceGroup) | convertFrom-json
+                az aks get-credentials --name $resource.name --resource-group  $resource.resourceGroup
+                $aksIp = kubectl get -n ingress-ngnix service/ingress-ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].ip}'  
+                echo $aksIp > $(Pipeline.Workspace)/${{parameters.stageName}}/aksIp
               }
-              }                     
+              }
+              }
+                   
         - publish: $(Pipeline.Workspace)/${{parameters.stageName}}
           artifact: ${{parameters.stageName}}

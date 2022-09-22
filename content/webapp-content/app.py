@@ -44,7 +44,8 @@ def sending_to_aks():
     aks_url =  os.environ['aks_url']
     aks_ip =  os.environ['aks_ip']
     num = request.args.get('num')
-    res = requests.get(aks_ip , headers={'host':aks_url},params={'num': num})
+    calledIp = 'http://' + aks_ip
+    res = requests.get(calledIp , headers={'host':aks_url},params={'num': num})
     return res.text
 
 
