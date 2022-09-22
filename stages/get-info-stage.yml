@@ -78,6 +78,7 @@ stages:
                 echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/funcName
                 echo $funcInfo.invokeUrlTemplate > $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
                 echo $funcKey.default > $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey
+                echo $funcKey.default
 
               }
                 elseif ($resource.type -eq "Microsoft.Web/sites" -and  $resource.kind -eq "app,linux"){
