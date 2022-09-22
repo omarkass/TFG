@@ -81,7 +81,7 @@ stages:
 
 - stage: Add_Webapp_Env_Vars
   displayName: push url env vars to azure webapp
-  dependsOn : Deploy_Webapp_Content
+#  dependsOn : Deploy_Webapp_Content
   pool:
     vmImage: 'ubuntu-latest'
   jobs :

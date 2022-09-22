@@ -29,6 +29,8 @@ stages:
     tagValue:  $(tagValue)
     resoucType: $(siteResourceType)
     StageName: "Get_Inicial_Info"
+    dependsOn2: Deploy_Infrastructure
+    dependsOn: Deploy_Infrastructure
 
 
 - template: 'stages\webapp-stage.yml'

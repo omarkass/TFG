@@ -97,7 +97,7 @@ stages:
 
 - stage: Add_Func_Env_Vars
   displayName: push url env vars to azure function
-  dependsOn : Deploy_Function_Content
+#  dependsOn : Deploy_Function_Content
   pool:
     vmImage: 'ubuntu-latest'
   jobs :
