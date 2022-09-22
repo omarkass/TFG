@@ -32,7 +32,7 @@ parameters:
 
 - name: appImageVersion
   type: string
-  default: 'latest'  
+  default: 'V1'  
 
 - name: stageName
   type: string 
