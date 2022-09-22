@@ -4,12 +4,8 @@
 </head>
 <body>
     <h2>Exponential Calculation</h2>
-    <script>
-      console.log(process.env.func_code);
-    </script>
-    <form action={{ funcUrl }}>
-      <input type="hidden" name="code" value={{ funcCode }}>
-      <label for="fname">Number1:</label><br>
+    <form action="/aks">
+        <label for="fname">Number:</label><br>
       <input type="number" id="num" name="num"><br>
       <input type="submit" value="Submit">
     </form> 
