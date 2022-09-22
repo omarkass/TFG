@@ -23,3 +23,11 @@ stages:
     pythonVersion: $(pythonVersion)
     stageName: "Get_App_Info"
     resourceGroup: $(appResourceGroupName)
+
+
+- template: 'stages\set-webapp-vars.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    StageName: "Get_Apps_Info"
+    resourceGroup: $(appResourceGroupName)
+    dependsOn:  Deploy_Webapp_Content
