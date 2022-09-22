@@ -34,7 +34,7 @@ stages:
 
   - stage: ${{parameters.stageName}}
     dependsOn : 
-    - ${{ if parameters.dependOn }}:
+    - ${{ if parameters.dependsOn }}:
       - ${{parameters.dependsOn}}
       - ${{parameters.dependsOn2}}
 
