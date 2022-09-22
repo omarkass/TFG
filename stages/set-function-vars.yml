@@ -1,0 +1,54 @@
+parameters:
+- name: azureSubscription
+  type: string
+  
+- name: stageName
+  type: string 
+
+- name: resourceGroup
+  type: string
+
+- name: aksUrl
+  type: string
+  default: "app.local"
+
+stages:
+
+- stage: Add_Func_Env_Vars
+  displayName: push url env vars to azure function
+  dependsOn : ${{ parameters.stageName }}
+  pool:
+    vmImage: 'ubuntu-latest'
+  jobs :
+    - job: Add_Func_Env_Vars
+      variables:
+        projectRoot: '$(System.DefaultWorkingDirectory)'
+      steps:
+        - download: current
+          artifact: ${{ parameters.stageName }}
+
+        - bash: |
+              sudo apt-get install dos2unix -y
+              dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
+              dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey
+              dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName
+              dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/funcName $(Pipeline.Workspace)/${{parameters.stageName}}/funcName
+              dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/aksIp $(Pipeline.Workspace)/${{parameters.stageName}}/aksIp
+              fullyQualifiedDomainName=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName)
+              appUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl)
+              funcKey=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey)
+              funcName=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcName)
+              aksIp=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/aksIp)
+              echo "##vso[task.setvariable variable=fullyQualifiedDomainName]$fullyQualifiedDomainName"
+              echo "##vso[task.setvariable variable=funcKey]$funcKey"
+              echo "##vso[task.setvariable variable=appUrl]$appUrl"
+              echo "##vso[task.setvariable variable=funcName]$funcName"
+              echo "##vso[task.setvariable variable=aksIp]$aksIp"
+
+        - task: AzureCLI@2
+          inputs:
+            azureSubscription: ${{ parameters.azureSubscription }} 
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
+            inlineScript: |
+              az functionapp config appsettings set -g ${{ parameters.resourceGroup }} -n $(funcName) --settings "sql_url=$(fullyQualifiedDomainName)" "app_url=$(appUrl)" "aks_url=${{ parameters.aksUrl }}" "aks_ip=$(aksIp)"

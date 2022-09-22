@@ -93,3 +93,27 @@ stages:
     Password: $(sqlPassword)
     resourceGroupName: $(sqlResourceGroupName)
     StageName: "Get_Inicial_Info"
+
+
+- template: 'stages\get-info-stage.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    resourceGroup: $(appResourceGroupName)
+    tagValue:  $(tagValue)
+    resoucType: $(siteResourceType)
+    StageName: "Get_Apps_Info"
+    dependsOn2: Deploy_K8s_Content
+    dependsOn:  Deploy_K8s_Content
+
+- template: 'stages\set-function-vars.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    StageName: "Get_Apps_Info"
+    resourceGroup: $(funcResourceGroupName)
+
+
+- template: 'stages\set-webapp-vars.yml'
+  parameters:
+    azureSubscription: $(azureSubscription)
+    StageName: "Get_Apps_Info"
+    resourceGroup: $(appResourceGroupName)
