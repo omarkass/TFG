@@ -20,12 +20,17 @@ parameters:
   default: "app.local"
 
 
+- name: dependson
+  type: string
+  default: ""
+
+
 stages:
 
 
 - stage: Deploy_Webapp_Content
   displayName: push webapp code to azure webapp
-  dependsOn : get_app_name
+  dependsOn : ${{ parameters.stageName }}
   pool:
     vmImage: 'ubuntu-latest'
   jobs :

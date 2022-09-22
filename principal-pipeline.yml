@@ -28,31 +28,22 @@ stages:
     resourceGroup: $(appResourceGroupName)
     tagValue:  $(tagValue)
     resoucType: $(siteResourceType)
-    StageName: "Get_App_Name"
-    dependsOn: Deploy_Infrastructure
+    StageName: "Get_Inicial_Info"
+
 
 - template: 'stages\webapp-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     pythonVersion: $(pythonVersion)
-    stageName: "Get_App_Name"
+    stageName: "Get_Inicial_Info"
     resourceGroup: $(appResourceGroupName)
     
-    
-- template: 'stages\get-info-stage.yml'
-  parameters:
-    azureSubscription: $(azureSubscription)
-    resourceGroup: $(funcResourceGroupName)
-    tagValue:  $(tagValue)
-    resoucType: $(siteResourceType)
-    StageName: "Get_Fun_Name"
-    dependsOn: Deploy_Infrastructure
 
 - template: 'stages\function-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     pythonVersion: $(pythonVersion)
-    StageName: "Get_Fun_Name"
+    StageName: "Get_Inicial_Info"
     resourceGroup: $(funcResourceGroupName)
 
 - template: 'stages\aks-permissions-stage.yml'
@@ -68,8 +59,8 @@ stages:
     resourceGroup: $(aksResourceGroupName)
     tagValue:  $(tagValue)
     resoucType: $(acrResourceType)
-    StageName: "Get_Acr_Info"
-    dependsOn: Deploy_Infrastructure
+    StageName: "Get_Aks_Info"
+    dependsOn: [Deploy_Function_Content,Deploy_Webapp_Content]
 
 - template: 'stages\aks-stage.yml'
   parameters:
@@ -78,17 +69,17 @@ stages:
     resourceGroupName: $(aksResourceGroupName)
     appImageName: $(appImageName)
     prometheusExporterImageName: $(prometheusExporterImageName)
-    StageName: "Get_Acr_Info"
+    StageName: "Get_Aks_Info"
     dependsOn: 'Set_Aks_Permissions'
   
-- template: 'stages\get-info-stage.yml'
-  parameters:
-    azureSubscription: $(azureSubscription)
-    resourceGroup: $(sqlResourceGroupName)
-    tagValue:  $(tagValue)
-    resoucType: $(sqlResourceType)
-    StageName: "Get_Sql_Info"
-    dependsOn: Deploy_Infrastructure
+#- template: 'stages\get-info-stage.yml'
+#  parameters:
+#    azureSubscription: $(azureSubscription)
+#    resourceGroup: $(sqlResourceGroupName)
+#    tagValue:  $(tagValue)
+#    resoucType: $(sqlResourceType)
+#    StageName: "Get_Sql_Info"
+#    dependsOn: Deploy_Infrastructure
 
 
 - template: 'stages\sql-stage.yml'
@@ -98,4 +89,4 @@ stages:
     Username: $(sqlUserName)
     Password: $(sqlPassword)
     resourceGroupName: $(sqlResourceGroupName)
-    StageName: "Get_Sql_Info"
+    StageName: "Get_Inicial_Info"
