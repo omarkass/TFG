@@ -36,6 +36,12 @@ stages:
     dependsOn : 
     - ${{parameters.dependsOn}}
     - ${{parameters.dependsOn2}}
+    condition: |
+    and 
+    (
+      ne(${{parameters.dependsOn2}},'')
+      ne(${{parameters.dependsOn1}},'')
+    )
     jobs:
 
       - job: ${{parameters.stageName}}
