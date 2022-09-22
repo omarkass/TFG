@@ -60,7 +60,8 @@ stages:
     tagValue:  $(tagValue)
     resoucType: $(acrResourceType)
     StageName: "Get_Aks_Info"
-    dependsOn: [Deploy_Function_Content,Deploy_Webapp_Content]
+    dependsOn: Deploy_Function_Content
+    dependsOn2: Deploy_Webapp_Content
 
 - template: 'stages\aks-stage.yml'
   parameters:

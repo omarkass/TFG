@@ -18,6 +18,10 @@ parameters:
   - name: dependsOn
     type: string
     default: ''  
+
+  - name: dependsOn
+    type: string
+    default: ''  
     
   - name: azureSubscription
     type: string
@@ -29,7 +33,9 @@ parameters:
 stages:
 
   - stage: ${{parameters.stageName}}
-    dependsOn : ${{parameters.dependsOn}}
+    dependsOn : 
+    - ${{parameters.dependsOn}}
+    - ${{parameters.dependsO2}}
     jobs:
 
       - job: ${{parameters.stageName}}
