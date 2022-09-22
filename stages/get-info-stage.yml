@@ -35,7 +35,7 @@ stages:
   - stage: ${{parameters.stageName}}
     dependsOn : 
     - ${{parameters.dependsOn}}
-    - ${{parameters.dependsO2}}
+    - ${{parameters.dependsOn2}}
     jobs:
 
       - job: ${{parameters.stageName}}
