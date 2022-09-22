@@ -90,5 +90,5 @@ variables:
   value: "Microsoft.ContainerRegistry/registries"
 
 - name : appImageVersion
-  value: 'v2'
+  value: "V2"
 
