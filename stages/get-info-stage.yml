@@ -6,11 +6,6 @@ parameters:
   - name: resourceGroup
     type: string
     
-
-  - name: resoucType
-    type: string
-
-    
   - name: tagValue
     type: string
     default: "proj"

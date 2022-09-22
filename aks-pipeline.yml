@@ -17,7 +17,6 @@ stages:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(aksResourceGroupName)
     tagValue:  $(tagValue)
-    resoucType: $(acrResourceType)
     StageName: "Get_Aks_Info"
     
 

@@ -17,7 +17,6 @@ stages:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(sqlResourceGroupName)
     tagValue:  $(tagValue)
-    resoucType: $(sqlResourceType)
     StageName: "Get_Sql_Info"
 
 

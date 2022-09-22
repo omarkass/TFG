@@ -15,12 +15,11 @@ stages:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(appResourceGroupName)
     tagValue:  $(tagValue)
-    resoucType: $(siteResourceType)
-    StageName: "Get_App_Name"
+    StageName: "Get_App_Info"
 
 - template: 'stages\webapp-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     pythonVersion: $(pythonVersion)
-    stageName: "Get_App_Name"
+    stageName: "Get_App_Info"
     resourceGroup: $(appResourceGroupName)
