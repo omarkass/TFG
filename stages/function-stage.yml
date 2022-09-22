@@ -86,7 +86,10 @@ stages:
       - publish: $(Build.ArtifactStagingDirectory)/$(functionAppName)-$(Build.BuildId).zip
         artifact: drop-function
 
-
+      - task: Delay@1
+        inputs:
+          delayForMinutes: '2' 
+        
       - task: AzureFunctionApp@1
         displayName: 'Azure functions app deploy'
         inputs:

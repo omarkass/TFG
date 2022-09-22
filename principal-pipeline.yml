@@ -39,6 +39,7 @@ stages:
     pythonVersion: $(pythonVersion)
     stageName: "Get_Inicial_Info"
     resourceGroup: $(appResourceGroupName)
+
     
 
 - template: 'stages\function-stage.yml'

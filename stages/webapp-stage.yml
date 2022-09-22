@@ -69,6 +69,10 @@ stages:
         - upload: $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip
           displayName: 'Upload package'
           artifact: drop-webapp
+
+        - task: Delay@1
+          inputs:
+            delayForMinutes: '2' 
         
         - task: AzureWebApp@1
           displayName: 'Deploy Azure Web App : webapppython43'
