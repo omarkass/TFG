@@ -18,7 +18,8 @@ stages:
     resourceGroup: $(aksResourceGroupName)
     tagValue:  $(tagValue)
     resoucType: $(acrResourceType)
-    StageName: "Get_Acr_info"
+    StageName: "Get_Aks_Info"
+    
 
 
 - template: 'stages\aks-stage.yml'
@@ -28,5 +29,6 @@ stages:
     resourceGroupName: $(aksResourceGroupName)
     appImageName: $(appImageName)
     prometheusExporterImageName: $(prometheusExporterImageName)
-    StageName: "Get_Acr_info"
-    dependsOn: "Get_Acr_info"
+    StageName: "Get_Aks_Info"
+    dependsOn: "Get_Aks_Info"
+    appImageVersion: $(appImageVersion)

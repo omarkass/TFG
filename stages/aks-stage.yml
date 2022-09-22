@@ -29,6 +29,11 @@ parameters:
   type: string
   default: ''  
 
+
+- name: appImageVersion
+  type: string
+  default: 'latest'  
+
 - name: stageName
   type: string 
 

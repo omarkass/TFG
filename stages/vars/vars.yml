@@ -72,7 +72,7 @@ variables:
   value: 'Get_App_Name' 
 
 - name: AksStageInfoName
-  value: 'Get_Acr_Info'  
+  value: 'Get_Aks_Info'  
 
 - name: FuncStageInfoName
   value: 'Get_Func_Name' 
@@ -88,4 +88,7 @@ variables:
 
 - name: acrResourceType
   value: "Microsoft.ContainerRegistry/registries"
+
+- name : appImageVersion
+  value: 'v2'
 

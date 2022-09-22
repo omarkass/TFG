@@ -1,7 +1,7 @@
 parameters:
 - name: azureSubscription
   type: string
-  
+
 - name: stageName
   type: string 
 
@@ -14,13 +14,13 @@ parameters:
 
 stages:
 
-- stage: Add_Func_Env_Vars
+- stage: Add_Function_Env_Vars
   displayName: push url env vars to azure function
   dependsOn : ${{ parameters.stageName }}
   pool:
     vmImage: 'ubuntu-latest'
   jobs :
-    - job: Add_Func_Env_Vars
+    - job: Add_Function_Env_Vars
       variables:
         projectRoot: '$(System.DefaultWorkingDirectory)'
       steps:
