@@ -51,10 +51,7 @@ stages:
           functionAppName=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcName)
           echo "##vso[task.setvariable variable=functionAppName]$functionAppName"
 
-    
-      - bash: |
-          echo "$(functionAppName)"
-          echo "$functionAppName"
+
 
       - bash: |
           if [ -f extensions.csproj ]
@@ -86,9 +83,8 @@ stages:
       - publish: $(Build.ArtifactStagingDirectory)/$(functionAppName)-$(Build.BuildId).zip
         artifact: drop-function
 
-      - task: Delay@1
-        inputs:
-          delayForMinutes: '2' 
+      - bash: |
+          sleep 2m
         
       - task: AzureFunctionApp@1
         displayName: 'Azure functions app deploy'

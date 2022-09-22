@@ -70,10 +70,10 @@ stages:
           displayName: 'Upload package'
           artifact: drop-webapp
 
-        - task: Delay@1
-          inputs:
-            delayForMinutes: '2' 
-        
+
+        - bash: |
+            sleep 2m
+
         - task: AzureWebApp@1
           displayName: 'Deploy Azure Web App : webapppython43'
           inputs:
