@@ -39,8 +39,8 @@ stages:
     condition: |
       and
       (
-        ne(${{parameters.dependsOn}},''),
-        ne(${{parameters.dependsOn2}},'')
+        ne('${{parameters.dependsOn}}', ''),
+        ne('${{parameters.dependsOn2}}', '')
       )
 
     jobs:
