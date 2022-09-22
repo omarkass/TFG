@@ -12,11 +12,15 @@ parameters:
   type: string
   default: "app.local"
 
+- name: dependsOn
+  type: string
+  default: ' '
+
 stages:
 
 - stage: Add_Function_Env_Vars
   displayName: push url env vars to azure function
-  dependsOn : ${{ parameters.stageName }}
+  dependsOn : ${{ parameters.dependsOn }}
   pool:
     vmImage: 'ubuntu-latest'
   jobs :
