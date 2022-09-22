@@ -16,19 +16,19 @@ stages:
     azureSubscription: $(azureSubscription)
     resourceGroup: $(funcResourceGroupName)
     tagValue:  $(tagValue)
-    StageName: "Get_Func_Info"
+    StageName: "Get_Function_Info"
 
 - template: 'stages\function-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
     pythonVersion: $(pythonVersion)
-    StageName: "Get_Func_Info"
+    StageName: "Get_Function_Info"
     resourceGroup: $(funcResourceGroupName)
 
 
 - template: 'stages\set-function-vars.yml'
   parameters:
     azureSubscription: $(azureSubscription)
-    StageName: "Get_Func_Info"
+    StageName: "Get_Function_Info"
     resourceGroup: $(funcResourceGroupName)
     dependsOn:  Deploy_Function_Content
