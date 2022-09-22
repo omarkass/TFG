@@ -20,11 +20,6 @@ parameters:
   default: "app.local"
 
 
-- name: dependson
-  type: string
-  default: ""
-
-
 stages:
 
 
