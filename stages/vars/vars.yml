@@ -52,7 +52,7 @@ variables:
   value: 'Korea Central'
 
 # El número de nodos que se van a correr dentro del clúster de K8s
-- nume: aksNumberOfWorkers  
+- name: aksNumberOfWorkers  
   value: 1
 
 # El número de versión que se va a usar en el clúster de K8s
