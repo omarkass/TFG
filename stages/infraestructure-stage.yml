@@ -15,11 +15,11 @@ stages:
          scriptType: 'bash'
          scriptLocation: 'inlineScript'
          inlineScript: | 
-          echo '{ "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",' > params.json
-          echo '"contentVersion": "1.0.0.0",'>> params.json
-          echo '"parameters": {'>> params.json
-          echo ' \"kubernetesVersion\": { \"value\": \"$(kubernetesVersion)\" }, '  >> params.json
-          echo ' \"aksRgName\": { \"value\": \"$(aksResourceGroupName)\" } '  >> params.json
+          echo "{ "\$schema\": "\https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#\"," > params.json
+          echo "\"contentVersion\": \"1.0.0.0\",">> params.json
+          echo "\"parameters\": {">> params.json
+          echo " \"kubernetesVersion\": { \"value\": \"$(kubernetesVersion)\" }, "  >> params.json
+          echo " \"aksRgName\": { \"value\": \"$(aksResourceGroupName)\" } "  >> params.json
           echo "}}" >> params.json
           az deployment sub create  --template-file ''./main.bicep'' --location $LOCATION  --template-file params.json
 
