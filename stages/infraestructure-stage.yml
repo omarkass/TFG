@@ -3,11 +3,11 @@ stages:
 - stage: Deploy_Infrastructure
   displayName: deploy Azure infrastructure
   variables:
-  - template:  .\vars\vars.yml  
+    LOCATION: 'northeurope'
   jobs :
   - job: Deploy_Infrastructure
     variables:
-        LOCATION: 'northeurope'
+    - template:  .\vars\vars.yml  
     steps:
      - task: AzureCLI@2
        inputs:
