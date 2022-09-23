@@ -15,5 +15,5 @@ stages:
          azureSubscription:  ${{parameters.azureSubscription}}
          scriptType: 'bash'
          scriptLocation: 'inlineScript'
-         inlineScript: 'az deployment sub create  --template-file ''./main.bicep'' --location $LOCATION --parameters locationAks=$(locationAks) aksNumberOfWorkers=$(aksNumberOfWorkers)'
+         inlineScript: 'az deployment sub create  --template-file ''./main.bicep'' --location $LOCATION --parameters locationAks="$(locationAks)" aksNumberOfWorkers="$(aksNumberOfWorkers)"'
          # kubernetesVersion=$(kubernetesVersion) aksVmSize=$(aksVmSize) aksName=$(aksName) aksRgName=(aksResourceGroupName)' 
