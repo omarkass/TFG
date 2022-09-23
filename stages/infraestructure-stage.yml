@@ -16,5 +16,5 @@ stages:
          scriptType: 'bash'
          scriptLocation: 'inlineScript'
          inlineScript: az deployment sub create  --template-file ''./main.bicep'' --location $LOCATION --parameters locationAks="$(locationAks)" aksNumberOfWorkers="$(aksNumberOfWorkers)" aksVmSize="$(aksVmSize)" \
-                       kubernetesVersion="$(kubernetesVersion)"
+                       aksRgName="$(aksResourceGroupName)"
         # kubernetesVersion="$(kubernetesVersion)" aksVmSize="$(aksVmSize)" aksName="$(aksName)" aksRgName="$(aksResourceGroupName)"
