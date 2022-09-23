@@ -46,7 +46,7 @@ param projTagValue string = 'proj'
 param deployAks bool = true
 param deployFunc bool = true
 param deployApp bool = true
-param deploySql bool = true
+param deploySql bool = false
 
 
 
