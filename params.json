@@ -1,5 +1,12 @@
-{ "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-"contentVersion": "1.0.0.0",
-"parameters": {
- \"kubernetesVersion\": { \"value\": \"$(kubernetesVersion)\" }, 
- \"aksRgName\": { \"value\": \"$(aksResourceGroupName)\" } 
+{ 
+\\: \https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#\,
+ \
+kubernetesVersion\: { \value\: \\ }, 
+ \
+aksRgName\: { \value\: \\ } 
+\
+contentVersion\: \1.0.0.0\,
+ \
+kubernetesVersion\: { \value\: \kubernetesVersion\ }, 
+ \
+aksRgName\: { \value\: \aksResourceGroupName\ } 
