@@ -3,7 +3,7 @@ stages:
 - stage: Deploy_Infrastructure
   displayName: deploy Azure infrastructure
   variables:
-  - template:  stages\vars\vars.yml  
+  - template:  .\vars\vars.yml  
   jobs :
   - job: Deploy_Infrastructure
     variables:
