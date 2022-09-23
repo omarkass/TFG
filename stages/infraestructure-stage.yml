@@ -34,15 +34,3 @@ stages:
       #    --parameters aksName="$(aksName)"  
         # kubernetesVersion="$(kubernetesVersion)" aksVmSize="$(aksVmSize)" aksName="$(aksName)" aksRgName="$(aksResourceGroupName)" aksName=$aksName locationAks="$(locationAks)" aksNumberOfWorkers="$(aksNumberOfWorkers)" aksVmSize="$(aksVmSize)"
 
-
-
-
-
-
-
-          echo "{ \"$schema\": \"https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#\"," > params.json
-          echo "\"contentVersion\": \"1.0.0.0\"," >> params.json
-          echo "\"parameters\": {">> params.json
-          echo " \"kubernetesVersion\": { \"value\": \"kubernetesVersion\" }, "  >> params.json
-          echo " \"aksRgName\": { \"value\": \"aksResourceGroupName\" } "  >> params.json
-          echo "}}" >> params.json
