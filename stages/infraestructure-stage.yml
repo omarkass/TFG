@@ -1,6 +1,3 @@
-parameters:
-- name: azureSubscription
-  type: string
 
 stages:
 - stage: Deploy_Infrastructure
