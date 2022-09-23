@@ -1,94 +1,165 @@
 variables:
 
-- name: databaseName
-  value: 'sqldb'
-
-- name: sqlUserName
-  value: 'omar1'
-
-- name: sqlPassword
-  value: 'Kassar@14689'
-
-- name: functionAppName
-  value: 'func'
-
+# La versión de Python que se va a usar en el Azure Function y el Azure Webapp
 - name: pythonVersion
   value: '3.9'  
 
-- name:   webAppName 
-  value: 'app'  
-
-- name: useGrafana
-  value: $true
-
+# El nombre del Service Connection que se va a usar para conectarse el Azure Devops a Azure
 - name: azureSubscription
   value: 'Service_connection'
 
-- name: sqlServerName
-  value: 'sql'
-
-- name: sqlResourceGroupName
-  value: 'sql-rg'
-
-
+# El nombre del repositorio dentro del Acr que se va a usar para guardar la imagen de Docker del cliente que se va a usar en EL clúster de K8s
 - name: repositoryName  
   value: proj
 
-- name: aksResourceGroupName
-  value: 'aks-rg'
-
-- name: funcResourceGroupName
-  value: 'func-rg'
-
-- name: appResourceGroupName
-  value: 'app-rg'
-
-
-- name: tagValue
-  value: 'proj'
-
-- name: sqlServerFqdn
-  value: 'sql.database.windows.net'  
-   
-- name: acrName
-  value: 'aksacr' 
-
-- name: aksclusterName  
-  value: 'aks'
-
-- name: acrUrl
-  value: 'aksacr.azurecr.io'
-
+# El nombre de la imagen de Docker del cliente que se va a usar en eL clúster de K8s 
 - name: appImageName
   value: proj
 
-- name: azureExporterImageName
-  value: azure-exporter
-
+# El nombre de la imagen que se va a usar para el exportador de métricas de Azure para Prometheus
 - name: prometheusExporterImageName
   value: azure-exporter
 
-- name: appStageInfo
-  value: 'Get_App_Name' 
-
-- name: AksStageInfoName
-  value: 'Get_Aks_Info'  
-
-- name: FuncStageInfoName
-  value: 'Get_Func_Name' 
-
-- name: SqlStageInfoName
-  value: 'Get_Sql_Info' 
-
-- name: siteResourceType
-  value: "microsoft.web/sites"
-
-- name: sqlResourceType
-  value: "Microsoft.Sql/servers"
-
-- name: acrResourceType
-  value: "Microsoft.ContainerRegistry/registries"
-
+# La versión de la imagen del cliente que se va a correr dentro del Aks
 - name : appImageVersion
   value: "V2"
+
+# El tag que se va a usar dentro de los recursos de Azure que se van a desplegar con este proyecto para poder diferenciarlos
+- name: tagValue
+  value: 'proj'
+
+# determinar si se tiene que desplegar el recurso del clúster de K8s o no
+- name: deployAks
+  value: true
+
+# determinar si se tiene que desplegar el recurso del Azure Function o no
+- name: deployFunc
+  value: true
+
+# determinar si se tiene que desplegar el recurso del Azure Webapp o no
+- name: deployApp
+  value: true
+
+# determinar si se tiene que desplegar el recurso de la base de datos Sql o no
+- name: deploySql
+  value: true 
+
+
+#K8s vars
+
+# La localización donde se va a crear el clúster de K8s
+- name: locationAks
+  value: 'Korea Central'
+
+# El número de nodos que se van a correr dentro del clúster de K8s
+- nume: aksNumberOfWorkers  
+  value: 1
+
+# El número de versión que se va a usar en el clúster de K8s
+- name: kubernetesVersion
+  value: '1.22.11'
+
+# El tipo de las máquinas virtuales que se van a usar dentro del clúster de K8s
+- name: aksVmSize
+  value: 'standard_b2s'
+
+# El nombre del grupo de recursos donde se va a crear el clúster de K8s
+- name: aksResourceGroupName
+  value: 'aks-rg'    
+
+# El nombre que se va a dar al clúster de K8s dentro de Azure
+- name: aksclusterName
+  value: 'aks'    
+
+
+# Azure Function vars
+
+# El tipo de la infraestructura que se va a usar para correr el Azure Function
+- name: skuFunction
+  value: Dynamic'
+
+# El nombre de la infraestructura que se va a usar para correr el Azure Function
+- name: skuCodeFunction
+  value: 'Y1'
+
+# La localización donde se va a correr el Azure Function
+- name: locationAzureFunction
+  value: 'East US'   
+
+# El número de los nodos que se van a usar para correr el Azure Function
+- name: numberOfWorkersFunction
+  value: '1'
+
+# El nombre del grupo de recursos donde se va a crear el Azure Function
+- name: funcResourceGroupName
+  value: 'func-rg'
+
+# El nombre que se va a dar a la infraestructura que se va a usar para el Azure function dentro de Azure
+- name: azureServicePlanFunction
+  value: 'func-plan'  
+
+
+ # Azure Webapp vars
+
+# La localización donde se va a correr el Azure Webapp
+- name: locationWebApp
+  value: 'East US'
+
+# El tipo de la infraestructura que se va a usar para correr el Azure Webapp
+- name: skuWebApp
+  value: 'Free'  
+
+# El nombre de la infraestructura que se va a usar para correr el Azure Webapp
+- name: skuCodeskuWebApp
+  value: 'F1'
+
+# El número de los nodos que se van a usar para correr el Azure Webapp
+- name: numberOfWorkersWebApp
+  value: '1' 
+
+# El nombre del grupo de recursos donde se va a crear el Azure Webapp
+- name: appResourceGroupName
+  value: 'app-rg'
+
+# El nombre que se va a dar a la infraestructura que se va a usar para el Azure Webapp dentro de Azure
+- name: azureServicePlanWebApp
+  value: 'app-plan'    
+
+# sql vars
+
+
+# El nombre del grupo de recursos donde se va a crear la base de datos
+- name: sqlResourceGroupName
+  value: 'sql-rg'
+
+# El nombre que se va a dar a la base de datos dentro de Azure
+- name: databaseName
+  value: 'sqldb'
+
+# El nombre de usuario que se va a usar para conectarse a la base de datos
+- name: sqlUserName
+  value: 'omar1'
+
+# La contraseña del usuario de la base de datos
+- name: sqlPassword
+  value: 'Kassar@14689'
+
+# La localización donde se va a correr la base de datos Sql
+- name: locationSqlDatabase
+  value: 'East US'      
+
+
+# LogAnalytics
+
+# La localización donde se va a correr el Log Analytics
+- name: locationLogAnalytics
+  value: 'East US'
+
+# El nombre del grupo de recursos donde se va a crear el Log Analytics
+- name: azurekLogAnalyticsRgName
+  value: 'log-rg'
+
+# El nombre que se va a dar al Log Analytics dentro de Azure
+- name: logAnalyticName
+  value: 'logAnaytics'
 

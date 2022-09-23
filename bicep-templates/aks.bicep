@@ -5,6 +5,7 @@ param VmSize string
 param projTagValue string
 param logAnalyticsName string
 param logAnaliticResourceGroup string
+param workerNumber int
 
 resource azureakscluster 'Microsoft.ContainerService/managedClusters@2021-07-01' = {
   name: name
@@ -28,7 +29,7 @@ resource azureakscluster 'Microsoft.ContainerService/managedClusters@2021-07-01'
       {
         name: 'agentpool'
         osDiskSizeGB: 0
-        count: 1
+        count: workerNumber
         enableAutoScaling: false
         vmSize: VmSize
         osType: 'Linux'
