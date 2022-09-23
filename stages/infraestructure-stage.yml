@@ -16,9 +16,8 @@ stages:
          scriptLocation: 'inlineScript'
          inlineScript: | 
           az deployment sub create  --template-file ''./main.bicep'' --location $LOCATION --parameters \
-
-          { \"aksRgName\": { \"value\": \"$(aksResourceGroupName)\" }, \"kubernetesVersion\": { \"value\": \"$(kubernetesVersion)\" } }'
-        $  --parameters aksRgName="$(aksResourceGroupName)"\
+          '{ \"aksRgName\": { \"value\": \"$(aksResourceGroupName)\" }, \"kubernetesVersion\": { \"value\": \"$(kubernetesVersion)\" } }'
+      #  $  --parameters aksRgName="$(aksResourceGroupName)"\
       #  --parameters kubernetesVersion="$(kubernetesVersion)"\
       #   --parameters aksVmSize="$(aksVmSize)"\
       #    --parameters aksName="$(aksName)"
