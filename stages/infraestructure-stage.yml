@@ -2,6 +2,9 @@ parameters:
 - name: azureSubscription
   type: string
 
+variables:
+  - template:  stages\vars\vars.yml  
+
 stages:
 - stage: Deploy_Infrastructure
   displayName: deploy Azure infrastructure
@@ -12,7 +15,7 @@ stages:
     steps:
      - task: AzureCLI@2
        inputs:
-         azureSubscription:  ${{parameters.azureSubscription}}
+         azureSubscription:  $(azureSubscription)
          scriptType: 'bash'
          scriptLocation: 'inlineScript'
          inlineScript: az deployment sub create  --template-file ''./main.bicep'' --location $LOCATION --parameters locationAks="$(locationAks)" aksNumberOfWorkers="$(aksNumberOfWorkers)" aksVmSize="$(aksVmSize)" aksRgName="$(aksResourceGroupName)" aksName="$(aksName)"

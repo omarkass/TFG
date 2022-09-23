@@ -19,8 +19,7 @@ pool:
   vmImage: windows-latest
 stages:
 - template: 'stages\infraestructure-stage.yml'
-  parameters:
-    azureSubscription: $(azureSubscription)
+
 
 - template: 'stages\get-info-stage.yml'
   parameters:
