@@ -21,6 +21,7 @@ stages:
           echo " \"kubernetesVersion\": { \"value\": \"$(kubernetesVersion)\" }, "  >> params.json
           echo " \"aksRgName\": { \"value\": \"$(aksResourceGroupName)\" } "  >> params.json
           echo "}}" >> params.json
+          cat  params.json
           az deployment sub create  --template-file ''./main.bicep'' --location $LOCATION  --template-file params.json
 
 
