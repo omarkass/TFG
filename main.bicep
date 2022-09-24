@@ -128,7 +128,7 @@ module func_log 'bicep-templates/func-log.bicep' = if(deployFunc) {
 */
 
 
-module log 'bicep-templates/func-log.bicep' =  {
+module log 'bicep-templates/log.bicep' =  {
   name: logAnalyticName
   scope: log_rg
   params:{
