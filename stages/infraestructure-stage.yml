@@ -19,7 +19,33 @@ stages:
           echo "\"contentVersion\": \"1.0.0.0\",">> main.parameters.json
           echo "\"parameters\": {">> main.parameters.json
           echo " \"kubernetesVersion\": { \"value\": \"$(kubernetesVersion)\" }, "  >> main.parameters.json
+          echo " \"aksVmSize\": { \"value\": \"$(aksVmSize)\" } "  >> main.parameters.json
+          echo " \"aksName\": { \"value\": \"$(aksName)\" } "  >> main.parameters.json
           echo " \"aksRgName\": { \"value\": \"$(aksResourceGroupName)\" } "  >> main.parameters.json
+          echo " \"locationAks\": { \"value\": \"$(locationAks)\" } "  >> main.parameters.json
+          echo " \"aksNumberOfWorkers\": { \"value\": \"$(aksNumberOfWorkers)\" } "  >> main.parameters.json
+          echo " \"skuFunction\": { \"value\": \"$(skuFunction)\" } "  >> main.parameters.json
+          echo " \"skuCodeFunction\": { \"value\": \"$(skuCodeFunction)\" } "  >> main.parameters.json
+          echo " \"locationAzureFunction\": { \"value\": \"$(locationAzureFunction)\" } "  >> main.parameters.json
+          echo " \"azureFunctionRgName\": { \"value\": \"$(aksResourceGroupName)\" } "  >> main.parameters.json
+          echo " \"azureServicePlanFunction\": { \"value\": \"$(azureServicePlanFunction)\" } "  >> main.parameters.json
+          echo " \"numberOfWorkersFunction\": { \"value\": \"$(numberOfWorkersFunction)\" } "  >> main.parameters.json
+          echo " \"locationWebApp\": { \"value\": \"$(locationWebApp)\" } "  >> main.parameters.json
+          echo " \"skuCodeskuWebApp\": { \"value\": \"$(skuCodeskuWebApp)\" } "  >> main.parameters.json
+          echo " \"numberOfWorkersWebApp\": { \"value\": \"$(numberOfWorkersWebApp)\" } "  >> main.parameters.json
+          echo " \"azureWebAppRgName\": { \"value\": \"$(appResourceGroupName)\" } "  >> main.parameters.json
+          echo " \"azureServicePlanWebApp\": { \"value\": \"$(azureServicePlanWebApp)\" } "  >> main.parameters.json
+          echo " \"sqlRgName\": { \"value\": \"$(sqlResourceGroupName)\" } "  >> main.parameters.json
+          echo " \"databaseName\": { \"value\": \"$(sqlDbName)\" } "  >> main.parameters.json
+          echo " \"SQL_User\": { \"value\": \"$(sqlUserName)\" } "  >> main.parameters.json
+          echo " \"SQL_Pass\": { \"value\": \"$(sqlPassword)\" } "  >> main.parameters.json
+          echo " \"locationSqlDatabase\": { \"value\": \"$(locationSqlDatabase)\" } "  >> main.parameters.json
+          echo " \"locationLogAnalytics\": { \"value\": \"$(locationLogAnalytics)\" } "  >> main.parameters.json
+          echo " \"azureLogAnalyticsRgName\": { \"value\": \"$(azureLogAnalyticsRgName)\" } "  >> main.parameters.json
+          echo " \"deployAks\": { \"value\": \"$(deployAks)\" } "  >> main.parameters.json
+          echo " \"deployFunc\": { \"value\": \"$(deployFunc)\" } "  >> main.parameters.json
+          echo " \"deployApp\": { \"value\": \"$(deployApp)\" } "  >> main.parameters.json
+          echo " \"deploySql\": { \"value\": \"$(deploySql)\" } "  >> main.parameters.json
           echo "}}" >> main.parameters.json
           cat  main.parameters.json
           az deployment sub create  --template-file ''./main.bicep'' --location $LOCATION  --parameters  @main.parameters.json

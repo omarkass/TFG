@@ -2,51 +2,51 @@ targetScope = 'subscription'
 //parameters 
 
 // kubernetes parameters
-param locationAks string = 'Korea Central'
-param aksNumberOfWorkers int = 1
-param kubernetesVersion string = '1.22.11'
-param aksVmSize string = 'standard_b2s'
-param aksName string = 'aks'
-param aksRgName string = 'aks-rg'
+param locationAks string //= 'Korea Central'
+param aksNumberOfWorkers int //= 1
+param kubernetesVersion string// = '1.22.11'
+param aksVmSize string //= 'standard_b2s'
+param aksName string //= 'aks'
+param aksRgName string //= 'aks-rg'
 
 //function parameters 
-param skuFunction string = 'Dynamic'
-param skuCodeFunction string = 'Y1'
-param locationAzureFunction string = 'East US'
-param numberOfWorkersFunction string = '1'
-param azureFunctionRgName string = 'func-rg'
-param azureServicePlanFunction string = 'func-plan'
+param skuFunction string //= 'Dynamic'
+param skuCodeFunction string //= 'Y1'
+param locationAzureFunction string //= 'East US'
+param numberOfWorkersFunction string //= '1'
+param azureFunctionRgName string //= 'func-rg'
+param azureServicePlanFunction string //= 'func-plan'
 
 //webapp parameters
-param locationWebApp string = 'East US'
-param skuWebApp string = 'Free'
-param skuCodeskuWebApp string = 'F1'
-param numberOfWorkersWebApp string = '1'
-param azureWebAppRgName string = 'app-rg'
-param azureServicePlanWebApp string = 'app-plan'
+param locationWebApp string //= 'East US'
+param skuWebApp string //= 'Free'
+param skuCodeskuWebApp string //= 'F1'
+param numberOfWorkersWebApp string //= '1'
+param azureWebAppRgName string //= 'app-rg'
+param azureServicePlanWebApp string //= 'app-plan'
 
 //sql parameters
-param sqlRgName string = 'sql-rg'
-param sqlDbName string = 'sqldb'
+param sqlRgName string //= 'sql-rg'
+param sqlDbName string //= 'sqldb'
 @minLength(5)
-param SQL_User string = 'omar1'
+param SQL_User string //= 'omar1'
 @minLength(5)
-param SQL_Pass string = 'Kassar@14689'
-param locationSqlDatabase string = 'East US'
+param SQL_Pass string //= 'Kassar@14689'
+param locationSqlDatabase string //= 'East US'
 
 
 
 //loganalytics parameters
-param locationLogAnalytics string = 'East US'
-param azurekLogAnalyticsRgName string = 'log-rg'
-param logAnalyticName string = 'logAnaytics'
+param locationLogAnalytics string //= 'East US'
+param azurekLogAnalyticsRgName string //= 'log-rg'
+param logAnalyticName string //= 'logAnaytics'
 
-param projTagValue string = 'proj'
+param projTagValue string //= 'proj'
 
-param deployAks bool = true
-param deployFunc bool = true
-param deployApp bool = true
-param deploySql bool = false
+param deployAks bool //= true
+param deployFunc bool //= true
+param deployApp bool //= true
+param deploySql bool //= false
 
 
 
