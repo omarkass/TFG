@@ -23,7 +23,7 @@ stages:
           echo " \"aksName\": { \"value\": \"$(aksclusterName)\" }, "  >> main.parameters.json
           echo " \"aksRgName\": { \"value\": \"$(aksResourceGroupName)\" }, "  >> main.parameters.json
           echo " \"locationAks\": { \"value\": \"$(locationAks)\" }, "  >> main.parameters.json
-          echo " \"aksNumberOfWorkers\": { \"value\": \"$(aksNumberOfWorkers)\" }, "  >> main.parameters.json
+          echo " \"aksNumberOfWorkers\": { \"value\": $(aksNumberOfWorkers) }, "  >> main.parameters.json
           echo " \"skuFunction\": { \"value\": \"$(skuFunction)\" }, "  >> main.parameters.json
           echo " \"skuCodeFunction\": { \"value\": \"$(skuCodeFunction)\" }, "  >> main.parameters.json
           echo " \"locationAzureFunction\": { \"value\": \"$(locationAzureFunction)\" }, "  >> main.parameters.json
