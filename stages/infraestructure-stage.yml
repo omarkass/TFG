@@ -44,10 +44,10 @@ stages:
           echo " \"locationLogAnalytics\": { \"value\": \"$(locationLogAnalytics)\" }, "  >> main.parameters.json
           echo " \"azurekLogAnalyticsRgName\": { \"value\": \"$(azurekLogAnalyticsRgName)\" }, "  >> main.parameters.json
           echo " \"logAnalyticName\": { \"value\": \"$(logAnalyticName)\" }, "  >> main.parameters.json
-          echo " \"deployAks\": { \"value\": \"$(deployAks)\" }, "  >> main.parameters.json
-          echo " \"deployFunc\": { \"value\": \"$(deployFunc)\" }, "  >> main.parameters.json
-          echo " \"deployApp\": { \"value\": \"$(deployApp)\" }, "  >> main.parameters.json
-          echo " \"deploySql\": { \"value\": \"$(deploySql)\" }, "  >> main.parameters.json
+          echo " \"deployAks\": { \"value\": $(deployAks) }, "  >> main.parameters.json
+          echo " \"deployFunc\": { \"value\": $(deployFunc) }, "  >> main.parameters.json
+          echo " \"deployApp\": { \"value\": $(deployApp) }, "  >> main.parameters.json
+          echo " \"deploySql\": { \"value\": $(deploySql) }, "  >> main.parameters.json
           echo " \"projTagValue\": { \"value\": \"$(tagValue)\" } "  >> main.parameters.json
           echo "}}" >> main.parameters.json
           cat  main.parameters.json
