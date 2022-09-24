@@ -27,7 +27,7 @@ stages:
           echo " \"skuFunction\": { \"value\": \"$(skuFunction)\" }, "  >> main.parameters.json
           echo " \"skuCodeFunction\": { \"value\": \"$(skuCodeFunction)\" }, "  >> main.parameters.json
           echo " \"locationAzureFunction\": { \"value\": \"$(locationAzureFunction)\" }, "  >> main.parameters.json
-          echo " \"azureFunctionRgName\": { \"value\": \"$(aksResourceGroupName)\" }, "  >> main.parameters.json
+          echo " \"azureFunctionRgName\": { \"value\": \"$(funcResourceGroupName)\" }, "  >> main.parameters.json
           echo " \"azureServicePlanFunction\": { \"value\": \"$(azureServicePlanFunction)\" }, "  >> main.parameters.json
           echo " \"numberOfWorkersFunction\": { \"value\": \"$(numberOfWorkersFunction)\" }, "  >> main.parameters.json
           echo " \"locationWebApp\": { \"value\": \"$(locationWebApp)\" }, "  >> main.parameters.json
