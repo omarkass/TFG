@@ -91,7 +91,7 @@ stages:
                 echo $appInfo.defaultHostName > $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
               }
                 elseif ($resource.type -eq "Microsoft.ContainerService/managedClusters"){
-                  stageName = Out-String -InputObject ${{parameters.stageName}}
+                  $stageName = Out-String -InputObject ${{parameters.stageName}}
                   if ( $stageName -ne "Get_Inicial_Info") {
                     az aks get-credentials --name $resource.name --resource-group  $resource.resourceGroup
                     $aksIp = kubectl get -n ingress-ngnix service/ingress-ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].ip}'  
