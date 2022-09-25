@@ -61,7 +61,7 @@ stages:
       displayName: open sql server firewall
       inputs:
         azureSubscription: ${{parameters.azureSubscription}}
-        ScriptPath: './content/sql-content/set-azure-firewall-rule1.ps1'
+        ScriptPath: './content/sql-content/set-azure-firewall-rule.ps1'
         ScriptArguments: "-ServerName $(serverName) -ResourceGroup ${{ parameters.resourceGroupName }}"
         azurePowerShellVersion: LatestVersion
 
@@ -86,7 +86,7 @@ stages:
       displayName: close sql server firewall
       inputs:
         azureSubscription: ${{parameters.azureSubscription}}
-        ScriptPath: './content/sql-content/remove-azure-firewall1.ps1'
+        ScriptPath: './content/sql-content/remove-azure-firewall.ps1'
         ScriptArguments: "$(serverName) -ResourceGroup ${{parameters.resourceGroupName}}"
         azurePowerShellVersion: LatestVersion
 
