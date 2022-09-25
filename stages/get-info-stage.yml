@@ -77,7 +77,7 @@ stages:
                 echo $sqlInfo.fullyQualifiedDomainName > $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName
               }
               elseif ($resource.type -eq "Microsoft.Web/sites" -and  $resource.kind -eq "functionapp,linux"){
-                if (parameters.stageName -ne "Get_Inicial_Info") {
+                if (${{parameters.stageName}} -ne "Get_Inicial_Info") {
                   $funcInfo = az functionapp function show -g $resource.resourceGroup -n $resource.name --function-name $funcName | ConvertFrom-json
                   $funcKey = az functionapp function keys list -g $resource.resourceGroup -n $resource.name --function-name $funcName | Convertfrom-json
                   echo $funcInfo.invokeUrlTemplate > $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
@@ -90,7 +90,7 @@ stages:
                 echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/appName
                 echo $appInfo.defaultHostName > $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
               }
-                elseif ($resource.type -eq "Microsoft.ContainerService/managedClusters" -and parameters.stageName -ne "Get_Inicial_Info"){
+                elseif ($resource.type -eq "Microsoft.ContainerService/managedClusters" -and ${{parameters.stageName}} -ne "Get_Inicial_Info"){
                 az aks get-credentials --name $resource.name --resource-group  $resource.resourceGroup
                 $aksIp = kubectl get -n ingress-ngnix service/ingress-ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].ip}'  
                 echo $aksIp > $(Pipeline.Workspace)/${{parameters.stageName}}/aksIp

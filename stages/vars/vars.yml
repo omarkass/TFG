@@ -71,6 +71,9 @@ variables:
 - name: aksclusterName
   value: 'aks'    
 
+# El endpoint que se usa para acceder a la aplicación del cliente que está en el clúster de K8s
+- name: ingressHostname
+  value: 'app1.local'
 
 # Azure Function vars
 
