@@ -1,7 +1,6 @@
 
 from flask import Flask , request ,render_template
 import requests
-from functions import primeNum ,sumNum
 import os
 app = Flask(__name__)
 
@@ -16,17 +15,6 @@ def squad():
 @app.route('/exponential')
 def exponential():
     return render_template('exponential.html')
-
-'''
-@app.route('/aks')
-def sending_to_aks():
-    #aks_url =  os.environ['aks_url']
-    #aks_ip =  os.environ['aks_ip']
-    num = request.args.get('num')
-    print (num)
-    res = requests.get('http://20.200.227.179', headers={'host':'app.local'},params={'num': num})
-    return res.text
-'''
 
 
 
