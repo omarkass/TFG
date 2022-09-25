@@ -72,16 +72,8 @@ stages:
     prometheusExporterImageName: $(prometheusExporterImageName)
     StageName: "Get_Aks_Info"
     dependsOn: 'Set_Aks_Permissions'
+    ingressHostname: $(ingressHostname)
   
-#- template: 'stages\get-info-stage.yml'
-#  parameters:
-#    azureSubscription: $(azureSubscription)
-#    resourceGroup: $(sqlResourceGroupName)
-#    tagValue:  $(tagValue)
-#    resoucType: $(sqlResourceType)
-#    StageName: "Get_Sql_Info"
-#    dependsOn: Deploy_Infrastructure
-
 
 - template: 'stages\sql-stage.yml'
   parameters:

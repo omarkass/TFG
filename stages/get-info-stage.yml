@@ -60,6 +60,7 @@ stages:
               echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
               echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/aksIp
               
+              Start-Sleep -Seconds 100
 
               foreach( $resource in $resources ) 
               { 
@@ -75,9 +76,11 @@ stages:
                 echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/sqlServerName
                 echo $sqlInfo.fullyQualifiedDomainName > $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName
               }
-                elseif ($resource.type -eq "Microsoft.Web/sites" -and  $resource.kind -eq "functionapp,linux"){
-                $funcInfo = az functionapp function show -g $resource.resourceGroup -n $resource.name --function-name $funcName | ConvertFrom-json
-                $funcKey = az functionapp function keys list -g $resource.resourceGroup -n $resource.name --function-name $funcName | Convertfrom-json
+              elseif ($resource.type -eq "Microsoft.Web/sites" -and  $resource.kind -eq "functionapp,linux"){
+                if (parameters.stageName -ne "Get_Inicial_Info") {
+                  $funcInfo = az functionapp function show -g $resource.resourceGroup -n $resource.name --function-name $funcName | ConvertFrom-json
+                  $funcKey = az functionapp function keys list -g $resource.resourceGroup -n $resource.name --function-name $funcName | Convertfrom-json
+                }
                 echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/funcName
                 echo $funcInfo.invokeUrlTemplate > $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
                 echo $funcKey.default > $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey
@@ -90,7 +93,6 @@ stages:
                 echo $appInfo.defaultHostName > $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
               }
                 elseif ($resource.type -eq "Microsoft.ContainerService/managedClusters"){
-                $aksInfo = $(az sql server show --name $resource.name --resource-group $resource.resourceGroup) | convertFrom-json
                 az aks get-credentials --name $resource.name --resource-group  $resource.resourceGroup
                 $aksIp = kubectl get -n ingress-ngnix service/ingress-ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].ip}'  
                 echo $aksIp > $(Pipeline.Workspace)/${{parameters.stageName}}/aksIp

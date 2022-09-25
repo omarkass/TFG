@@ -53,13 +53,3 @@ stages:
           cat  main.parameters.json
           az deployment sub create  --template-file ''./main.bicep'' --location $LOCATION  --parameters  @main.parameters.json
 
-
-
-
-      #--parameters '{ \"aksRgName\": { \"value\": \"$(aksResourceGroupName)\" }, \"kubernetesVersion\": { \"value\": \"$(kubernetesVersion)\" } }'
-      #  $  --parameters aksRgName="$(aksResourceGroupName)"\
-      #  --parameters kubernetesVersion="$(kubernetesVersion)"\
-      #   --parameters aksVmSize="$(aksVmSize)"\
-      #    --parameters aksName="$(aksName)"  
-        # kubernetesVersion="$(kubernetesVersion)" aksVmSize="$(aksVmSize)" aksName="$(aksName)" aksRgName="$(aksResourceGroupName)" aksName=$aksName locationAks="$(locationAks)" aksNumberOfWorkers="$(aksNumberOfWorkers)" aksVmSize="$(aksVmSize)"
-

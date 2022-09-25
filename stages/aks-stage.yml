@@ -6,11 +6,7 @@ parameters:
 - name: aksclusterName
   type: string 
   #default: 'aks'
-  
-#- name: acrUrl
-#  type: string
-  #default: 'projdevacr.azurecr.io' 
-  
+    
 
 - name: resourceGroupName
   type: string 
@@ -36,6 +32,10 @@ parameters:
 
 - name: stageName
   type: string 
+
+
+- name: ingressHostname
+  type: string  
 
 
 stages:
@@ -120,8 +120,8 @@ stages:
               helm install -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest grafana ./content/aks-content/helm-projects/kube-prometheus-stack
             fi 
             if [[ "$output" == *"app"* ]]; then 
-              #helm upgrade --set configMap.sqlUrlValue=buxivyn46mang.database.windows.net --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:${{ parameters.appImageVersion }}"  app ./content/aks-content/helm-projects/app
-              helm upgrade --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)' --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:${{ parameters.appImageVersion }}"  app ./content/aks-content/helm-projects/app
+              
+              helm upgrade --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set ingress.hostName='${{parameters.ingressHostname}}' --set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)' --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:${{ parameters.appImageVersion }}"  app ./content/aks-content/helm-projects/app
             else
-              helm install --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)' --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:${{ parameters.appImageVersion }}"  app ./content/aks-content/helm-projects/app
+              helm install --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set ingress.hostName='${{parameters.ingressHostname}}' --set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)' --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:${{ parameters.appImageVersion }}"  app ./content/aks-content/helm-projects/app
             fi
