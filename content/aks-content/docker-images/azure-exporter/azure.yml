@@ -1,7 +1,7 @@
 active_directory_authority_url: "https://login.microsoftonline.com/"
 resource_manager_url: "https://management.azure.com/"
 credentials:
-  subscription_id: "408b4202-7e4d-450e-a27e-04cb32180262"
+  subscription_id: "134fa717-c80f-4b80-a6d9-28b8141c95bf"
 
 targets:
 resource_groups:
