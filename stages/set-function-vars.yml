@@ -16,6 +16,9 @@ parameters:
   type: string
   default: ' '
 
+- name: deploy
+  type: boolean
+
 stages:
 
 - stage: Add_Function_Env_Vars

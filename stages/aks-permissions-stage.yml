@@ -15,6 +15,8 @@ parameters:
   type: string
   default:  
 
+- name: deploy
+  type: boolean
 
 stages:
 - stage: Set_Aks_Permissions

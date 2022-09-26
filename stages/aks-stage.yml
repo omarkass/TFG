@@ -37,6 +37,9 @@ parameters:
 - name: ingressHostname
   type: string  
 
+- name: deploy
+  type: boolean
+
 
 stages:
 

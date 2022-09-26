@@ -12,6 +12,9 @@ parameters:
   type: string
   default: "app.local"
 
+- name: deploy
+  type: boolean
+
 - name: dependsOn
   type: string
   default: ""

@@ -21,6 +21,9 @@ parameters:
 - name: stageName
   type: string  
 
+- name: deploy
+  type: boolean
+
 - name: dependsOn
   type: string
   default: ''  

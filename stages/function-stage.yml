@@ -19,6 +19,9 @@ parameters:
   type: string
   default: "app.local"
 
+- name: deploy
+  type: boolean
+
 stages:
 
 #- template: './get-info-stage.yml'
