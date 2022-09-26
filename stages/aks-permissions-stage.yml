@@ -18,6 +18,9 @@ parameters:
 - name: deploy
   type: boolean
 
+- name: deployGrafana
+  type: boolean  
+
 stages:
 - stage: Set_Aks_Permissions
   displayName: set aks cluster permissions to retrieve monitoring data
@@ -25,7 +28,7 @@ stages:
 
   jobs:
   - job: Set_Aks_Permissions
-    condition: eq('${{parameters.deploy}}', 'True')
+    condition: and ( eq('${{parameters.deployGrafana}}', 'True') , eq('${{parameters.deploy}}', 'True'))
     pool:
       vmImage: 'windows-latest'
     steps:

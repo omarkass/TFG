@@ -56,6 +56,7 @@ stages:
     useGrafana: $(useGrafana)
     dependsOn: Deploy_Infrastructure
     deploy: ${{variables.deployAks}}
+    deployGrafana: ${{variables.deployGrafana}}
 
 - template: 'stages\get-info-stage.yml'
   parameters:
@@ -77,6 +78,7 @@ stages:
     dependsOn: 'Set_Aks_Permissions'
     ingressHostname: $(ingressHostname)
     deploy: ${{variables.deployAks}}
+    deployGrafana: ${{variables.deployGrafana}}
   
 
 - template: 'stages\sql-stage.yml'
