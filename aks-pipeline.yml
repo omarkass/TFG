@@ -33,4 +33,4 @@ stages:
     appImageVersion: $(appImageVersion)
     deploy: ${{variables.deployAks}}
     ingressHostname: $(ingressHostname)
-    deployGrafana: $(deployGrafana)
+    deployGrafana: ${{variables.deployGrafana}}
