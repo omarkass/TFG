@@ -76,7 +76,7 @@ stages:
 
 
         - bash: |
-            sleep 2m
+            sleep 3m
 
         - task: AzureWebApp@1
           displayName: 'Deploy Azure Web App : webapppython43'
