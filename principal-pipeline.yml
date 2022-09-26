@@ -37,7 +37,7 @@ stages:
     pythonVersion: $(pythonVersion)
     stageName: "Get_Inicial_Info"
     resourceGroup: $(appResourceGroupName)
-    deploy: ${{parameters.deployApp}}
+    deploy: ${{variables.deployApp}}
 
     
 
@@ -47,7 +47,7 @@ stages:
     pythonVersion: $(pythonVersion)
     StageName: "Get_Inicial_Info"
     resourceGroup: $(funcResourceGroupName)
-    deploy: ${{parameters.deployFunc}}
+    deploy: ${{variables.deployFunc}}
 
 - template: 'stages\aks-permissions-stage.yml'
   parameters:
@@ -55,7 +55,7 @@ stages:
     aksclusterName: $(aksclusterName)
     useGrafana: $(useGrafana)
     dependsOn: Deploy_Infrastructure
-    deploy: ${{parameters.deployAks}}
+    deploy: ${{variables.deployAks}}
 
 - template: 'stages\get-info-stage.yml'
   parameters:
@@ -76,7 +76,7 @@ stages:
     StageName: "Get_Aks_Info"
     dependsOn: 'Set_Aks_Permissions'
     ingressHostname: $(ingressHostname)
-    deploy: ${{parameters.deployAks}}
+    deploy: ${{variables.deployAks}}
   
 
 - template: 'stages\sql-stage.yml'
@@ -87,7 +87,7 @@ stages:
     Password: $(sqlPassword)
     resourceGroupName: $(sqlResourceGroupName)
     StageName: "Get_Inicial_Info"
-    deploy: ${{parameters.deploySql}}
+    deploy: ${{variables.deploySql}}
 
 
 - template: 'stages\get-info-stage.yml'
@@ -105,7 +105,7 @@ stages:
     StageName: "Get_Apps_Info"
     resourceGroup: $(funcResourceGroupName)
     dependsOn:  Get_Apps_Info
-    deploy: ${{parameters.deployFunc}}
+    deploy: ${{variables.deployFunc}}
 
 
 - template: 'stages\set-webapp-vars.yml'
@@ -114,4 +114,4 @@ stages:
     StageName: "Get_Apps_Info"
     resourceGroup: $(appResourceGroupName)
     dependsOn:  Get_Apps_Info
-    deploy: ${{parameters.deployApp}}
+    deploy: ${{variables.deployApp}}
