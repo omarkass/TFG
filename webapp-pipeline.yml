@@ -23,6 +23,7 @@ stages:
     pythonVersion: $(pythonVersion)
     stageName: "Get_Webapp_Info"
     resourceGroup: $(appResourceGroupName)
+    deploy: ${{variables.deployApp}}
 
 
 - template: 'stages\set-webapp-vars.yml'
@@ -31,3 +32,4 @@ stages:
     StageName: "Get_Webapp_Info"
     resourceGroup: $(appResourceGroupName)
     dependsOn:  Deploy_Webapp_Content
+    deploy: ${{variables.deployApp}}

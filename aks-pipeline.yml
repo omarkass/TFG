@@ -31,3 +31,4 @@ stages:
     StageName: "Get_Aks_Info"
     dependsOn: "Get_Aks_Info"
     appImageVersion: $(appImageVersion)
+    deploy: ${{variables.deployAks}}

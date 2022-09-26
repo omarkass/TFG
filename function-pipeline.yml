@@ -24,6 +24,7 @@ stages:
     pythonVersion: $(pythonVersion)
     StageName: "Get_Function_Info"
     resourceGroup: $(funcResourceGroupName)
+    deploy: ${{variables.deployFunc}}
 
 
 - template: 'stages\set-function-vars.yml'
@@ -32,3 +33,4 @@ stages:
     StageName: "Get_Function_Info"
     resourceGroup: $(funcResourceGroupName)
     dependsOn:  Deploy_Function_Content
+    deploy: ${{variables.deployFunc}}

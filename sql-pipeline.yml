@@ -28,3 +28,4 @@ stages:
     Password: $(sqlPassword)
     resourceGroupName: $(sqlResourceGroupName)
     StageName: "Get_Sql_Info"
+    deploy: ${{variables.deploySql}}
