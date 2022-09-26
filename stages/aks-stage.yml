@@ -125,13 +125,15 @@ stages:
             else
               helm install -n ingress-ngnix ingress ./content/aks-content/helm-projects/ingress-ngnix
             fi  
-            if [ "$output" == *"grafana"* ] && [ '${{parameters.deployGrafana}}' = 'True' ];
-             then    
-              helm upgrade -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest  grafana ./content/aks-content/helm-projects/kube-prometheus-stack
-             elif [ '${{parameters.deployGrafana}}' = 'True' ] ;
-              then
-              helm install -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest grafana ./content/aks-content/helm-projects/kube-prometheus-stack
-            fi 
+
+            if [  "$output" == *"grafana"* ] &&[  ${{parameters.deployGrafana}} = True] ; 
+            then
+            helm upgrade -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest  grafana ./content/aks-content/helm-projects/kube-prometheus-stack
+            elif [ ${{parameters.deployGrafana}} = True ]; 
+            then
+            helm install -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest grafana ./content/aks-content/helm-projects/kube-prometheus-stack
+            fi
+
             if [[ "$output" == *"app"* ]]; then 
               helm upgrade --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set ingress.hostName='${{parameters.ingressHostname}}' --set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)' --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:${{ parameters.appImageVersion }}"  app ./content/aks-content/helm-projects/app
             else
