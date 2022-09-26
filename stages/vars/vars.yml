@@ -81,6 +81,10 @@ variables:
 - name: skuFunction
   value: Dynamic'
 
+# Decidir desplegar el proyecto de grafana dentro del aks o no
+- name: deployGrafana
+  value: True
+
 # El nombre de la infraestructura que se va a usar para correr el Azure Function
 - name: skuCodeFunction
   value: 'Y1'
