@@ -44,7 +44,7 @@ stages:
   dependsOn: ${{ parameters.stageName }}
   jobs :
   - job: Deploy_Sql_Content
-    condition: eq('${{parameters.deploy}}', 'Ture')
+    condition: eq('${{parameters.deploy}}', 'True'')
     steps:
 
     - download: current

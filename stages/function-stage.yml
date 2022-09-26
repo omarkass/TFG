@@ -40,7 +40,7 @@ stages:
   dependsOn: ${{ parameters.stageName }}
   jobs: 
   - job: Deploy_Function_Content
-    condition: eq('${{parameters.deploy}}', 'Ture')
+    condition: eq('${{parameters.deploy}}', 'True'')
     variables:
       vmImageName: 'ubuntu-latest'
       workingDirectory: './content/function-content'

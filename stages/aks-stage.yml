@@ -50,7 +50,7 @@ stages:
     - ${{ parameters.dependsOn }}
   jobs:
   - job: Deploy_K8s_Content
-    condition: eq('${{parameters.deploy}}', 'Ture')
+    condition: eq('${{parameters.deploy}}', 'True'')
     pool:
       vmImage: 'ubuntu-latest'
     steps:

@@ -25,7 +25,7 @@ stages:
 
   jobs:
   - job: Set_Aks_Permissions
-    condition: eq('${{parameters.deploy}}', 'Ture')
+    condition: eq('${{parameters.deploy}}', 'True')
     pool:
       vmImage: 'windows-latest'
     steps:
