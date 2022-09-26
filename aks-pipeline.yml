@@ -32,3 +32,4 @@ stages:
     dependsOn: "Get_Aks_Info"
     appImageVersion: $(appImageVersion)
     deploy: ${{variables.deployAks}}
+    ingressHostname: $(ingressHostname)
