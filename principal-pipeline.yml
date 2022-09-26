@@ -37,6 +37,7 @@ stages:
     pythonVersion: $(pythonVersion)
     stageName: "Get_Inicial_Info"
     resourceGroup: $(appResourceGroupName)
+    deploy: ${{variables.deployApp}}
 
     
 

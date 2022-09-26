@@ -19,6 +19,9 @@ parameters:
   type: string
   default: "app.local"
 
+- name: deploy
+  type: boolean
+
 
 stages:
 
@@ -30,6 +33,7 @@ stages:
     vmImage: 'ubuntu-latest'
   jobs :
     - job: Deploy_Webapp_Content
+      condition: eq({{parameters.deploy}}, ture)
       variables:
         projectRoot: '$(System.DefaultWorkingDirectory)'
       steps:
