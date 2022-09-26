@@ -33,7 +33,7 @@ stages:
     vmImage: 'ubuntu-latest'
   jobs :
     - job: Deploy_Webapp_Content
-      condition: eq('${{parameters.deploy}}', 'True'')
+      condition: eq('${{parameters.deploy}}', 'True')
       variables:
         projectRoot: '$(System.DefaultWorkingDirectory)'
       steps:
