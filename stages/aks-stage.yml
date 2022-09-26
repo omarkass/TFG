@@ -104,9 +104,9 @@ stages:
             az aks get-credentials --name ${{parameters.aksclusterName}} --resource-group ${{parameters.resourceGroupName}}
             az acr login --name $(acrUrl)
             docker build ./content/aks-content/docker-images/app -t ${{parameters.appImageName}}
-            docker tag "${{parameters.appImageName}}:${{ parameters.appImageVersion }}" '$(acrUrl)'"/${{parameters.appImageName}}"":${{ parameters.appImageVersion }}"
+            docker tag "${{parameters.appImageName}}:latest" '$(acrUrl)'"/${{parameters.appImageName}}:${{parameters.appImageVersion}}"
             docker image ls
-            docker push '$(acrUrl)'"/${{parameters. appImageName}}:${{ parameters.appImageVersion }}"
+            docker push '$(acrUrl)'"/${{parameters.appImageName}}:${{ parameters.appImageVersion }}"
 
             docker build ./content/aks-content/docker-images/azure-exporter -t ${{parameters.prometheusExporterImageName}}
             docker tag "${{parameters.prometheusExporterImageName}}:latest" '$(acrUrl)'"/${{parameters.prometheusExporterImageName}}:latest"
