@@ -64,17 +64,20 @@ stages:
               dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
               dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey
               dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
+              dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/subId $(Pipeline.Workspace)/${{parameters.stageName}}/subId
               dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName
               acrUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl)
               fullyQualifiedDomainName=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName)
               funcUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl)
               funcKey=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey)
               appUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl)
+              appUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/subId)
               echo "##vso[task.setvariable variable=acrUrl]$acrUrl"
               echo "##vso[task.setvariable variable=fullyQualifiedDomainName]$fullyQualifiedDomainName"
               echo "##vso[task.setvariable variable=funcKey]$funcKey"
               echo "##vso[task.setvariable variable=funcUrl]$funcUrl"
               echo "##vso[task.setvariable variable=appUrl]$appUrl"
+              echo "##vso[task.setvariable variable=subId]$subId"
           
 
       - task: DockerInstaller@0
@@ -95,6 +98,9 @@ stages:
             echo '$(funcKey)'
             echo '$(fullyQualifiedDomainName)'
             echo '$(acrUrl)'
+            echo '$(subId)'
+          (Get-Content content\aks-content\docker-images\azure-exporter\azure.yml) -Replace 'subid', $subId | Set-Content content\aks-content\docker-images\azure-exporter\azure.yml
+            cat content\aks-content\docker-images\azure-exporter\azure.yml
             az aks get-credentials --name ${{parameters.aksclusterName}} --resource-group ${{parameters.resourceGroupName}}
             az acr login --name $(acrUrl)
             docker build ./content/aks-content/docker-images/app -t ${{parameters. appImageName}}
