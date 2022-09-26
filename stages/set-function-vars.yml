@@ -28,6 +28,7 @@ stages:
     vmImage: 'ubuntu-latest'
   jobs :
     - job: Add_Function_Env_Vars
+      condition: eq('${{parameters.deploy}}', 'Ture')
       variables:
         projectRoot: '$(System.DefaultWorkingDirectory)'
       steps:
