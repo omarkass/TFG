@@ -19,6 +19,14 @@ parameters:
   type: string
   default: ""
 
+- name: sqlPassword
+  type: string
+
+- name: sqlUserName
+  type: string
+
+- name: databaseName
+  type: string    
 
 stages:
 
@@ -61,4 +69,4 @@ stages:
             scriptType: 'bash'
             scriptLocation: 'inlineScript'
             inlineScript: |
-              az webapp config appsettings set -g ${{ parameters.resourceGroup }} -n $(webAppName) --settings "sql_url=$(fullyQualifiedDomainName)" "func_code=$(funcKey)" "func_url=$(funcUrl)" "aks_url=${{ parameters.aksUrl }}" "aks_ip=$(aksIp)"
+              az webapp config appsettings set -g ${{ parameters.resourceGroup }} -n $(webAppName) --settings "sql_url=$(fullyQualifiedDomainName)" "func_code=$(funcKey)" "func_url=$(funcUrl)" "aks_url=${{ parameters.aksUrl }}" "aks_ip=$(aksIp)" "sql_password=${{ parameters.sqlPassword }}" "sql_username=${{ parameters.sqlUserName }}" "sql_name=${{ parameters.databaseName }}"

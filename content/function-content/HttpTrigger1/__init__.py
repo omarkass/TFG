@@ -6,9 +6,9 @@ import os
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
         server =  'tcp:'+ os.environ['sql_url']
-        database = 'sqldb'
-        username = 'omar1'
-        password = 'Kassar@14689'
+        database = os.environ['sql_name'] #'sqldb'
+        username = os.environ['sql_username'] #'omar1'
+        password = os.environ['sql_password'] #'Kassar@14689'
         num = int(req.params.get("num"))
         cnxn = pypyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
         cursor = cnxn.cursor()

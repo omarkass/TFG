@@ -108,6 +108,9 @@ stages:
     resourceGroup: $(funcResourceGroupName)
     dependsOn:  Get_Apps_Info
     deploy: ${{variables.deployFunc}}
+    sqlPassword: $(sqlPassword)
+    sqlUserName: $(sqlUserName)
+    databaseName: $(databaseName)
 
 
 - template: 'stages\set-webapp-vars.yml'
@@ -117,3 +120,6 @@ stages:
     resourceGroup: $(appResourceGroupName)
     dependsOn:  Get_Apps_Info
     deploy: ${{variables.deployApp}}
+    sqlPassword: $(sqlPassword)
+    sqlUserName: $(sqlUserName)
+    databaseName: $(databaseName)

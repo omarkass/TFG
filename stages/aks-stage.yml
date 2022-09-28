@@ -129,7 +129,7 @@ stages:
             if [  "$output" == *"grafana"* ] &&[  "${{parameters.deployGrafana}}" = True ] ; 
             then
             helm upgrade -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest  grafana ./content/aks-content/helm-projects/kube-prometheus-stack
-            elif [ ${{parameters.deployGrafana}} = True ]; 
+            elif [ "${{parameters.deployGrafana}}" = True ]; 
             then
             helm install -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest grafana ./content/aks-content/helm-projects/kube-prometheus-stack
             fi
