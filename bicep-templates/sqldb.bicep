@@ -17,9 +17,15 @@ resource azureSqlServer 'Microsoft.Sql/servers/databases@2021-02-01-preview' = {
     capacity: 5
 }
 
-  properties: {
-    collation: 'SQL_Latin1_General_CP1_CI_AS'
-  }
+properties: {
+  collation: 'SQL_Latin1_General_CP1_CI_AS'
+  maxSizeBytes: 2147483648
+  catalogCollation: 'SQL_Latin1_General_CP1_CI_AS'
+  zoneRedundant: false
+  readScale: 'Disabled'
+  requestedBackupStorageRedundancy: 'Geo'
+  isLedgerOn: false
+}
 }
 
 
