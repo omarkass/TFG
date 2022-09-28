@@ -30,11 +30,11 @@ variables:
 
 # determinar si se tiene que desplegar el recurso del clúster de K8s o no
 - name: deployAks
-  value: True
+  value: False
 
 # determinar si se tiene que desplegar el recurso del Azure Function o no
 - name: deployFunc
-  value: False
+  value: True
 
 # determinar si se tiene que desplegar el recurso del Azure Webapp o no
 - name: deployApp
@@ -42,7 +42,7 @@ variables:
 
 # determinar si se tiene que desplegar el recurso de la base de datos Sql o no
 - name: deploySql
-  value: False
+  value: True
 
 
 #K8s vars
