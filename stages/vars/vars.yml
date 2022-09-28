@@ -42,7 +42,7 @@ variables:
 
 # determinar si se tiene que desplegar el recurso de la base de datos Sql o no
 - name: deploySql
-  value: True
+  value: False
 
 
 #K8s vars
