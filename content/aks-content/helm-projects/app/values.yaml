@@ -44,7 +44,9 @@ configMap:
   funcUrlName: func_url
   funcCodeName: func_code
   appUrlName: app_url
-  
+  sqlPasswordName: sql_password
+  sqlName: sql_name
+  sqlUsernameName: sql_username
 
 
 svc:

@@ -9,12 +9,13 @@ app = Flask(__name__)
 
 @app.route('/')
 def expo():
-        database = 'sqldb'
-        username = 'omar1'
+        database = os.environ['sql_name'] #'sqldb'
+        username = os.environ['sql_username'] #'omar1'
+        password = os.environ['sql_password'] #'Kassar@14689'
         server = 'tcp:'+os.environ['sql_url']
         print ("hellow", file=sys.stderr)
         print( server, file=sys.stderr)
-        password = 'Kassar@14689'
+        #password = 'Kassar@14689'
         num = request.args.get('num', default = 1, type = int)
         cnxn = pypyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
         cursor = cnxn.cursor()

@@ -43,6 +43,16 @@ parameters:
 - name: deployGrafana
   type: boolean  
 
+- name: sqlPassword
+  type: string
+
+- name: sqlUserName
+  type: string
+
+- name: databaseName
+  type: string    
+
+
 
 stages:
 
@@ -135,7 +145,7 @@ stages:
             fi
 
             if [[ "$output" == *"app"* ]]; then 
-              helm upgrade --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set ingress.hostName='${{parameters.ingressHostname}}' --set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)' --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:${{ parameters.appImageVersion }}"  app ./content/aks-content/helm-projects/app
+              helm upgrade --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set ingress.hostName='${{parameters.ingressHostname}}' --set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)'  --set configMap.sqlPasswordValue="${{parameters.sqlPassword}}"    --set configMap.sqlUsernameValue="${{parameters.sqlUserName}}"   --set configMap.sqlNameValue="${{parameters.databaseName}}"   --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:${{ parameters.appImageVersion }}"  app ./content/aks-content/helm-projects/app
             else
-              helm install --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set ingress.hostName='${{parameters.ingressHostname}}' --set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)' --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:${{ parameters.appImageVersion }}"  app ./content/aks-content/helm-projects/app
+              helm install --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set ingress.hostName='${{parameters.ingressHostname}}' --set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)' --set configMap.sqlPasswordValue="${{parameters.sqlPassword}}"    --set configMap.sqlUsernameValue="${{parameters.sqlUserName}}"   --set configMap.sqlNameValue="${{parameters.databaseName}}"  --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:${{ parameters.appImageVersion }}"  app ./content/aks-content/helm-projects/app
             fi

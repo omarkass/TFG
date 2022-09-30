@@ -8,3 +8,6 @@ data:
   {{ .Values.configMap.funcUrlName }} :  {{ .Values.configMap.funcUrlValue }}
   {{ .Values.configMap.funcCodeName }} :  {{ .Values.configMap.funcCodeValue }}
   {{ .Values.configMap.appUrlName }} :  {{ .Values.configMap.appUrlValue }}
+  {{ .Values.configMap.sqlName }} :  {{ .Values.configMap.sqlNameValue }}
+  {{ .Values.configMap.sqlPasswordName }} :  {{ .Values.configMap.sqlPasswordValue}}
+  {{ .Values.configMap.sqlUsernameName }} :  {{ .Values.configMap.sqlUsernameValue }}
