@@ -34,3 +34,6 @@ stages:
     deploy: ${{variables.deployAks}}
     ingressHostname: $(ingressHostname)
     deployGrafana: ${{variables.deployGrafana}}
+    sqlPassword: $(sqlPassword)
+    sqlUserName: $(sqlUserName)
+    databaseName: $(databaseName)

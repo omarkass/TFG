@@ -79,6 +79,9 @@ stages:
     ingressHostname: $(ingressHostname)
     deploy: ${{variables.deployAks}}
     deployGrafana: ${{variables.deployGrafana}}
+    sqlPassword: $(sqlPassword)
+    sqlUserName: $(sqlUserName)
+    databaseName: $(databaseName)
   
 
 - template: 'stages\sql-stage.yml'
