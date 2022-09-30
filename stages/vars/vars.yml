@@ -155,6 +155,25 @@ variables:
 - name: locationSqlDatabase
   value: 'East US'      
 
+# El nombre de la infraestructura que se va a usar para la base de datos
+- name: sqlSkuName
+  value: 'Basic'  
+
+# El tipo de la infraestructura que se va a usar para la base de datos
+- name: sqlSkuTier
+  value: 'Basic'  
+
+# La capacidad en GB que se va a usar en la base de datos
+- name: sqlSkuCapacity
+  value: 5
+
+# La colección que se va a usar en la base de datos
+- name: sqlCollation
+  value: 'SQL_Latin1_General_CP1_CI_AS'  
+
+# La categoría de colección que se va a usar en la base de datos
+- name: sqlCatalogCollation
+  value: 'SQL_Latin1_General_CP1_CI_AS'
 
 # LogAnalytics
 

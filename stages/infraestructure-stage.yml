@@ -40,6 +40,11 @@ stages:
           echo " \"sqlDbName\": { \"value\": \"$(databaseName)\" }, "  >> main.parameters.json
           echo " \"SQL_User\": { \"value\": \"$(sqlUserName)\" }, "  >> main.parameters.json
           echo " \"SQL_Pass\": { \"value\": \"$(sqlPassword)\" }, "  >> main.parameters.json
+          echo " \"sqlSkuName\": { \"value\": \"$(sqlSkuName)\" }, "  >> main.parameters.json
+          echo " \"sqlSkuTier\": { \"value\": \"$(sqlSkuTier)\" }, "  >> main.parameters.json
+          echo " \"sqlSkuCapacity\": { \"value\": \"$(sqlSkuCapacity)\" }, "  >> main.parameters.json
+          echo " \"sqlCollation\": { \"value\": \"$(sqlCollation)\" }, "  >> main.parameters.json
+          echo " \"sqlCatalogCollation\": { \"value\": \"$(sqlCatalogCollation)\" }, "  >> main.parameters.json                                        
           echo " \"locationSqlDatabase\": { \"value\": \"$(locationSqlDatabase)\" }, "  >> main.parameters.json
           echo " \"locationLogAnalytics\": { \"value\": \"$(locationLogAnalytics)\" }, "  >> main.parameters.json
           echo " \"azurekLogAnalyticsRgName\": { \"value\": \"$(azurekLogAnalyticsRgName)\" }, "  >> main.parameters.json

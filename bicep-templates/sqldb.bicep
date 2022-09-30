@@ -3,6 +3,11 @@ param location string
 param projTagValue string
 param logAnaliticResourceGroup string
 param logAnaliticName string
+param skuName string
+param skuTier string
+param skuCapacity int
+param collation string
+param catalogCollation string
 
 resource azureSqlServer 'Microsoft.Sql/servers/databases@2021-02-01-preview' = {
   name: name
@@ -11,8 +16,20 @@ resource azureSqlServer 'Microsoft.Sql/servers/databases@2021-02-01-preview' = {
     deployedby:projTagValue
   }
 
+  sku: {
+    name: skuName //'Basic'
+    tier: skuTier//'Basic'
+    capacity: skuCapacity //5
+}
+
 properties: {
-  collation: 'SQL_Latin1_General_CP1_CI_AS'
+  collation: collation //'SQL_Latin1_General_CP1_CI_AS'
+  maxSizeBytes: 2147483648
+  catalogCollation: catalogCollation//'SQL_Latin1_General_CP1_CI_AS'
+  zoneRedundant: false
+  readScale: 'Disabled'
+  requestedBackupStorageRedundancy: 'Local'
+  isLedgerOn: false
 }
 }
 

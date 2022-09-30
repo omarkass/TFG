@@ -33,7 +33,11 @@ param SQL_User string //= 'omar1'
 @minLength(5)
 param SQL_Pass string //= 'Kassar@14689'
 param locationSqlDatabase string //= 'East US'
-
+param sqlSkuName string // Basic
+param sqlSkuTier string //  Basic
+param sqlSkuCapacity int // 5
+param sqlCollation string // 'SQL_Latin1_General_CP1_CI_AS'
+param sqlCatalogCollation string // 'SQL_Latin1_General_CP1_CI_AS'
 
 
 //loganalytics parameters
@@ -207,6 +211,11 @@ params: {
   projTagValue:projTagValue
     logAnaliticName: logAnalyticName
   logAnaliticResourceGroup: azurekLogAnalyticsRgName
+  skuName: sqlSkuName
+  skuTier: sqlSkuTier
+  skuCapacity: sqlSkuCapacity
+  collation: sqlCollation
+  catalogCollation: sqlCatalogCollation
 }
 dependsOn:[
   sql
