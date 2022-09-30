@@ -25,9 +25,7 @@ stages:
     StageName: "Get_Function_Info"
     resourceGroup: $(funcResourceGroupName)
     deploy: ${{variables.deployFunc}}
-    sqlPassword: $(sqlPassword)
-    sqlUserName: $(sqlUserName)
-    databaseName: $(databaseName)
+
 
 
 - template: 'stages\set-function-vars.yml'
