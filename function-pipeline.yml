@@ -37,3 +37,6 @@ stages:
     resourceGroup: $(funcResourceGroupName)
     dependsOn:  Deploy_Function_Content
     deploy: ${{variables.deployFunc}}
+    sqlPassword: $(sqlPassword)
+    sqlUserName: $(sqlUserName)
+    databaseName: $(databaseName)

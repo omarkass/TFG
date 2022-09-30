@@ -33,3 +33,6 @@ stages:
     resourceGroup: $(appResourceGroupName)
     dependsOn:  Deploy_Webapp_Content
     deploy: ${{variables.deployApp}}
+    sqlPassword: $(sqlPassword)
+    sqlUserName: $(sqlUserName)
+    databaseName: $(databaseName)
