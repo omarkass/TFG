@@ -42,7 +42,7 @@ stages:
           echo " \"SQL_Pass\": { \"value\": \"$(sqlPassword)\" }, "  >> main.parameters.json
           echo " \"sqlSkuName\": { \"value\": \"$(sqlSkuName)\" }, "  >> main.parameters.json
           echo " \"sqlSkuTier\": { \"value\": \"$(sqlSkuTier)\" }, "  >> main.parameters.json
-          echo " \"sqlSkuCapacity\": { \"value\": \"$(sqlSkuCapacity)\" }, "  >> main.parameters.json
+          echo " \"sqlSkuCapacity\": { \"value\": $(sqlSkuCapacity) }, "  >> main.parameters.json
           echo " \"sqlCollation\": { \"value\": \"$(sqlCollation)\" }, "  >> main.parameters.json
           echo " \"sqlCatalogCollation\": { \"value\": \"$(sqlCatalogCollation)\" }, "  >> main.parameters.json                                        
           echo " \"locationSqlDatabase\": { \"value\": \"$(locationSqlDatabase)\" }, "  >> main.parameters.json
