@@ -15,9 +15,6 @@ parameters:
 - name: resourceGroup
   type: string
 
-- name: aksUrl
-  type: string
-
 
 - name: deploy
   type: boolean
