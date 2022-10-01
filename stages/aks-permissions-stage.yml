@@ -32,7 +32,7 @@ stages:
     pool:
       vmImage: 'windows-latest'
     steps:
-    #This task is responsible for giving the Aks the appropriate permission, so the Azure-exporter project get the right permissions to access the monitor data in Azure, and can export it
+    #This task is responsible for giving the Aks the appropriate permissions, so the Azure-exporter project get the right permissions to access the monitor data in Azure, and can export it
       - task: AzureCLI@2
         inputs:
           azureSubscription: ${{ parameters.azureSubscription }} 

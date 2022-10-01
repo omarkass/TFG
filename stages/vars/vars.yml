@@ -137,7 +137,7 @@ variables:
 
 # El nombre del grupo de recursos donde se va a crear la base de datos
 - name: sqlResourceGroupName
-  value: 'sql-rg'
+  value: 'sqldb-rg'
 
 # El nombre que se va a dar a la base de datos dentro de Azure
 - name: databaseName
@@ -153,7 +153,7 @@ variables:
 
 # La localización donde se va a correr la base de datos Sql
 - name: locationSqlDatabase
-  value: 'North Europe'      
+  value: 'Korea Central'      
 
 # El nombre de la infraestructura que se va a usar para la base de datos
 - name: sqlSkuName

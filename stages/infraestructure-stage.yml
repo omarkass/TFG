@@ -9,6 +9,7 @@ stages:
     variables:
     - template:  .\vars\vars.yml  
     steps:
+    # Deploying the Azure infrastructure from the bicep.main file and passing to it the parameters using a parameter file
      - task: AzureCLI@2
        inputs:
          azureSubscription:  $(azureSubscription)

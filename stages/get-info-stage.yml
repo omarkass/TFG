@@ -39,6 +39,7 @@ stages:
         pool:
           vmImage: 'windows-latest'
         steps:
+#Retrieving the data used for the different resources and save it inside a directory
         - task: AzureCLI@2
           inputs:
             azureSubscription: ${{ parameters.azureSubscription }}
@@ -105,6 +106,6 @@ stages:
                  }
                }
               }
-                   
+# Pushing the directory contains the difrentes variables to an artifact so it can be downloaded and used by other stages        
         - publish: $(Pipeline.Workspace)/${{parameters.stageName}}
           artifact: ${{parameters.stageName}}

@@ -30,14 +30,6 @@ parameters:
 
 stages:
 
-#- template: './get-info-stage.yml'
-#  parameters:
-#    azureSubscription: ${{parameters.azureSubscription}}
-#    resourceGroup: ${{parameters.resourceGroupName}}
-#    tagValue:  ${{parameters.tagValue}}
-#    dependsOn: ${{parameters.dependsOn}}
-#    resoucType: "Microsoft.Sql/servers"
-#    stageName: ${{ parameters.stageName }}
 
 - stage: Deploy_Sql_Content
   displayName: create and push sql database
@@ -46,10 +38,10 @@ stages:
   - job: Deploy_Sql_Content
     condition: eq('${{parameters.deploy}}', 'True')
     steps:
-
+# Downloading the artifact that contains the data used to deploy the Azure Sql
     - download: current
       artifact: ${{ parameters.stageName }}
-
+# Putting the data used to deploy the Azure Sql inside variables so it can be used later
     - task: PowerShell@2
       inputs:
         targetType: 'inline'
@@ -60,7 +52,7 @@ stages:
           echo "##vso[task.setvariable variable=serverFqdn]$serverFqdn"
 
 
-    #open the firewall of the sql server 
+# Open the firewall on the Sql Server, so the pipelines can interact with it
     - task: AzurePowerShell@5
       displayName: open sql server firewall
       inputs:
@@ -69,23 +61,15 @@ stages:
         ScriptArguments: "-ServerName $(serverName) -ResourceGroup ${{ parameters.resourceGroupName }}"
         azurePowerShellVersion: LatestVersion
 
-    - task: PowerShell@2
-      inputs:
-        targetType: 'inline'
-        script: |
-          # Write your PowerShell commands here.
-          ls
-          pwd
-          ls ./content/sql-content/database.sql
-    #$(Build.SourcesDirectory)/content/sql-content\database.sql      
-    #execute the sql script
+    
+# Pushing the Sql scheme inside the Azure Sql Database
     - task: CmdLine@1
       displayName: execute sql script
       inputs:
         filename: Sqlcmd
         arguments: '-S $(serverFqdn) -U ${{parameters.userName}} -P ${{parameters.password}} -d ${{parameters.databaseName}} -i ./content/sql-content/database.sql'
 
-    #close the sql firewall
+# close the sql firewall
     - task: AzurePowerShell@5
       displayName: close sql server firewall
       inputs:
