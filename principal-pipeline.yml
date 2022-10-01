@@ -12,10 +12,8 @@ trigger:
 
 variables:
   # Azure Resource Manager connection created during pipeline creation
-  #azureServiceConnectionId: 'Service_connection'
   - template:  stages\vars\vars.yml  
 pool:
-  #vmImage: ubuntu-latest
   vmImage: windows-latest
 stages:
 - template: 'stages\infraestructure-stage.yml'

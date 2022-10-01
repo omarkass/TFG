@@ -10,7 +10,6 @@ parameters:
 
 - name: aksUrl
   type: string
-  default: "app.local"
 
 - name: dependsOn
   type: string
