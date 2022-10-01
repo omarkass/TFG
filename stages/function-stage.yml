@@ -17,7 +17,7 @@ parameters:
 
 - name: aksUrl
   type: string
-  default: "app.local"
+
 
 - name: deploy
   type: boolean

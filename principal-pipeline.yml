@@ -112,6 +112,7 @@ stages:
     sqlPassword: $(sqlPassword)
     sqlUserName: $(sqlUserName)
     databaseName: $(databaseName)
+    aksUrl: $(ingressHostname)
 
 
 - template: 'stages\set-webapp-vars.yml'
@@ -124,3 +125,4 @@ stages:
     sqlPassword: $(sqlPassword)
     sqlUserName: $(sqlUserName)
     databaseName: $(databaseName)
+    aksUrl: $(ingressHostname)
