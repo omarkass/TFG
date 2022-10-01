@@ -57,13 +57,13 @@ param deploySql bool //= false
 
 var AzureSqlRuleName = 'AllowAllWindowsAzureIps'
 
-var acrName = uniqueString(subscription().subscriptionId,'acr','aks')
+var acrName = '${uniqueString(subscription().subscriptionId)}aksacr'
 
-var azureWebAppName = uniqueString(subscription().subscriptionId,'app')
+var azureWebAppName = '${uniqueString(subscription().subscriptionId)}-app'
 
-var azureFunctionName =uniqueString(subscription().subscriptionId,'func')
-var azureStorageAcountFunction = uniqueString(subscription().subscriptionId,'func','st')
-var sqlServerName =  uniqueString(subscription().subscriptionId,'sql')
+var azureFunctionName ='${uniqueString(subscription().subscriptionId)}-func'
+var azureStorageAcountFunction = '${uniqueString(subscription().subscriptionId)}funcst'
+var sqlServerName =  '${uniqueString(subscription().subscriptionId)}-sql'
 var sqlDatabaseName = '${sqlServerName}/${sqlDbName}'
 var applicationInsghtsName = 'func-appi'
 
