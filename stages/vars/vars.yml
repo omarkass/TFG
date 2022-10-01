@@ -153,7 +153,7 @@ variables:
 
 # La localización donde se va a correr la base de datos Sql
 - name: locationSqlDatabase
-  value: 'West US 3'      
+  value: 'North Europe'      
 
 # El nombre de la infraestructura que se va a usar para la base de datos
 - name: sqlSkuName

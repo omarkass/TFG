@@ -72,33 +72,41 @@ var applicationInsghtsName = 'func-appi'
 
 // Creating resource group
 
+// Deploy the resource group for the Azure Log Analytics.
 resource log_rg 'Microsoft.Resources/resourceGroups@2021-01-01'={
   name: azurekLogAnalyticsRgName
   location: locationLogAnalytics
 }
 
+// Deploy the resource group for the Azure Function.
 resource func_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = if(deployFunc){
   name: azureFunctionRgName
   location: locationAzureFunction
 }
+
+// Deploy the resource group for the Sql Database.
 resource sql_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = if(deploySql) {
   name: sqlRgName
   location: locationSqlDatabase
 }
+
+// Deploy the resource group for the Webapp.
 resource app_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = if(deployApp) {
   name: azureWebAppRgName
   location: locationAzureFunction
 }
+
+// Deploy the resource group for the Azure Kubernetes Service.
 resource aks_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = if(deployAks) {
   name: aksRgName
   location: locationAks
 }
 
 
-// Deploying storage account using module
+// Deploy the storage account to be used in Azure Function.
 module func_st './bicep-templates/func-st.bicep' = if(deployFunc) {
   name: 'func_st'
-  scope: func_rg    // Deployed in the scope of resource group we created above
+  scope: func_rg    
   params: {
     name: azureStorageAcountFunction
     location:locationAzureFunction
@@ -106,9 +114,10 @@ module func_st './bicep-templates/func-st.bicep' = if(deployFunc) {
   }
 }
 
+// Deploy the Service App plan to be used with Azure Function.
 module func_plan './bicep-templates/plan.bicep' = if(deployFunc)  {
   name: 'func_plan'
-  scope: func_rg    // Deployed in the scope of resource group we created above
+  scope: func_rg    
   params: {
     name: azureServicePlanFunction
     location:locationAzureFunction
@@ -119,19 +128,8 @@ module func_plan './bicep-templates/plan.bicep' = if(deployFunc)  {
   }
 }
 
-/*
-module func_log 'bicep-templates/func-log.bicep' = if(deployFunc) {
-  name: logAnalyticFuncName
-  scope: func_rg
-  params:{
-    name: logAnalyticFuncName
-    location: locationAzureFunction
-    projTagValue:projTagValue
-  }
-}
-*/
 
-
+// Deploy log analysis to gather logs from the other resources.
 module log 'bicep-templates/log.bicep' =  {
   name: logAnalyticName
   scope: log_rg
@@ -142,6 +140,7 @@ module log 'bicep-templates/log.bicep' =  {
   }
 }
 
+// Deploy the application insight for Azure Function, to enable direct logs feature inside Azure Function.
 module func_appi 'bicep-templates/func-appi.bicep' = if(deployFunc) {
   name : 'func_appi'
   scope: func_rg 
@@ -158,9 +157,10 @@ module func_appi 'bicep-templates/func-appi.bicep' = if(deployFunc) {
   ]
 }
 
+//Deploy the Azure Function.
 module func 'bicep-templates/func.bicep' = if(deployFunc) {
   name: 'func'
-  scope: func_rg    // Deployed in the scope of resource group we created above
+  scope: func_rg   
   params: {
     name: azureFunctionName
     location:locationAzureFunction
@@ -175,9 +175,10 @@ module func 'bicep-templates/func.bicep' = if(deployFunc) {
   ]
 }
 
+// Deploy the Azure Sql Server to host the database there.
 module sql 'bicep-templates/sql.bicep' = if(deploySql) {
   name: 'sql'
-  scope: sql_rg    // Deployed in the scope of resource group we created above
+  scope: sql_rg    
   params: {
     name: sqlServerName
     location:locationSqlDatabase
@@ -188,10 +189,10 @@ module sql 'bicep-templates/sql.bicep' = if(deploySql) {
   }
   }
 
-
+// Deploy Azure Sql rule to enable the Azure resources to access the database.
   module sql_rule 'bicep-templates/sql-rule.bicep' = if(deploySql) {
     name: 'sql_rule'
-    scope: sql_rg    // Deployed in the scope of resource group we created above
+    scope: sql_rg    
     params: {
       name: AzureSqlRuleName
       serverName:sqlServerName
@@ -202,9 +203,10 @@ module sql 'bicep-templates/sql.bicep' = if(deploySql) {
     ]
     }
 
+// Deploy the Sql Database.
 module sqldb 'bicep-templates/sqldb.bicep' = if(deploySql) {
 name: 'sqldb'
-scope: sql_rg    // Deployed in the scope of resource group we created above
+scope: sql_rg    
 params: {
   name: sqlDatabaseName
   location:locationSqlDatabase
@@ -222,19 +224,10 @@ dependsOn:[
 ]
 }
 
-//module aks_log 'bicep-templates/func-log.bicep' = if(deployAks) {
-//  name: logAnalyticAksName
-//  scope: aks_rg
-//  params:{
-//    name: logAnalyticAksName
-//    location: locationAks
-//    projTagValue:projTagValue
-//  }
-//}
-
+// Deploy the Azure Kubernetes Cluster.
 module aks 'bicep-templates/aks.bicep' = if(deployAks) {
   name: 'aks'
-  scope: aks_rg    // Deployed in the scope of resource group we created above
+  scope: aks_rg    
   params: {
     name: aksName
     location:locationAks
@@ -250,6 +243,7 @@ module aks 'bicep-templates/aks.bicep' = if(deployAks) {
   ]
   }
   
+  // Deploy the Azure Container Registry to store the docker images used inside the Aks.
   module aks_acr 'bicep-templates/aks-acr.bicep' = if(deployAks) {
     name: 'aks_acr'
     scope: aks_rg 
@@ -264,10 +258,10 @@ module aks 'bicep-templates/aks.bicep' = if(deployAks) {
     ]
   }
 
-
+  // Deploy the Azure Webapp.
   module app 'bicep-templates/app.bicep' = if(deployApp){
   name: 'app'
-  scope: app_rg    // Deployed in the scope of resource group we created above
+  scope: app_rg    
   params: {
     name: azureWebAppName
     location: locationWebApp
@@ -281,6 +275,7 @@ module aks 'bicep-templates/aks.bicep' = if(deployAks) {
   ]
   }
 
+  // Deploy the Service App Plan to host the Azure Webapp.
   module app_plan 'bicep-templates/plan.bicep' = if(deployApp){
     name: 'app_plan'
     scope: app_rg 
@@ -298,17 +293,5 @@ module aks 'bicep-templates/aks.bicep' = if(deployAks) {
 
 
 
-/*
- name: 'func_plan'
-  scope: func_rg    // Deployed in the scope of resource group we created above
-  params: {
-    name: azureServicePlanFunction
-    location:locationAzureFunction
-    skuFunction: skuFunction
-    skuCodeFunction: skuCodeFunction
-    numberOfWorkers : numberOfWorkers
-
-
-*/
 
 

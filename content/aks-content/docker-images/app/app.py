@@ -9,34 +9,33 @@ app = Flask(__name__)
 
 @app.route('/')
 def expo():
-        database = os.environ['sql_name'] #'sqldb'
-        username = os.environ['sql_username'] #'omar1'
-        password = os.environ['sql_password'] #'Kassar@14689'
-        server = 'tcp:'+os.environ['sql_url']
+        database = os.environ['sql_name'] # Getting the database name
+        username = os.environ['sql_username'] # Getting the username of the database
+        password = os.environ['sql_password'] # Getting the password of the database
+        server = 'tcp:'+os.environ['sql_url'] # Creating the whole database url
         print ("hellow", file=sys.stderr)
         print( server, file=sys.stderr)
-        #password = 'Kassar@14689'
-        num = request.args.get('num', default = 1, type = int)
-        cnxn = pypyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
-        cursor = cnxn.cursor()
-        query = "select result from exponentiation where num=" + str(num)
-        cursor.execute(query)
-        row = cursor.fetchone()
+        num = request.args.get('num', default = 1, type = int)  # Getting the num Parameter 
+        cnxn = pypyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password) # Creating the connection with the database 
+        cursor = cnxn.cursor() # Starting the connection
+        query = "select result from exponentiation where num=" + str(num) # Creating the query to consult the database
+        cursor.execute(query) # Execute the query
+        row = cursor.fetchone() # Getting the result
         result = 0
-        if cursor.rowcount == 0:
+        if cursor.rowcount == 0: # In case nothing is returned
          result = num ** 2
-         query = """INSERT INTO exponentiation VALUES (?, ?)"""
-         cursor.execute(query,(num,result))
-         cnxn.commit()
-         cursor.close()
-         cnxn.close()
+         query = """INSERT INTO exponentiation VALUES (?, ?)""" # Create the query to insert the new result
+         cursor.execute(query,(num,result)) # Execute the query
+         cnxn.commit() # Update the database
+         cursor.close() # End the connection
+         cnxn.close() # Close the connection
         else:
          print(row)
          result= row
         result = str(result)
         result = result.replace(",)" , "")
         result = result.replace("(" , "")
-        return str(result)
+        return str(result) # Returning the result in string format
 
 
 if __name__ == "__main__":

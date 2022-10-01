@@ -67,10 +67,10 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-
+  # Downloading the artifact that contains the data used to deploy the Aks  
       - download: current
         artifact: ${{ parameters.stageName }}
-
+# Putting the data used to deploy the Aks inside variables so it can be used later
       - bash: |
               sudo apt-get install dos2unix -y
               dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl
@@ -92,14 +92,16 @@ stages:
               echo "##vso[task.setvariable variable=appUrl]$appUrl"
               echo "##vso[task.setvariable variable=subId]$subId"
           
-
+# Install Docker
       - task: DockerInstaller@0
         inputs:
           dockerVersion: '17.09.0-ce'
+#Install helm           
       - task: HelmInstaller@0
         inputs:
           helmVersion: '2.14.1'
           installKubectl: false
+ #         
       - task: AzureCLI@2
         inputs:
           azureSubscription: ${{ parameters.azureSubscription }} 
