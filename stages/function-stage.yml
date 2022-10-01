@@ -88,7 +88,7 @@ stages:
         artifact: drop-function
 
       - bash: |
-          sleep 4m
+          sleep 7m
         
       - task: AzureFunctionApp@1
         displayName: 'Azure functions app deploy'
