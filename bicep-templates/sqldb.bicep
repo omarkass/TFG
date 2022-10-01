@@ -26,10 +26,6 @@ properties: {
   collation: collation //'SQL_Latin1_General_CP1_CI_AS'
   maxSizeBytes: 2147483648
   catalogCollation: catalogCollation//'SQL_Latin1_General_CP1_CI_AS'
-  zoneRedundant: false
-  readScale: 'Disabled'
-  requestedBackupStorageRedundancy: 'Geo'
-  isLedgerOn: false
 }
 }
 
