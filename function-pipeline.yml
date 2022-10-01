@@ -38,3 +38,4 @@ stages:
     sqlPassword: $(sqlPassword)
     sqlUserName: $(sqlUserName)
     databaseName: $(databaseName)
+    aksUrl: $(ingressHostname)
