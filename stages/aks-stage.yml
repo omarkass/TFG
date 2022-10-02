@@ -137,14 +137,14 @@ stages:
 
             if [  "$output" == *"grafana"* ] &&[  "${{parameters.deployGrafana}}" = True ] ; 
             then
-            helm upgrade -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest  grafana ./content/aks-content/helm-projects/kube-prometheus-stack
+            helm upgrade -n monitoring --set azure-exporter.po.imageUrl="$(acrUrl)/azure-exporter:latest"  grafana ./content/aks-content/helm-projects/kube-prometheus-stack
             elif [ "${{parameters.deployGrafana}}" = True ]; 
             then
-            helm install -n monitoring --set azure-exporter.po.imageUrl=r67qx6zxzeg6m.azurecr.io/azure-exporter:latest grafana ./content/aks-content/helm-projects/kube-prometheus-stack
+            helm install -n monitoring --set azure-exporter.po.imageUrl="$(acrUrl)/azure-exporter:latest" grafana ./content/aks-content/helm-projects/kube-prometheus-stack
             fi
 
             if [[ "$output" == *"app"* ]]; then 
-              helm upgrade --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set container.port='${{parameters.port}}' --set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)'  --set configMap.sqlPasswordValue="${{parameters.sqlPassword}}"    --set configMap.sqlUsernameValue="${{parameters.sqlUserName}}"   --set configMap.sqlNameValue="${{parameters.databaseName}}"   --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:${{ parameters.appImageVersion }}"  app ./content/aks-content/helm-projects/app
+              helm upgrade --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set container.port='${{parameters.port}} --set ingress.hostName='${{parameters.ingressHostname}}' '--set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)'  --set configMap.sqlPasswordValue="${{parameters.sqlPassword}}"    --set configMap.sqlUsernameValue="${{parameters.sqlUserName}}"   --set configMap.sqlNameValue="${{parameters.databaseName}}"   --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:${{ parameters.appImageVersion }}"  app ./content/aks-content/helm-projects/app
             else
               helm install --set configMap.sqlUrlValue='$(fullyQualifiedDomainName)' --set container.port='${{parameters.port}}' --set ingress.hostName='${{parameters.ingressHostname}}' --set configMap.funcUrlValue='$(funcUrl)' --set configMap.funcCodeValue='$(funcKey)' --set configMap.appUrlValue='$(appUrl)' --set configMap.sqlPasswordValue="${{parameters.sqlPassword}}"    --set configMap.sqlUsernameValue="${{parameters.sqlUserName}}"   --set configMap.sqlNameValue="${{parameters.databaseName}}"  --set container.imageUrl='$(acrUrl)'"/${{parameters.appImageName}}:${{ parameters.appImageVersion }}"  app ./content/aks-content/helm-projects/app
             fi
