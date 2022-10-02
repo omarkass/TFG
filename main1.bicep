@@ -1,24 +1,35 @@
-param sqlRgName string = 'sql-rg'
-param sqlDbName string = 'sqldb'
-@minLength(5)
-param SQL_User string = 'omar1'
-@minLength(5)
-param SQL_Pass string = 'Kassar@14689'
-param locationSqlDatabase string = 'East US'
-param deploySql bool = true
-var AzureSqlRuleName = 'AllowAllWindowsAzureIps'
-var sqlServerName =  uniqueString(subscription().subscriptionId,'sql')
-var sqlDatabaseName = '${sqlServerName}/${sqlDbName}'
+param skuFunction string = 'Dynamic'
+param skuCodeFunction string = 'Y1'
+param locationAzureFunction string = 'East US'
+param numberOfWorkersFunction string = '1'
+param azureFunctionRgName string = 'func-rg'
+param azureServicePlanFunction string = 'func-plan'
+param projTagValue string = 'proj'
 
 param locationLogAnalytics string = 'East US'
 param azurekLogAnalyticsRgName string = 'log-rg'
 param logAnalyticName string = 'logAnaytics'
 
-
+param deployFunc bool = true
 
 targetScope = 'subscription'
 
-param projTagValue string = 'proj'
+var AzureSqlRuleName = 'AllowAllWindowsAzureIps'
+
+var acrName = '${uniqueString(subscription().subscriptionId)}aksacr'
+
+var azureWebAppName = '${uniqueString(subscription().subscriptionId)}-app'
+
+var azureFunctionName ='${uniqueString(subscription().subscriptionId)}-func'
+var azureStorageAcountFunction = '${uniqueString(subscription().subscriptionId)}funcst'
+
+var applicationInsghtsName = 'func-appi'
+
+
+resource func_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = if(deployFunc){
+  name: azureFunctionRgName
+  location: locationAzureFunction
+}
 
 resource log_rg 'Microsoft.Resources/resourceGroups@2021-01-01'={
   name: azurekLogAnalyticsRgName
@@ -26,25 +37,33 @@ resource log_rg 'Microsoft.Resources/resourceGroups@2021-01-01'={
 }
 
 
-resource sql_rg 'Microsoft.Resources/resourceGroups@2021-01-01' = if(deploySql) {
-  name: sqlRgName
-  location: locationSqlDatabase
+// Deploy the storage account to be used in Azure Function.
+module func_st './bicep-templates/func-st.bicep' = if(deployFunc) {
+  name: 'func_st'
+  scope: func_rg    
+  params: {
+    name: azureStorageAcountFunction
+    location:locationAzureFunction
+    projTagValue:projTagValue
+  }
 }
 
-module sql 'bicep/sql.bicep' = if(deploySql) {
-  name: 'sql'
-  scope: sql_rg    // Deployed in the scope of resource group we created above
+// Deploy the Service App plan to be used with Azure Function.
+module func_plan './bicep-templates/plan.bicep' = if(deployFunc)  {
+  name: 'func_plan'
+  scope: func_rg    
   params: {
-    name: sqlServerName
-    location:locationSqlDatabase
-    SQL_Pass: SQL_Pass
-    SQL_User: SQL_User
+    name: azureServicePlanFunction
+    location:locationAzureFunction
+    sku: skuFunction
+    skuCode: skuCodeFunction
+    numberOfWorkers : numberOfWorkersFunction
     projTagValue:projTagValue
-
   }
-  }
+}
 
-  
+
+// Deploy log analysis to gather logs from the other resources.
 module log 'bicep-templates/log.bicep' =  {
   name: logAnalyticName
   scope: log_rg
@@ -55,31 +74,37 @@ module log 'bicep-templates/log.bicep' =  {
   }
 }
 
-
-  module sql_rule 'bicep/sql-rule.bicep' = if(deploySql) {
-    name: 'sql_rule'
-    scope: sql_rg    // Deployed in the scope of resource group we created above
-    params: {
-      name: AzureSqlRuleName
-      serverName:sqlServerName
-      location:locationSqlDatabase
-    }
-    dependsOn:[
-      sql
-    ]
-    }
-
-module sqldb 'bicep/sqldb.bicep' = if(deploySql) {
-name: 'sqldb'
-scope: sql_rg    // Deployed in the scope of resource group we created above
-params: {
-  name: sqlDatabaseName
-  location:locationSqlDatabase
-  projTagValue:projTagValue
-  logAnaliticName: logAnalyticName
-  logAnaliticResourceGroup: azurekLogAnalyticsRgName
+// Deploy the application insight for Azure Function, to enable direct logs feature inside Azure Function.
+module func_appi 'bicep-templates/func-appi.bicep' = if(deployFunc) {
+  name : 'func_appi'
+  scope: func_rg 
+  params:{
+    name: applicationInsghtsName
+    location: locationAzureFunction
+    azureFunctionName: azureFunctionName
+    projTagValue:projTagValue
+    logAnaliticName: logAnalyticName
+    logAnaliticResourceGroup: azurekLogAnalyticsRgName
+  }
+  dependsOn:[
+    log
+  ]
 }
-dependsOn:[
-  sql
-]
+
+//Deploy the Azure Function.
+module func 'bicep-templates/func.bicep' = if(deployFunc) {
+  name: 'func'
+  scope: func_rg   
+  params: {
+    name: azureFunctionName
+    location:locationAzureFunction
+    planName: azureServicePlanFunction
+    StorageAcountName: azureStorageAcountFunction
+    applicationInsightName:applicationInsghtsName
+    projTagValue:projTagValue
+  }
+  dependsOn:[
+    func_plan
+    func_appi
+  ]
 }
