@@ -166,8 +166,7 @@ module func 'bicep-templates/func.bicep' = if(deployFunc) {
     location:locationAzureFunction
     planName: azureServicePlanFunction
     StorageAcountName: azureStorageAcountFunction
-    logAnaliticName:logAnalyticName
-    logAnaliticResourceGroup:azurekLogAnalyticsRgName
+    applicationInsightName:applicationInsghtsName
     projTagValue:projTagValue
   }
   dependsOn:[
@@ -241,6 +240,7 @@ module aks 'bicep-templates/aks.bicep' = if(deployAks) {
   }
   dependsOn:[
     log
+
   ]
   }
   
