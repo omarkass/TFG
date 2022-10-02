@@ -30,7 +30,7 @@ variables:
 
 # determinar si se tiene que desplegar el recurso del clúster de K8s o no
 - name: deployAks
-  value: False
+  value: True
 
 # determinar si se tiene que desplegar el recurso del Azure Function o no
 - name: deployFunc
@@ -38,11 +38,11 @@ variables:
 
 # determinar si se tiene que desplegar el recurso del Azure Webapp o no
 - name: deployApp
-  value: False
+  value: True
 
 # determinar si se tiene que desplegar el recurso de la base de datos Sql o no
 - name: deploySql
-  value: False
+  value: True
 
 
 #K8s vars
@@ -105,6 +105,9 @@ variables:
 - name: azureServicePlanFunction
   value: 'func-plan'  
 
+# El puerto donde se va a escuchar el contenidor de la aplicación del cliente
+- name: appPort
+  value: 30000
 
  # Azure Webapp vars
 
