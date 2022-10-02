@@ -51,10 +51,13 @@ stages:
   parameters:
     azureSubscription: $(azureSubscription)
     aksclusterName: $(aksclusterName)
-    useGrafana: $(useGrafana)
     dependsOn: Deploy_Infrastructure
     deploy: ${{variables.deployAks}}
     deployGrafana: ${{variables.deployGrafana}}
+    sqlPassword: $(sqlPassword)
+    sqlUserName: $(sqlUserName)
+    databaseName: $(databaseName)
+    ingressHostname: $(ingressHostname)
 
 - template: 'stages\get-info-stage.yml'
   parameters:
