@@ -81,6 +81,7 @@ stages:
     sqlUserName: $(sqlUserName)
     databaseName: $(databaseName)
     port: $(appPort)
+    appImageVersion: $(appImageVersion)
 
 - template: 'stages\sql-stage.yml'
   parameters:
