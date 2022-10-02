@@ -28,7 +28,7 @@ parameters:
 
 - name: appImageVersion
   type: string
-  default: 'V1'  
+ 
 
 - name: stageName
   type: string 
@@ -53,7 +53,7 @@ parameters:
   type: string    
 
 - name: port
-  type: integer  
+  type: number  
 
 
 stages:
