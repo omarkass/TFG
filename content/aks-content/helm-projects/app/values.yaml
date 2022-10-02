@@ -7,7 +7,7 @@ tagValue: proj
 
 container:
   name: proj 
-  port: 30000
+ # port: 30000
 
 dp:
   name: deployment-proj
