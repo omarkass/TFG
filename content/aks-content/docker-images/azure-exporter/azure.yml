@@ -10,27 +10,27 @@ resource_tags:
     resource_types:
       - "Microsoft.Web/serverfarms"
     metrics:
-      - CpuPercentage
-      - MemoryPercentage
-      - HttpQueueLength
-      - BytesReceived
+      - name: "CpuPercentage"
+      - name: "MemoryPercentage"
+      - name: "HttpQueueLength"
+      - name: "BytesReceived"
 
   - resource_tag_name: "deployedby"
     resource_tag_value: "proj"
     resource_types:
       - "Microsoft.Sql/servers/databases"
     metrics:
-      - cpu_percent	
-      - cpu_limit
-      - memory_usage_percent
-      - storage_percent
+      - name: "cpu_percent"	
+      - name: "cpu_limit"
+      - name: "memory_usage_percent"
+      - name: "storage_percent"
 
 resource_groups:
   - resource_group: "sqldb-rg"
     resource_types:
       - "Microsoft.Sql/servers/databases"
     metrics:
-      - tempdb_log_size	
-      - wlg_active_queries
-      - xtp_storage_percent
-      - tempdb_log_size
+      - name: "tempdb_log_size"	
+      - name: "wlg_active_queries"
+      - name: "xtp_storage_percent"
+      - name: "tempdb_log_size"
