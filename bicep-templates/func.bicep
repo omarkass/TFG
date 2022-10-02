@@ -66,7 +66,7 @@ resource DiagnosticSetting 'microsoft.insights/diagnosticSettings@2021-05-01-pre
     logs: [
 
       {
-        categoryGroup: 'FunctionApplicationLogs'
+        categoryGroup: 'allLogs'
         enabled: true
       }
     
