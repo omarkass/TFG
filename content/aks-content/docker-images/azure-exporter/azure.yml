@@ -4,17 +4,18 @@ credentials:
   subscription_id: "subid"
 
 targets:
-resource_groups:
-  - resource_group: "tfg-vm"
+resource_tags:
+  - resource_tag_name: "deployedby"
+    resource_tag_name: "proj"
     resource_types:
-    - "Microsoft.Compute/virtualMachines"
+      - "Microsoft.Web/serverfarms"
     metrics:
-      - name: "CPU Credits consumed"
-      - name: "Percentage CPU"
+#      - name: "CPU Credits consumed"
+#      - name: "Percentage CPU"
       - name: "Network In Total"
       - name: "Network Out Total"
-      - name: "Disk Read Bytes"
-      - name: "Disk Write Bytes"
-      - name: "Disk Read Operations/Sec"
-      - name: "Disk Write Operations/Sec"
-      - name: "CPU Credits Remaining"
+#      - name: "Disk Read Bytes"
+#      - name: "Disk Write Bytes"
+#      - name: "Disk Read Operations/Sec"
+#      - name: "Disk Write Operations/Sec"
+#      - name: "CPU Credits Remaining"
