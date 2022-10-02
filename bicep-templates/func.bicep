@@ -2,13 +2,13 @@ param name string
 param location string 
 param StorageAcountName string
 param planName string
-param applicationInsightName string 
+param logAnaliticName string 
+param logAnaliticResourceGroup string
 param projTagValue string
-resource azureFunctionName 'Microsoft.Web/sites@2018-11-01' = {
+resource azureFunction 'Microsoft.Web/sites@2018-11-01' = {
   name: name
   location: location
   tags: {
-    'hidden-link: /app-insights-resource-id': resourceId('Microsoft.Insights/components/',applicationInsightName)
     deployedby:projTagValue
   }
   kind: 'functionapp,linux'
@@ -33,14 +33,6 @@ resource azureFunctionName 'Microsoft.Web/sites@2018-11-01' = {
           value: 'DefaultEndpointsProtocol=https;AccountName=${StorageAcountName};AccountKey=${listKeys(resourceId('Microsoft.Storage/storageAccounts', StorageAcountName), '2019-06-01').keys[0].value};EndpointSuffix=core.windows.net'
         }
         {
-          name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
-          value: reference('microsoft.insights/components/${applicationInsightName}', '2015-05-01').InstrumentationKey
-        }
-        {
-          name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
-          value: reference('microsoft.insights/components/${applicationInsightName}', '2015-05-01').ConnectionString
-        }
-        {
           name: 'AzureWebJobsSecretStorageType'
           value: 'files'
         }
@@ -60,5 +52,28 @@ resource azureFunctionName 'Microsoft.Web/sites@2018-11-01' = {
     serverFarmId:  resourceId('Microsoft.Web/serverfarms/',planName)   //'/subscriptions/${subscriptionId}/resourcegroups/${rgName}/providers/Microsoft.Web/serverfarms/${planName}'
     clientAffinityEnabled: false
     virtualNetworkSubnetId: null
+  }
+}
+
+
+
+resource DiagnosticSetting 'microsoft.insights/diagnosticSettings@2021-05-01-preview' = {
+  name: 'sql-db-ds'
+  // this is where you enable diagnostic setting for the specificed security group
+  scope: azureFunction
+  properties: {
+    workspaceId: resourceId(logAnaliticResourceGroup,'Microsoft.OperationalInsights/workspaces',logAnaliticName)
+    logs: [
+
+      {
+        categoryGroup: 'FunctionApplicationLogs'
+        enabled: true
+      }
+    
+    ]
+    metrics: [{
+      category: 'AllMetrics'
+      enabled: true
+  }]
   }
 }
