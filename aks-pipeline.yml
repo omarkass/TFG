@@ -37,5 +37,4 @@ stages:
     sqlPassword: $(sqlPassword)
     sqlUserName: $(sqlUserName)
     databaseName: $(databaseName)
-       port: $(appPort)
-    appImageVersion: $(appImageVersion)
+    port: $(appPort)
