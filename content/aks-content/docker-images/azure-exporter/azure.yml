@@ -10,12 +10,27 @@ resource_tags:
     resource_types:
       - "Microsoft.Web/serverfarms"
     metrics:
-#      - name: "CPU Credits consumed"
-#      - name: "Percentage CPU"
-      - name: "Network In Total"
-      - name: "Network Out Total"
-#      - name: "Disk Read Bytes"
-#      - name: "Disk Write Bytes"
-#      - name: "Disk Read Operations/Sec"
-#      - name: "Disk Write Operations/Sec"
-#      - name: "CPU Credits Remaining"
+      - CpuPercentage
+      - MemoryPercentage
+      - HttpQueueLength
+      - BytesReceived
+
+  - resource_tag_name: "deployedby"
+    resource_tag_value: "proj"
+    resource_types:
+      - "Microsoft.Sql/servers/databases"
+    metrics:
+      - cpu_percent	
+      - cpu_limit
+      - memory_usage_percent
+      - storage_percent
+
+resource_groups:
+  - resource_group: "sqldb-rg"
+    resource_types:
+      - "Microsoft.Sql/servers/databases"
+    metrics:
+      - tempdb_log_size	
+      - wlg_active_queries
+      - xtp_storage_percent
+      - tempdb_log_size
