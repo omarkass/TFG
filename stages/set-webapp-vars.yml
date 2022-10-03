@@ -47,21 +47,17 @@ stages:
         - bash: |
               sudo apt-get install dos2unix -y
               dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
-              dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey
               dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName
               dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/appName $(Pipeline.Workspace)/${{parameters.stageName}}/appName
               dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/aksIp $(Pipeline.Workspace)/${{parameters.stageName}}/aksIp
               fullyQualifiedDomainName=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName)
               funcUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl)
-              funcKey=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey)
               aksIp=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/aksIp)
               webAppName=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/appName)
               echo "##vso[task.setvariable variable=fullyQualifiedDomainName]$fullyQualifiedDomainName"
-              echo "##vso[task.setvariable variable=funcKey]$funcKey"
               echo "##vso[task.setvariable variable=funcUrl]$funcUrl"
               echo "##vso[task.setvariable variable=webAppName]$webAppName"
               echo "##vso[task.setvariable variable=aksIp]$aksIp"
-              echo $funcKey
 # Putting the data used inside the Azure Function in entorn variables inside the Azure Function
         - task: AzureCLI@2
           inputs:
@@ -69,4 +65,4 @@ stages:
             scriptType: 'bash'
             scriptLocation: 'inlineScript'
             inlineScript: |
-              az webapp config appsettings set -g ${{ parameters.resourceGroup }} -n $(webAppName) --settings "sql_url=$(fullyQualifiedDomainName)" "func_code=$(funcKey)" "func_url=$(funcUrl)" "aks_url=${{ parameters.aksUrl }}" "aks_ip=$(aksIp)" "sql_password=${{ parameters.sqlPassword }}" "sql_username=${{ parameters.sqlUserName }}" "sql_name=${{ parameters.databaseName }}"
+              az webapp config appsettings set -g ${{ parameters.resourceGroup }} -n $(webAppName) --settings "sql_url=$(fullyQualifiedDomainName)" "func_url=$(funcUrl)" "aks_url=${{ parameters.aksUrl }}" "aks_ip=$(aksIp)" "sql_password=${{ parameters.sqlPassword }}" "sql_username=${{ parameters.sqlUserName }}" "sql_name=${{ parameters.databaseName }}"

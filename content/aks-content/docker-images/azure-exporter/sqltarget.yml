@@ -1,0 +1,9 @@
+
+  - resource_group: "sqldb-rg"
+    resource_types:
+    - "Microsoft.Sql/servers/databases"
+    metrics:
+      - name: "cpu_percent"
+      - name: "storage"
+      - name: "dtu_used"
+      - name: "dtu_limit"

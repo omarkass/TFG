@@ -4,33 +4,13 @@ credentials:
   subscription_id: "subid"
 
 targets:
-resource_tags:
-  - resource_tag_name: "deployedby"
-    resource_tag_value: "proj"
-    resource_types:
-      - "Microsoft.Web/serverfarms"
-    metrics:
-      - name: "CpuPercentage"
-      - name: "MemoryPercentage"
-      - name: "HttpQueueLength"
-      - name: "BytesReceived"
-
-  - resource_tag_name: "deployedby"
-    resource_tag_value: "proj"
-    resource_types:
-      - "Microsoft.Sql/servers/databases"
-    metrics:
-      - name: "cpu_percent"	
-      - name: "cpu_limit"
-      - name: "memory_usage_percent"
-      - name: "storage_percent"
-
 resource_groups:
-  - resource_group: "sqldb-rg"
+  - resource_group: "aks-rg"
     resource_types:
-      - "Microsoft.Sql/servers/databases"
+    - "Microsoft.ContainerService/managedClusters"
     metrics:
-      - name: "tempdb_log_size"	
-      - name: "wlg_active_queries"
-      - name: "xtp_storage_percent"
-      - name: "tempdb_log_size"
+      - name: "node_cpu_usage_percentage"
+      - name: "node_memory_rss_percentage"
+      - name: "cluster_autoscaler_cluster_safe_to_autoscale"
+      - name: "cluster_autoscaler_scale_down_in_cooldown"
+

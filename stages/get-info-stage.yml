@@ -60,7 +60,10 @@ stages:
               echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/appName
               echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
               echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/aksIp
-              echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/subId
+              echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/aksRg
+              echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/sqlRg
+              echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/appRg
+              echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/funcRg
               
               Start-Sleep -Seconds 100
 
@@ -76,7 +79,9 @@ stages:
               elseif ($resource.type -eq "microsoft.sql/servers"){
                 $sqlInfo = $(az sql server show --name $resource.name --resource-group $resource.resourceGroup) | convertFrom-json
                 echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/sqlServerName
+                echo $resource.resourceGroup > $(Pipeline.Workspace)/${{parameters.stageName}}/sqlRg
                 echo $sqlInfo.fullyQualifiedDomainName > $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName
+
               }
               elseif ($resource.type -eq "Microsoft.Web/sites" -and  $resource.kind -eq "functionapp,linux"){
                 $stageName = Out-String -Stream -InputObject "${{parameters.stageName}}" 
@@ -84,7 +89,7 @@ stages:
                   $funcInfo = az functionapp function show -g $resource.resourceGroup -n $resource.name --function-name $funcName | ConvertFrom-json
                   #$funcKey = az functionapp function keys list -g $resource.resourceGroup -n $resource.name --function-name $funcName | Convertfrom-json
                   echo $funcInfo.invokeUrlTemplate > $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
-                  #echo $funcKey.default > $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey
+                  echo $resource.resourceGroup > $(Pipeline.Workspace)/${{parameters.stageName}}/funcRg
                 }
                 echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/funcName
               }
@@ -92,9 +97,11 @@ stages:
                 $appInfo = $(az webapp show --name $resource.name  --resource-group $resource.resourceGroup) | convertFrom-json
                 echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/appName
                 echo $appInfo.defaultHostName > $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
+                echo $resource.resourceGroup > $(Pipeline.Workspace)/${{parameters.stageName}}/appRg
               }
                 elseif ($resource.type -eq "Microsoft.ContainerService/managedClusters"){
                   $stageName = Out-String -Stream -InputObject "${{parameters.stageName}}" 
+                  echo $resource.resourceGroup > $(Pipeline.Workspace)/${{parameters.stageName}}/aksRg
                   if ( $stageName -ne "Get_Inicial_Info") {
                     az aks get-credentials --name $resource.name --resource-group  $resource.resourceGroup
                     $aksIp = kubectl get -n ingress-ngnix service/ingress-ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].ip}'  

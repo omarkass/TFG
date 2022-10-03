@@ -1,0 +1,10 @@
+ 
+  - resource_group: "app-rg"
+    resource_types:
+    - "Microsoft.Web/sites"
+    metrics:
+      - name: "CpuTime"
+      - name: "Requests"
+      - name: "AverageMemoryWorkingSet"
+      - name: "AverageResponseTime"
+      - name: "Handles"

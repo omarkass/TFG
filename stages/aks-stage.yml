@@ -81,18 +81,30 @@ stages:
               dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
               dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/subId $(Pipeline.Workspace)/${{parameters.stageName}}/subId
               dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName
+              dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/aksRg $(Pipeline.Workspace)/${{parameters.stageName}}/aksRg
+              dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/appRg $(Pipeline.Workspace)/${{parameters.stageName}}/appRg
+              dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/funcRg $(Pipeline.Workspace)/${{parameters.stageName}}/funcRg
+              dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/sqlRg $(Pipeline.Workspace)/${{parameters.stageName}}/sqlRg
               acrUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/acrUrl)
               fullyQualifiedDomainName=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/fullyQualifiedDomainName)
               funcUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl)
               funcKey=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcKey)
               appUrl=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl)
               subId=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/subId)
+              aksRg=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/aksRg)
+              appRg=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/appRg)
+              funcRg=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcRg)
+              sqlRg=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/sqlRg)
               echo "##vso[task.setvariable variable=acrUrl]$acrUrl"
               echo "##vso[task.setvariable variable=fullyQualifiedDomainName]$fullyQualifiedDomainName"
               echo "##vso[task.setvariable variable=funcKey]$funcKey"
               echo "##vso[task.setvariable variable=funcUrl]$funcUrl"
               echo "##vso[task.setvariable variable=appUrl]$appUrl"
               echo "##vso[task.setvariable variable=subId]$subId"
+              echo "##vso[task.setvariable variable=aksRg]$aksRg"
+              echo "##vso[task.setvariable variable=appRg]$appRg"
+              echo "##vso[task.setvariable variable=funcRg]$funcRg"
+              echo "##vso[task.setvariable variable=sqlRg]$sqlRg"
           
 # Install Docker
       - task: DockerInstaller@0
@@ -111,6 +123,24 @@ stages:
           scriptLocation: 'inlineScript'
           inlineScript: |
             sed -i "s/subid/$(subId)/" ./content/aks-content/docker-images/azure-exporter/azure.yml
+
+
+              if [ $sqlRg !="not found" ];
+              then
+                cat ./content/aks-content/docker-images/azure-exporter/sqltarget.yml >> ./content/aks-content/docker-images/azure-exporter/azure.yml
+              fi
+              if [ $funcRg !="not found" ];
+              then
+                cat ./content/aks-content/docker-images/azure-exporter/apptarget.yml >> ./content/aks-content/docker-images/azure-exporter/azure.yml
+              fi
+              if [ $appRg !="not found" ];
+              then
+                cat ./content/aks-content/docker-images/azure-exporter/functarget.yml >> ./content/aks-content/docker-images/azure-exporter/azure.yml
+              fi
+              dos2unix azure.yml
+
+
+
             cat ./content/aks-content/docker-images/azure-exporter/azure.yml
             az aks get-credentials --name ${{parameters.aksclusterName}} --resource-group ${{parameters.resourceGroupName}}
             az acr login --name $(acrUrl)

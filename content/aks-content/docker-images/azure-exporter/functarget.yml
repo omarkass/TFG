@@ -1,0 +1,9 @@
+
+  - resource_group: "func-rg"
+    resource_types:
+    - "Microsoft.Web/sites"
+    metrics:
+      - name: "Requests"
+      - name: "MemoryWorkingSet"
+      - name: "AverageResponseTime"
+      - name: "HttpResponseTime"
