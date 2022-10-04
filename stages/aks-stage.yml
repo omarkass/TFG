@@ -141,7 +141,7 @@ stages:
 
               sed -i "s/apprg/$(appRg)/" ./content/aks-content/docker-images/azure-exporter/azure.yml
               sed -i "s/funcrg/$(funcRg)/" ./content/aks-content/docker-images/azure-exporter/azure.yml
-              sed -i "s/sqlrg/$(sqlRg)/" ./content/aks-content/docker-images/azure-exporter/azure.yml
+              sed -i "s/sqldbrg/$(sqlRg)/" ./content/aks-content/docker-images/azure-exporter/azure.yml
               sed -i "s/aksrg/$(aksRg)/" ./content/aks-content/docker-images/azure-exporter/azure.yml
 
 
