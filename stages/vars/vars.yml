@@ -34,15 +34,15 @@ variables:
 
 # determinar si se tiene que desplegar el recurso del Azure Function o no
 - name: deployFunc
-  value: True
+  value: False
 
 # determinar si se tiene que desplegar el recurso del Azure Webapp o no
 - name: deployApp
-  value: True
+  value: False
 
 # determinar si se tiene que desplegar el recurso de la base de datos Sql o no
 - name: deploySql
-  value: True
+  value: False
 
 
 #K8s vars
