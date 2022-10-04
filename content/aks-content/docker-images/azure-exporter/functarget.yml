@@ -1,5 +1,5 @@
 
-  - resource_group: "func-rg"
+  - resource_group: "funcrg"
     resource_types:
     - "Microsoft.Web/sites"
     metrics:

@@ -129,15 +129,21 @@ stages:
               then
                 cat ./content/aks-content/docker-images/azure-exporter/sqltarget.yml >> ./content/aks-content/docker-images/azure-exporter/azure.yml
               fi
-              if [ "$(funcRg)" != "not found" ];
+              if [ "$(appRg)" != "not found" ];
               then
                 cat ./content/aks-content/docker-images/azure-exporter/apptarget.yml >> ./content/aks-content/docker-images/azure-exporter/azure.yml
               fi
-              if [ "$(appRg)" != "not found" ];
+              if [ "$(funcRg)" != "not found" ];
               then
                 cat ./content/aks-content/docker-images/azure-exporter/functarget.yml >> ./content/aks-content/docker-images/azure-exporter/azure.yml
               fi
               dos2unix azure.yml
+
+              sed -i "s/apprg/$(appRg)/" ./content/aks-content/docker-images/azure-exporter/azure.yml
+              sed -i "s/funcrg/$(funcRg)/" ./content/aks-content/docker-images/azure-exporter/azure.yml
+              sed -i "s/sqlrg/$(sqlRg)/" ./content/aks-content/docker-images/azure-exporter/azure.yml
+              sed -i "s/aksrg/$(aksRg)/" ./content/aks-content/docker-images/azure-exporter/azure.yml
+
 
               echo "$(sqlRg)"
               echo "$(funcRg)"

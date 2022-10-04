@@ -1,5 +1,5 @@
  
-  - resource_group: "app-rg"
+  - resource_group: "apprg"
     resource_types:
     - "Microsoft.Web/sites"
     metrics:

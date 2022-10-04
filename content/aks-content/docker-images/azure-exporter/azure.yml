@@ -5,7 +5,7 @@ credentials:
 
 targets:
 resource_groups:
-  - resource_group: "aks-rg"
+  - resource_group: "aksrg"
     resource_types:
     - "Microsoft.ContainerService/managedClusters"
     metrics:
