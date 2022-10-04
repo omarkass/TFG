@@ -139,7 +139,9 @@ stages:
               fi
               dos2unix azure.yml
 
-              echo '$(funcUrl)'
+              echo '$(sqlRg)'
+              echo '$(funcRg)'
+              echo '$(appRg)'
 
 
             cat ./content/aks-content/docker-images/azure-exporter/azure.yml
