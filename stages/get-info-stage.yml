@@ -103,15 +103,16 @@ stages:
                   $stageName = Out-String -Stream -InputObject "${{parameters.stageName}}" 
                   echo $resource.resourceGroup > $(Pipeline.Workspace)/${{parameters.stageName}}/aksRg
                   if ( $stageName -ne "Get_Inicial_Info") {
-                    Start-Sleep -Seconds 500
-                    Start-Sleep -Seconds 500
-                    Start-Sleep -Seconds 500
+
                     az aks get-credentials --name $resource.name --resource-group  $resource.resourceGroup
                     $aksIp = kubectl get -n ingress-ngnix service/ingress-ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].ip}'  
                     echo $aksIp > $(Pipeline.Workspace)/${{parameters.stageName}}/aksIp
                     $output = az aks show --name $resource.name --resource-group $resource.resourceGroup | ConvertFrom-Json
                     $subscriptionId =$output.id.Split("/")[2]
                     echo $subscriptionId > $(Pipeline.Workspace)/${{parameters.stageName}}/subId
+                    }
+                    else{
+                    Start-Sleep -Seconds 1200
                     }
                  }
                }
