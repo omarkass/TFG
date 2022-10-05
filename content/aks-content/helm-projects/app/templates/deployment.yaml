@@ -37,13 +37,7 @@ spec:
             configMapKeyRef:
               name: {{ .Values.configMap.name }} 
               key: {{ .Values.configMap.appUrlName }} 
-
-        - name: {{ .Values.configMap.funcCodeName }}                 
-          valueFrom:
-            configMapKeyRef:
-              name: {{ .Values.configMap.name }} 
-              key: {{ .Values.configMap.funcCodeName }}       
-
+    
         - name: {{ .Values.configMap.sqlName }}                 
           valueFrom:
             configMapKeyRef:

@@ -42,7 +42,6 @@ configMap:
   name: components-url
   sqlUrlName: sql_url
   funcUrlName: func_url
-  funcCodeName: func_code
   appUrlName: app_url
   sqlPasswordName: sql_password
   sqlName: sql_name
