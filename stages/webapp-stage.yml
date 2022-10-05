@@ -75,9 +75,6 @@ stages:
           displayName: 'Upload package'
           artifact: drop-webapp
 
-# Wait 5 mins so, we can push the content to the Azure Webapp
-        - bash: |
-            sleep 5m
             
 # Deploy the content to the Azure Webapp
         - task: AzureWebApp@1

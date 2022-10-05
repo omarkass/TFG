@@ -65,7 +65,7 @@ stages:
               echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/appRg
               echo "not found" > $(Pipeline.Workspace)/${{parameters.stageName}}/funcRg
               
-              Start-Sleep -Seconds 100
+              
 
               foreach( $resource in $resources ) 
               { 
@@ -103,6 +103,7 @@ stages:
                   $stageName = Out-String -Stream -InputObject "${{parameters.stageName}}" 
                   echo $resource.resourceGroup > $(Pipeline.Workspace)/${{parameters.stageName}}/aksRg
                   if ( $stageName -ne "Get_Inicial_Info") {
+                    Start-Sleep -Seconds 1200
                     az aks get-credentials --name $resource.name --resource-group  $resource.resourceGroup
                     $aksIp = kubectl get -n ingress-ngnix service/ingress-ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].ip}'  
                     echo $aksIp > $(Pipeline.Workspace)/${{parameters.stageName}}/aksIp

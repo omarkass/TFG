@@ -72,9 +72,6 @@ stages:
 
       - publish: $(Build.ArtifactStagingDirectory)/$(functionAppName)-$(Build.BuildId).zip
         artifact: drop-function
-
-      - bash: |
-          sleep 20m
         
       - task: AzureFunctionApp@1
         displayName: 'Azure functions app deploy'
