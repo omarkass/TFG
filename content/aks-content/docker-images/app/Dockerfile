@@ -1,7 +1,7 @@
 # parent image
 FROM python:3.9
 
-# install FreeTDS and dependencies
+# install the needed dependencies for the app to run in the container
 RUN apt-get update \
  && apt-get install unixodbc -y \
  && apt-get install unixodbc-dev -y \

@@ -13,9 +13,11 @@ variables:
 pool:
   vmImage: windows-latest
 stages:
+
+#Calling the Deploy_Infrastructure stage to deploy the whole Azure infrastructure
 - template: 'stages\infraestructure-stage.yml'
 
-
+#Calling the Get_Inicial_Info stage to retrieve the necesary data for the deployment of the Azure Function and the Azure Webapp
 - template: 'stages\get-info-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
@@ -25,7 +27,7 @@ stages:
     dependsOn2: Deploy_Infrastructure
     dependsOn: Deploy_Infrastructure
 
-
+ #Calling the Deploy_Webapp_Content stage to deploy the content of the Azure Webapp inside it
 - template: 'stages\webapp-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
@@ -34,8 +36,7 @@ stages:
     resourceGroup: $(appResourceGroupName)
     deploy: ${{variables.deployApp}}
 
-    
-
+ #Calling the Deploy_Function_Content stage to deploy the content of the Azure Function inside it   
 - template: 'stages\function-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
@@ -44,6 +45,7 @@ stages:
     resourceGroup: $(funcResourceGroupName)
     deploy: ${{variables.deployFunc}}
 
+#Calling the Set_Aks_Permissions stage to give the Aks the appropriate permissions to collect the data from the azure monitor for the azure-exporter project
 - template: 'stages\aks-permissions-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
@@ -53,6 +55,7 @@ stages:
     deploy: ${{variables.deployAks}}
     deployGrafana: ${{variables.deployGrafana}}
 
+##Calling the Get_Aks_Info stage to retrieve the necessary data for the deployment of the Aks projects
 - template: 'stages\get-info-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
@@ -62,6 +65,7 @@ stages:
     dependsOn: Deploy_Function_Content
     dependsOn2: Deploy_Webapp_Content
 
+#Calling the Deploy_K8s_Content stage to set the vars needed for the Aks to connect with the other resources and deploy the content of the Aks inside it
 - template: 'stages\aks-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
@@ -80,6 +84,7 @@ stages:
     port: $(appPort)
     appImageVersion: $(appImageVersion)
 
+#Calling the Deploy_Sql_Content stage to deploy the Sql database inside the Azure Sql resource
 - template: 'stages\sql-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
@@ -90,7 +95,7 @@ stages:
     StageName: "Get_Inicial_Info"
     deploy: ${{variables.deploySql}}
 
-
+#Calling the Get_Apps_Info stage to retrieve the necessary data for the enviorments vars for the Azure Function and Azure Webapp
 - template: 'stages\get-info-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
@@ -99,7 +104,8 @@ stages:
     StageName: "Get_Apps_Info"
     dependsOn2: Deploy_K8s_Content
     dependsOn:  Deploy_K8s_Content
-
+    
+#Calling the Add_Function_Env_Vars stage to set the vars needed for the Azure Function to connect with the other resources
 - template: 'stages\set-function-vars.yml'
   parameters:
     azureSubscription: $(azureSubscription)
@@ -112,7 +118,7 @@ stages:
     databaseName: $(databaseName)
     aksUrl: $(ingressHostname)
 
-
+#Calling the Add_Webapp_Env_Vars stage to set the vars needed for the Azure Webapp to connect with the other resources
 - template: 'stages\set-webapp-vars.yml'
   parameters:
     azureSubscription: $(azureSubscription)

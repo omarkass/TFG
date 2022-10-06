@@ -12,7 +12,7 @@ variables:
 stages:
 
 
-#Calling the Get_Aks_Info stage to retrieve the necessary data for the deployment of the Aks
+#Calling the Get_Aks_Info stage to retrieve the necessary data for the deployment of the Aks projects
 - template: 'stages\get-info-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)

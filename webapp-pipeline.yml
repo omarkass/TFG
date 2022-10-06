@@ -1,3 +1,4 @@
+#the triggers for the pipeline
 trigger:
   paths:
     include:
@@ -18,7 +19,7 @@ stages:
     tagValue:  $(tagValue)
     StageName: "Get_Webapp_Info"
 
-#Calling the Deploy_Webapp_Content stage to deploy the content of the Azure Function inside it
+#Calling the Deploy_Webapp_Content stage to deploy the content of the Azure Webapp inside it
 - template: 'stages\webapp-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
@@ -27,7 +28,7 @@ stages:
     resourceGroup: $(appResourceGroupName)
     deploy: ${{variables.deployApp}}
 
-#Calling the Add_Webapp_Env_Vars stage to set the vars needed for the Azure Function to connect with the other resources
+#Calling the Add_Webapp_Env_Vars stage to set the vars needed for the Azure Webapp to connect with the other resources
 - template: 'stages\set-webapp-vars.yml'
   parameters:
     azureSubscription: $(azureSubscription)

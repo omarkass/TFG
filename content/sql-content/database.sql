@@ -1,16 +1,4 @@
 
-CREATE table Tarifa (
-	IdTarifa             char(1)  NOT NULL ,
-	PrecioVenta          money  NOT NULL ,
-	Descripcion          varchar(50)  NOT NULL ,
-	Horas                integer  NOT NULL ,
-	PagoHora             money  NOT NULL 
-)
-
-GO
-
-
-
 CREATE table exponentiation (
 	num             integer NOT NULL ,
 	result          integer NOT NULL ,
