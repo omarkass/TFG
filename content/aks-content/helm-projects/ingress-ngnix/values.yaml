@@ -587,6 +587,7 @@ controller:
   # mounted volume.
 
   admissionWebhooks:
+    enable: False
     annotations: {}
     # ignore-check.kube-linter.io/no-read-only-rootfs: "This deployment needs write access to root filesystem".
 
