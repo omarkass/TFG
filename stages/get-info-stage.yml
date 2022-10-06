@@ -85,16 +85,15 @@ stages:
               }
               elseif ($resource.type -eq "Microsoft.Web/sites" -and  $resource.kind -eq "functionapp,linux"){
                 $stageName = Out-String -Stream -InputObject "${{parameters.stageName}}" 
-                if ($stageName -ne "Get_Inicial_Info") {
-                   if ( $wait -eq $false) {
-                         Start-Sleep -Seconds 1200
-                         $wait = $true
-                    }
+                #if ($stageName -ne "Get_Inicial_Info") {
+                   #if ( $wait -eq $false) {
+                   #      $wait = $true
+                   # }
                   $funcInfo = az functionapp function show -g $resource.resourceGroup -n $resource.name --function-name $funcName | ConvertFrom-json
                   #$funcKey = az functionapp function keys list -g $resource.resourceGroup -n $resource.name --function-name $funcName | Convertfrom-json
                   echo $funcInfo.invokeUrlTemplate > $(Pipeline.Workspace)/${{parameters.stageName}}/funcUrl
                   echo $resource.resourceGroup > $(Pipeline.Workspace)/${{parameters.stageName}}/funcRg
-                }
+                #}
                 echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/funcName
               }
                 elseif ($resource.type -eq "Microsoft.Web/sites" -and  $resource.kind -eq "app,linux"){
@@ -102,15 +101,15 @@ stages:
                 echo $resource.name > $(Pipeline.Workspace)/${{parameters.stageName}}/appName
                 echo $appInfo.defaultHostName > $(Pipeline.Workspace)/${{parameters.stageName}}/appUrl
                 echo $resource.resourceGroup > $(Pipeline.Workspace)/${{parameters.stageName}}/appRg
-                if ( $stageName -eq "Get_Inicial_Info" -and $wait -eq $false) {
-                      Start-Sleep -Seconds 1200
-                      $wait = $true
-                }
+              #  if ( $stageName -eq "Get_Inicial_Info" -and $wait -eq $false) {
+              #        Start-Sleep -Seconds 1200
+              #        $wait = $true
+              #  }
               }
                 elseif ($resource.type -eq "Microsoft.ContainerService/managedClusters"){
                   $stageName = Out-String -Stream -InputObject "${{parameters.stageName}}" 
                   echo $resource.resourceGroup > $(Pipeline.Workspace)/${{parameters.stageName}}/aksRg
-                  if ( $stageName -ne "Get_Inicial_Info") {
+                 # if ( $stageName -ne "Get_Inicial_Info") {
 
                     az aks get-credentials --name $resource.name --resource-group  $resource.resourceGroup
                     $aksIp = kubectl get -n ingress-ngnix service/ingress-ingress-nginx-controller -o jsonpath='{.status.loadBalancer.ingress[0].ip}'  
@@ -118,10 +117,10 @@ stages:
                     $output = az aks show --name $resource.name --resource-group $resource.resourceGroup | ConvertFrom-Json
                     $subscriptionId =$output.id.Split("/")[2]
                     echo $subscriptionId > $(Pipeline.Workspace)/${{parameters.stageName}}/subId
-                    }
-                    else{
-                    Start-Sleep -Seconds 1200
-                    }
+                  #  }
+                   # else{
+                   # Start-Sleep -Seconds 1200
+                   # }
                  }
                }
               }
