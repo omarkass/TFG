@@ -45,7 +45,7 @@ stages:
           funcRg=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/funcRg)
           echo "##vso[task.setvariable variable=functionAppName]$functionAppName"
           echo "##vso[task.setvariable variable=funcRg]$funcRg"
-# creating the en
+# Preparing the extensions 
       - bash: |
           if [ -f extensions.csproj ]
           then
@@ -53,17 +53,17 @@ stages:
           fi
         workingDirectory: $(workingDirectory)
         displayName: 'Build extensions'
-
+#Install the python version to prepare the Azure Function environment
       - task: UsePythonVersion@0
         displayName: 'Use Python ${{parameters.pythonVersion}}'
         inputs:
           versionSpec: '${{parameters.pythonVersion}}'
-
+#Install the Azure Function code dependencies 
       - bash: |
           pip install --target="./.python_packages/lib/site-packages" -r ./requirements.txt 
         workingDirectory: $(workingDirectory)
         displayName: 'Install application dependencies'
-
+#Zip the whole Azure Function environment so it can be pushed to the Azure Function resource
       - task: ArchiveFiles@2
         displayName: 'Archive files'
         inputs:
@@ -72,11 +72,11 @@ stages:
           archiveType: zip
           archiveFile: $(Build.ArtifactStagingDirectory)/$(functionAppName)-$(Build.BuildId).zip
           replaceExistingArchive: true
-
+#Push the Azure Function enviormente zip as an artifact so it can be pushed to the Azure Function Resource
       - publish: $(Build.ArtifactStagingDirectory)/$(functionAppName)-$(Build.BuildId).zip
         artifact: drop-function
         
-        
+#Push the Azure Function enviormente zip to the Azure Function Resource     
       - task: AzureCLI@2
         displayName: "Azure functions app deploy"
         inputs:

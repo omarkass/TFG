@@ -11,6 +11,7 @@ variables:
 
 stages:
 
+#Calling the Get_Function_Info stage to retrieve the necessary data for the deployment of the Azure Function
 - template: 'stages\get-info-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)

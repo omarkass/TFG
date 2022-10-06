@@ -9,9 +9,9 @@ pool:
 variables:
 - template:   stages\vars\vars.yml  
 stages:
-#calling the sql-stage to import the database to azure
 
 
+#Calling the Get_Aks_Info stage to retrieve the necessary data for the deployment of the Aks
 - template: 'stages\get-info-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
@@ -20,7 +20,7 @@ stages:
     StageName: "Get_Aks_Info"
     
 
-
+#Calling the Deploy_K8s_Content stage to deploy the AKs resource and also deploy the projects inside it
 - template: 'stages\aks-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
