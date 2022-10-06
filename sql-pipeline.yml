@@ -1,3 +1,4 @@
+#The triggers for the pipeline
 trigger:
   paths:
     include:
@@ -11,7 +12,7 @@ variables:
 stages:
 
 
-
+#Calling the Get_Sql_Info stage to retrieve the necessary data for the deployment of the Azure Sql content
 - template: 'stages\get-info-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
@@ -19,7 +20,7 @@ stages:
     tagValue:  $(tagValue)
     StageName: "Get_Sql_Info"
 
-
+#Calling the Deploy_Sql_Content stage to deploy the Sql database inside the Azure Sql resource
 - template: 'stages\sql-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)

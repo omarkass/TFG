@@ -1,7 +1,4 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+#The triggers for the pipeline
 trigger:
   paths:
     include:
@@ -11,7 +8,7 @@ trigger:
     - bicep-templates
 
 variables:
-  # Azure Resource Manager connection created during pipeline creation
+#load vars from the vars.yml file
   - template:  stages\vars\vars.yml  
 pool:
   vmImage: windows-latest

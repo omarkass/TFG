@@ -1,3 +1,4 @@
+#The triggers for the pipeline
 trigger:
   paths:
     include:
