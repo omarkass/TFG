@@ -41,8 +41,11 @@ stages:
         - bash: |
             sudo apt-get install dos2unix -y
             dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/appName $(Pipeline.Workspace)/${{parameters.stageName}}/appName
+            dos2unix $(Pipeline.Workspace)/${{parameters.stageName}}/appRg $(Pipeline.Workspace)/${{parameters.stageName}}/appRg
             webAppName=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/appName)
+            appRg=$(cat $(Pipeline.Workspace)/${{parameters.stageName}}/appRg)
             echo "##vso[task.setvariable variable=webAppName]$webAppName"
+            echo "##vso[task.setvariable variable=appRg]$appRg"
 # Installing the specified python version
 
         - task: UsePythonVersion@0
@@ -74,15 +77,19 @@ stages:
         - upload: $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip
           displayName: 'Upload package'
           artifact: drop-webapp
-
-            
 # Deploy the content to the Azure Webapp
-        - task: AzureWebApp@1
-          displayName: 'Deploy Azure Web App'
+        - task: AzureCLI@2
+          displayName: "Azure Webapp deploy"
           inputs:
-            azureSubscription: ${{parameters.azureSubscription}}
-            appName: $(webAppName)
-            package: $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip
+            workingDirectory: "$(Pipeline.Workspace)/Extracted/"
+            azureSubscription: $(azureSubscription)
+            scriptType: bash
+            scriptLocation: inlineScript
+            inlineScript: |
+              az webapp deployment source config-zip --src $(Build.ArtifactStagingDirectory)/$(webAppName)-$(Build.BuildId).zip -n $(webAppName) -g $(appRg)
+
+
+
 
 
 
