@@ -20,7 +20,7 @@ stages:
     StageName: "Get_Aks_Info"
     
 
-#Calling the Deploy_K8s_Content stage to deploy the AKs resource and also deploy the projects inside it
+#Calling the Deploy_K8s_Content stage to set the vars needed for the Aks to connect with the other resources and deploy the content of the Aks inside it
 - template: 'stages\aks-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)

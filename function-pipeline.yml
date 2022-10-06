@@ -19,6 +19,7 @@ stages:
     tagValue:  $(tagValue)
     StageName: "Get_Function_Info"
 
+#Calling the Deploy_Function_Content stage to deploy the content of the Azure Function inside it
 - template: 'stages\function-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
@@ -27,8 +28,7 @@ stages:
     resourceGroup: $(funcResourceGroupName)
     deploy: ${{variables.deployFunc}}
 
-
-
+#Calling the Add_Function_Env_Vars stage to set the vars needed for the Azure Function to connect with the other resources
 - template: 'stages\set-function-vars.yml'
   parameters:
     azureSubscription: $(azureSubscription)
