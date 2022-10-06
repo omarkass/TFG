@@ -9,7 +9,7 @@ pool:
 variables:
 - template: stages\vars\vars.yml  
 stages:
-#calling the sql-stage to import the database to azure
+
 
 
 - template: 'stages\get-info-stage.yml'

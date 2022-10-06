@@ -3,7 +3,6 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.configMap.name }} 
 data:
-  # property-like keys; each key maps to a simple value
   {{ .Values.configMap.sqlUrlName }} :  {{ .Values.configMap.sqlUrlValue }}
   {{ .Values.configMap.funcUrlName }} :  {{ .Values.configMap.funcUrlValue }}
   {{ .Values.configMap.appUrlName }} :  {{ .Values.configMap.appUrlValue }}
