@@ -20,7 +20,7 @@ stages:
     tagValue:  $(tagValue)
     StageName: "Get_Sql_Info"
 
-#Calling the Deploy_Sql_Content stage to deploy the Sql database inside the Azure Sql resource
+#Calling the Deploy_Sql_Content stage to deploy the Sql database content inside the Azure Sql resource
 - template: 'stages\sql-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)

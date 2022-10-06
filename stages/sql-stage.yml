@@ -38,9 +38,11 @@ stages:
   - job: Deploy_Sql_Content
     condition: eq('${{parameters.deploy}}', 'True')
     steps:
+
 # Downloading the artifact that contains the data used to deploy the Azure Sql
     - download: current
       artifact: ${{ parameters.stageName }}
+
 # Putting the data used to deploy the Azure Sql inside variables so it can be used later
     - task: PowerShell@2
       inputs:
@@ -50,7 +52,6 @@ stages:
           $serverName = $(Get-Content $(Pipeline.Workspace)/${{parameters.stageName}}/sqlServerName -Raw)
           echo "##vso[task.setvariable variable=serverName]$serverName"
           echo "##vso[task.setvariable variable=serverFqdn]$serverFqdn"
-
 
 # Open the firewall on the Sql Server, so the pipelines can interact with it
     - task: AzurePowerShell@5
@@ -69,7 +70,7 @@ stages:
         filename: Sqlcmd
         arguments: '-S $(serverFqdn) -U ${{parameters.userName}} -P ${{parameters.password}} -d ${{parameters.databaseName}} -i ./content/sql-content/database.sql'
 
-# close the sql firewall
+# close the Sql firewall
     - task: AzurePowerShell@5
       displayName: close sql server firewall
       inputs:

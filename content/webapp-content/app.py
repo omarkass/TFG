@@ -11,7 +11,7 @@ def squad():
     func_url =  os.environ['func_url'] 
     return render_template('squad.html', funcUrl=func_url)
 
-#set the route for the squad.html template
+#set the route for the exponential.html template
 @app.route('/exponential')
 def exponential():
     return render_template('exponential.html')
@@ -28,7 +28,7 @@ def sending_to_aks():
     res = requests.get(calledIp , headers={'host':aks_url},params={'num': num})
     return res.text
 
-#set the route for the squad.html template
+#set the route for the home.html template
 @app.route('/')
 def home():
     return render_template('home.html')

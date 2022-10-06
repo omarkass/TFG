@@ -17,7 +17,7 @@ stages:
 #Calling the Deploy_Infrastructure stage to deploy the whole Azure infrastructure
 - template: 'stages\infraestructure-stage.yml'
 
-#Calling the Get_Inicial_Info stage to retrieve the necesary data for the deployment of the Azure Function and the Azure Webapp
+#Calling the Get_Inicial_Info stage to retrieve the necesary data for the deployment of the Azure Function and the Azure Webapp and Azure sql contents
 - template: 'stages\get-info-stage.yml'
   parameters:
     azureSubscription: $(azureSubscription)
@@ -104,7 +104,7 @@ stages:
     StageName: "Get_Apps_Info"
     dependsOn2: Deploy_K8s_Content
     dependsOn:  Deploy_K8s_Content
-    
+
 #Calling the Add_Function_Env_Vars stage to set the vars needed for the Azure Function to connect with the other resources
 - template: 'stages\set-function-vars.yml'
   parameters:

@@ -39,7 +39,7 @@ stages:
         pool:
           vmImage: 'windows-latest'
         steps:
-#Retrieving the data used for the different resources and save it inside a directory
+#Retrieving the data used for the different resources and save it inside a files
         - task: AzureCLI@2
           inputs:
             azureSubscription: ${{ parameters.azureSubscription }}
