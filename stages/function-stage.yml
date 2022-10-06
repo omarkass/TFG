@@ -81,7 +81,7 @@ stages:
         displayName: "Azure functions app deploy"
         inputs:
           workingDirectory: "$(Pipeline.Workspace)/Extracted/"
-          azureSubscription: $(azureResourceManagerConnection)
+          azureSubscription: $(azureSubscription)
           scriptType: bash
           scriptLocation: inlineScript
           inlineScript: |
