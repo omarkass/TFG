@@ -78,7 +78,7 @@ stages:
             
 # Deploy the content to the Azure Webapp
         - task: AzureWebApp@1
-          displayName: 'Deploy Azure Web App : webapppython43'
+          displayName: 'Deploy Azure Web App'
           inputs:
             azureSubscription: ${{parameters.azureSubscription}}
             appName: $(webAppName)

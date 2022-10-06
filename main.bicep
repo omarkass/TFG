@@ -61,7 +61,7 @@ var acrName = '${uniqueString(subscription().subscriptionId)}aksacr'
 
 var azureWebAppName = '${uniqueString(subscription().subscriptionId)}-app'
 
-var azureFunctionName ='${uniqueString(subscription().subscriptionId)}-func'
+var azureFunctionName ='${uniqueString(subscription().subscriptionId)}func'
 var azureStorageAcountFunction = '${uniqueString(subscription().subscriptionId)}funcst'
 var sqlServerName =  '${uniqueString(subscription().subscriptionId)}-sql'
 var sqlDatabaseName = '${sqlServerName}/${sqlDbName}'
