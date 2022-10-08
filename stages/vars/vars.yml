@@ -8,10 +8,6 @@ variables:
 - name: azureSubscription
   value: 'Service_connection'
 
-# El nombre del repositorio dentro del Acr que se va a usar para guardar la imagen de Docker del cliente que se va a usar en EL clúster de K8s
-- name: repositoryName  
-  value: proj
-
 # El nombre de la imagen de Docker del cliente que se va a usar en eL clúster de K8s 
 - name: appImageName
   value: proj
@@ -30,11 +26,11 @@ variables:
 
 # determinar si se tiene que desplegar el recurso del clúster de K8s o no
 - name: deployAks
-  value: False
+  value: True
 
 # determinar si se tiene que desplegar el recurso del Azure Function o no
 - name: deployFunc
-  value: True
+  value: False
 
 # determinar si se tiene que desplegar el recurso del Azure Webapp o no
 - name: deployApp
@@ -85,7 +81,7 @@ variables:
 - name: deployGrafana
   value: False
 
-# El nombre de la infraestructura que se va a usar para correr el Azure Function
+# La infraestructura que se va a usar para correr el Azure Function
 - name: skuCodeFunction
   value: 'Y1'
 
@@ -119,7 +115,7 @@ variables:
 - name: skuWebApp
   value: 'Free'  
 
-# El nombre de la infraestructura que se va a usar para correr el Azure Webapp
+# La infraestructura que se va a usar para correr el Azure Webapp
 - name: skuCodeskuWebApp
   value: 'F1'
 
@@ -158,7 +154,7 @@ variables:
 - name: locationSqlDatabase
   value: 'Korea Central'      
 
-# El nombre de la infraestructura que se va a usar para la base de datos
+#Decidir la infraestructura que se va a usar para la base de datos.
 - name: sqlSkuName
   value: 'Basic'  
 
