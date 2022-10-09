@@ -13,6 +13,7 @@ GO
 
 delete from squad
 delete from exponentiation
+GO
 
 Insert Into exponentiation(num,result) Values(2,4)
 Insert Into exponentiation(num,result) Values(3,9)
