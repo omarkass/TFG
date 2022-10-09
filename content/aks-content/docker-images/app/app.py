@@ -22,7 +22,7 @@ def expo():
         cursor.execute(query) # Execute the query
         row = cursor.fetchone() # Getting the result
         result = 0
-        if cursor.rowcount == 0: # In case nothing is returned
+        if row == None: # In case nothing is returned
          result = num ** 2
          query = """INSERT INTO exponentiation VALUES (?, ?)""" # Create the query to insert the new result
          cursor.execute(query,(num,result)) # Execute the query

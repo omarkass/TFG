@@ -16,8 +16,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         cursor.execute(query) # Execute the query
         row = cursor.fetchone() # Getting the result
         result = 0
-        if cursor.rowcount == 0:  # In case nothing is returned
-         result = math.sqrt(num) + math.sqrt(num) 
+        if row == None:  # In case nothing is returned
+         result = math.sqrt(num)
          query = """INSERT INTO squad VALUES (?, ?)""" # Create the query to insert the new result
          cursor.execute(query,(num,result)) # Execute the query
          cnxn.commit() # Update the database
