@@ -7,11 +7,12 @@ GO
 
 CREATE table squad (
 	num             integer NOT NULL ,
-	result          integer NOT NULL ,
+	result          float NOT NULL ,
 )
 GO
 
-
+delete from squad
+delete from exponentiation
 
 Insert Into exponentiation(num,result) Values(2,4)
 Insert Into exponentiation(num,result) Values(3,9)
