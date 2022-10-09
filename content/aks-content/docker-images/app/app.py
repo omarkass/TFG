@@ -23,14 +23,13 @@ def expo():
         row = cursor.fetchone() # Getting the result
         result = 0
         if row == None: # In case nothing is returned
-         result = num ** 2
+         result = num * num
          query = """INSERT INTO exponentiation VALUES (?, ?)""" # Create the query to insert the new result
          cursor.execute(query,(num,result)) # Execute the query
          cnxn.commit() # Update the database
          cursor.close() # End the connection
          cnxn.close() # Close the connection
         else:
-         print(row)
          result= row
         result = str(result)
         result = result.replace(",)" , "")
