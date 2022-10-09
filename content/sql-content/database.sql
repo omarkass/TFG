@@ -13,11 +13,11 @@ GO
 
 
 
-
+Insert Into exponentiation(num,result) Values(20,20)
 Insert Into exponentiation(num,result) Values(2,4)
 Insert Into exponentiation(num,result) Values(3,9)
 
 
-
+Insert Into squad(num,result) Values(20,20)
 Insert Into squad(num,result) Values(16,4)
 Insert Into squad(num,result) Values(36,6)
